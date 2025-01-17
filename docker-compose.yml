@@ -1,0 +1,45 @@
+services:
+  db:
+    image: mysql:8
+    container_name: mysql-container2
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: soccer
+    volumes:
+      - ./db/soccer.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+  server:
+    build:
+      context: .  # Set build context to the root directory
+      dockerfile: ./server/Dockerfile  # Ensure it points to the correct Dockerfile
+    container_name: node-server
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=
+      - DB_NAME=soccer
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  client:
+    build:
+      context: .  # Set build context to the root directory to access the client directory
+      dockerfile: ./client/Dockerfile  # Specify the Dockerfile location
+    container_name: react-client
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
