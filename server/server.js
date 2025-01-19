@@ -51,16 +51,3 @@ function startServer() {
 
 // Start by checking if MySQL is ready
 checkMySQLReady(startServer);
-
-// Sample API route to fetch data from DB
-    //const db_connect2 = mysql.createConnection(dbConfig);
-    //app.get('/data', (req, res) => {
-    //db_connect2.query('SELECT * FROM player', (err, results) => {
-    //if (err) {
-      //console.error('Error executing query:', err);
-      //return res.status(500).json({ error: 'Failed to fetch data' });
-    //}
-    //console.log(results);
-    //res.json(results);
-  //});
-//});
