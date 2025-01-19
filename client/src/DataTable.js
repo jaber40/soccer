@@ -36,7 +36,7 @@ const DataTable = () => {
             {/* Update these table headers according to your database columns */}
             <th>ID</th>
             <th>Name</th>
-            <th>City ID</th>
+            <th>City</th>
           </tr>
         </thead>
         <tbody>
