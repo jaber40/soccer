@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css'; // If you're using a CSS file
-import TournamentSelect from './ComboBox'; // Import the TournamentSelect component
+import TournamentSelect from './components/ComboBox'; // Import the TournamentSelect component
 
 function App() {
   return (
