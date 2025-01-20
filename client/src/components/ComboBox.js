@@ -7,7 +7,7 @@ const TournamentSelect = () => {
 
   // Fetch tournament data from the server
   useEffect(() => {
-    axios.get('http://localhost:5000/tournaments')
+    axios.get('http://localhost:5000/api/tournaments')
       .then(response => {
         setTournaments(response.data); // Populate the tournaments state
       })
