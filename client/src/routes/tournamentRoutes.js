@@ -1,10 +1,9 @@
-// src/routes/tournamentRoutes.js
 const express = require('express');
 const tournamentService = require('../services/tournamentService');
 const router = express.Router();
 
 // Route to get tournament names
-router.get('/tournaments', (req, res) => {
+router.get('/', (req, res) => {  // Change this to handle root path
   tournamentService.getTournaments((err, tournaments) => {
     if (err) {
       return res.status(500).json(err);
