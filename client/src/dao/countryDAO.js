@@ -6,7 +6,7 @@ const getCountriesByTournament = (tournamentId, callback) => {
 
   // SQL query to fetch countries by tournament ID
   const query = `
-    SELECT *
+    SELECT country_id, country_name
     FROM country
     WHERE country.country_id IN (
       SELECT tournament_country.country_id
