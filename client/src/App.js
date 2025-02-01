@@ -5,10 +5,12 @@ import CountrySelect from "./components/ComboBox2"; // Import CountrySelect
 
 function App() {
   const [selectedTournamentId, setSelectedTournamentId] = useState(""); // Use tournament_id
+  const [selectedCountry, setSelectedCountry] = useState(""); // Track selected country
 
   // Function to handle the tournament selection change
   const handleTournamentChange = (tournamentId) => {
     setSelectedTournamentId(tournamentId); // Update state with tournament_id
+    setSelectedCountry(""); // Reset country selection when tournament changes
   };
 
   return (
@@ -20,7 +22,11 @@ function App() {
 
       {/* Conditionally render CountrySelect based on the selected tournament */}
       {selectedTournamentId && (
-        <CountrySelect selectedTournamentId={selectedTournamentId} />
+        <CountrySelect
+          selectedTournamentId={selectedTournamentId}
+          selectedCountry={selectedCountry}
+          setSelectedCountry={setSelectedCountry} // Pass function to reset country selection
+        />
       )}
     </div>
   );
