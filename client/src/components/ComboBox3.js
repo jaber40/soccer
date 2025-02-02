@@ -1,0 +1,45 @@
+// src/components/ComboBox3.js
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const ComboBox3 = ({ selectedCountry, selectedTournamentId, setSelectedPlayer }) => {
+  const [players, setPlayers] = useState([]); // State to store player data
+
+  // Fetch players when country or tournament changes
+  useEffect(() => {
+    if (selectedCountry && selectedTournamentId) {
+      axios
+        .get(`http://localhost:5000/api/players/${selectedCountry}/${selectedTournamentId}`)
+        .then((response) => {
+          setPlayers(response.data); // Populate the players state
+        })
+        .catch((error) => {
+          console.error('Error fetching players:', error);
+        });
+    }
+  }, [selectedCountry, selectedTournamentId]);
+
+  // Handle player selection change
+  const handleChange = (event) => {
+    setSelectedPlayer(event.target.value); // Update selected player
+  };
+
+  return (
+    <div>
+      <label htmlFor="player">Select Player:</label>
+      <select
+        id="player"
+        onChange={handleChange}
+      >
+        <option value="">--Select a Player--</option>
+        {players.map((player) => (
+          <option key={player.player_id} value={player.player_name}>
+            {player.player_name}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+export default ComboBox3;

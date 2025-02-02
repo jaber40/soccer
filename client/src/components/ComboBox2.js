@@ -1,27 +1,27 @@
+// src/components/ComboBox2.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import ComboBox3 from './ComboBox3'; // Import ComboBox3
 
-const CountrySelect = ({ selectedTournamentId, selectedCountry, setSelectedCountry }) => {
-  const [countries, setCountries] = useState([]); // State to store country data
+const CountrySelect = ({ selectedTournamentId, selectedCountry, setSelectedCountry, setSelectedPlayer }) => {
+  const [countries, setCountries] = useState([]);
 
-  // Fetch countries based on the selected tournament
   useEffect(() => {
     if (selectedTournamentId) {
       axios.get(`http://localhost:5000/api/countries/${selectedTournamentId}`)
         .then((response) => {
-          setCountries(response.data); // Populate the countries state
+          setCountries(response.data);
         })
         .catch((error) => {
           console.error('Error fetching countries:', error);
         });
     } else {
-      setCountries([]); // Reset countries when tournament changes
+      setCountries([]);
     }
   }, [selectedTournamentId]);
 
-  // Handle country selection change
   const handleChange = (event) => {
-    setSelectedCountry(event.target.value); // Update selected country
+    setSelectedCountry(event.target.value);
   };
 
   return (
@@ -29,7 +29,7 @@ const CountrySelect = ({ selectedTournamentId, selectedCountry, setSelectedCount
       <label htmlFor="country">Select Country:</label>
       <select
         id="country"
-        value={selectedCountry} // Bind selected value
+        value={selectedCountry}
         onChange={handleChange}
       >
         <option value="">--Select a Country--</option>
@@ -39,6 +39,15 @@ const CountrySelect = ({ selectedTournamentId, selectedCountry, setSelectedCount
           </option>
         ))}
       </select>
+
+      {/* Conditionally render ComboBox3 */}
+      {selectedCountry && selectedTournamentId && (
+        <ComboBox3
+          selectedCountry={selectedCountry}
+          selectedTournamentId={selectedTournamentId}
+          setSelectedPlayer={setSelectedPlayer} // Pass setSelectedPlayer to ComboBox3
+        />
+      )}
     </div>
   );
 };

@@ -1,7 +1,9 @@
+// src/server.js
 const express = require('express');
 const cors = require('cors');
-const tournamentRoutes = require('../client/src/routes/tournamentRoutes'); // Import the tournament routes
-const countryRoutes = require('../client/src/routes/countryRoutes'); // Import the country routes
+const tournamentRoutes = require('../client/src/routes/tournamentRoutes');
+const countryRoutes = require('../client/src/routes/countryRoutes');
+const playerRoutes = require('../client/src/routes/playerRoutes'); // Import the player routes
 const app = express();
 const port = 5000;
 require('dotenv').config();
@@ -9,11 +11,12 @@ require('dotenv').config();
 // Use CORS to allow React app to make requests
 app.use(cors());
 
-// Use the tournament and country routes with distinct prefixes
-app.use('/api/tournaments', tournamentRoutes);  // Tournament API route (e.g., /api/tournaments)
-app.use('/api/countries', countryRoutes);        // Country API route (e.g., /api/countries)
+// Use the tournament, country, and player routes with distinct prefixes
+app.use('/api/tournaments', tournamentRoutes); 
+app.use('/api/countries', countryRoutes);
+app.use('/api/players', playerRoutes);  // Player API route
 
-// Function to start the express server
+// Start the express server
 function startServer() {
   app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
