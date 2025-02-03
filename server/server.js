@@ -1,9 +1,9 @@
 // src/server.js
 const express = require('express');
 const cors = require('cors');
-const tournamentRoutes = require('../client/src/routes/tournamentRoutes');
-const countryRoutes = require('../client/src/routes/countryRoutes');
-const playerRoutes = require('../client/src/routes/playerRoutes'); // Import the player routes
+const tournamentRoutes = require('./src/routes/tournamentRoutes');
+const countryRoutes = require('./src/routes/countryRoutes');
+const playerRoutes = require('./src/routes/playerRoutes'); // Import the player routes
 const app = express();
 const port = 5000;
 require('dotenv').config();
