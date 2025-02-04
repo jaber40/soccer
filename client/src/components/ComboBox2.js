@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ComboBox3 from './ComboBox3'; // Import ComboBox3
 
-const CountrySelect = ({ selectedTournamentId, selectedCountry, setSelectedCountry, setSelectedPlayer }) => {
+const CountrySelect = ({ selectedTournamentId, selectedCountry, setSelectedCountry, setSelectedPlayer, selectedPlayer }) => {
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
@@ -22,6 +22,7 @@ const CountrySelect = ({ selectedTournamentId, selectedCountry, setSelectedCount
 
   const handleChange = (event) => {
     setSelectedCountry(event.target.value);
+    setSelectedPlayer(""); // Reset player selection
   };
 
   return (
@@ -45,6 +46,7 @@ const CountrySelect = ({ selectedTournamentId, selectedCountry, setSelectedCount
         <ComboBox3
           selectedCountry={selectedCountry}
           selectedTournamentId={selectedTournamentId}
+          selectedPlayer={selectedPlayer}  // Pass selectedPlayer
           setSelectedPlayer={setSelectedPlayer} // Pass setSelectedPlayer to ComboBox3
         />
       )}

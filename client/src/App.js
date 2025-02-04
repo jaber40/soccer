@@ -29,6 +29,7 @@ function App() {
           selectedTournamentId={selectedTournamentId}
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry} // Pass function to reset country selection
+          selectedPlayer={selectedPlayer} // Pass selectedPlayer
           setSelectedPlayer={setSelectedPlayer} // Pass setSelectedPlayer to ComboBox3
         />
       )}

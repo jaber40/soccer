@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const ComboBox3 = ({ selectedCountry, selectedTournamentId, setSelectedPlayer }) => {
+const ComboBox3 = ({ selectedCountry, selectedTournamentId, selectedPlayer, setSelectedPlayer }) => {
   const [players, setPlayers] = useState([]); // State to store player data
 
   // Fetch players when country or tournament changes
@@ -29,6 +29,7 @@ const ComboBox3 = ({ selectedCountry, selectedTournamentId, setSelectedPlayer })
       <label htmlFor="player">Select Player:</label>
       <select
         id="player"
+        value={selectedPlayer || ""}  // Ensure reset when state is cleared
         onChange={handleChange}
       >
         <option value="">--Select a Player--</option>
