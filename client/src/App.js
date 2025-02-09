@@ -3,17 +3,20 @@ import React, { useState } from "react";
 import "./App.css";
 import TournamentSelect from "./components/ComboBox"; // Import TournamentSelect
 import CountrySelect from "./components/ComboBox2"; // Import CountrySelect
+import DataTable from "./components/DataTable"; // Import DataTable
 
 function App() {
-  const [selectedTournamentId, setSelectedTournamentId] = useState(""); // Use tournament_id
+  const [selectedTournamentId, setSelectedTournamentId] = useState(""); // Track selected tournament
   const [selectedCountry, setSelectedCountry] = useState(""); // Track selected country
   const [selectedPlayer, setSelectedPlayer] = useState(""); // Track selected player
+  const [playerData, setPlayerData] = useState([]); // Track player data for table
 
   // Function to handle the tournament selection change
   const handleTournamentChange = (tournamentId) => {
-    setSelectedTournamentId(tournamentId); // Update state with tournament_id
+    setSelectedTournamentId(tournamentId);
     setSelectedCountry(""); // Reset country selection when tournament changes
     setSelectedPlayer(""); // Reset player selection when tournament changes
+    setPlayerData([]); // Clear player data when tournament changes
   };
 
   return (
@@ -28,14 +31,15 @@ function App() {
         <CountrySelect
           selectedTournamentId={selectedTournamentId}
           selectedCountry={selectedCountry}
-          setSelectedCountry={setSelectedCountry} // Pass function to reset country selection
-          selectedPlayer={selectedPlayer} // Pass selectedPlayer
-          setSelectedPlayer={setSelectedPlayer} // Pass setSelectedPlayer to ComboBox3
+          setSelectedCountry={setSelectedCountry}
+          selectedPlayer={selectedPlayer}
+          setSelectedPlayer={setSelectedPlayer}
+          setPlayerData={setPlayerData} // Pass setPlayerData to update table
         />
       )}
 
-      {/* Optional: Display selected player */}
-      {selectedPlayer && <div>Selected Player: {selectedPlayer}</div>}
+      {/* DataTable to display fetched player data */}
+      {playerData.length > 0 && <DataTable playerData={playerData} />}
     </div>
   );
 }

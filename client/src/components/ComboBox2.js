@@ -3,7 +3,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ComboBox3 from './ComboBox3'; // Import ComboBox3
 
-const CountrySelect = ({ selectedTournamentId, selectedCountry, setSelectedCountry, setSelectedPlayer, selectedPlayer }) => {
+const CountrySelect = ({ 
+  selectedTournamentId, 
+  selectedCountry, 
+  setSelectedCountry, 
+  setSelectedPlayer, 
+  selectedPlayer, 
+  setPlayerData // New prop to update the data table
+}) => {
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
@@ -21,8 +28,23 @@ const CountrySelect = ({ selectedTournamentId, selectedCountry, setSelectedCount
   }, [selectedTournamentId]);
 
   const handleChange = (event) => {
-    setSelectedCountry(event.target.value);
+    const countryId = event.target.value;
+    setSelectedCountry(countryId);
     setSelectedPlayer(""); // Reset player selection
+
+    // Fetch player details for the data table
+    if (countryId && selectedTournamentId) {
+      axios.get(`http://localhost:5000/api/players/details?countryId=${countryId}&tournamentId=${selectedTournamentId}`)
+        .then((response) => {
+          setPlayerData(response.data); // Update player data table
+        })
+        .catch((error) => {
+          console.error('Error fetching player details:', error);
+          setPlayerData([]); // Clear table on error
+        });
+    } else {
+      setPlayerData([]); // Clear table if no valid selection
+    }
   };
 
   return (
@@ -46,8 +68,8 @@ const CountrySelect = ({ selectedTournamentId, selectedCountry, setSelectedCount
         <ComboBox3
           selectedCountry={selectedCountry}
           selectedTournamentId={selectedTournamentId}
-          selectedPlayer={selectedPlayer}  // Pass selectedPlayer
-          setSelectedPlayer={setSelectedPlayer} // Pass setSelectedPlayer to ComboBox3
+          selectedPlayer={selectedPlayer}
+          setSelectedPlayer={setSelectedPlayer}
         />
       )}
     </div>

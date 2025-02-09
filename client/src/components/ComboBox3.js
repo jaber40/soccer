@@ -9,7 +9,7 @@ const ComboBox3 = ({ selectedCountry, selectedTournamentId, selectedPlayer, setS
   useEffect(() => {
     if (selectedCountry && selectedTournamentId) {
       axios
-        .get(`http://localhost:5000/api/players/${selectedCountry}/${selectedTournamentId}`)
+        .get(`http://localhost:5000/api/players/details?countryId=${selectedCountry}&tournamentId=${selectedTournamentId}`)
         .then((response) => {
           setPlayers(response.data); // Populate the players state
         })
@@ -29,7 +29,7 @@ const ComboBox3 = ({ selectedCountry, selectedTournamentId, selectedPlayer, setS
       <label htmlFor="player">Select Player:</label>
       <select
         id="player"
-        value={selectedPlayer || ""}  // Ensure reset when state is cleared
+        value={selectedPlayer || ""}
         onChange={handleChange}
       >
         <option value="">--Select a Player--</option>
@@ -39,6 +39,13 @@ const ComboBox3 = ({ selectedCountry, selectedTournamentId, selectedPlayer, setS
           </option>
         ))}
       </select>
+
+      {/* Display the selected player's name */}
+      {selectedPlayer && (
+        <div>
+          <p>Selected Player: {selectedPlayer}</p>
+        </div>
+      )}
     </div>
   );
 };
