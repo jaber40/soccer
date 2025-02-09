@@ -1,0 +1,56 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files (sensitive data)
+.env
+.env.local
+.env.production
+.env.development
+db.env
+
+# Build and cache files
+build/
+dist/
+.cache/
+.next/
+.parcel-cache/
+coverage/
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+*.bak
+
+# Docker
+docker-compose.override.yml
+
+# Editor and OS-specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# React build files
+/public/*.cache
+/public/*.map
+/public/assets/
+
+# Ignore test coverage reports
+/coverage/
+.nyc_output/
+
+# Miscellaneous
+*.swp  # Vim swap files
+*.swo  # Vim swap files
+*.bak  # Backup files
