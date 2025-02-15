@@ -1,3 +1,4 @@
+// src/routes/tournamentRoutes.js
 const express = require('express');
 const tournamentService = require('../services/tournamentService');
 const router = express.Router();

@@ -1,3 +1,4 @@
+// src/routes/countryRoutes.js
 const express = require('express');
 const countryService = require('../services/countryService'); // Service to handle fetching countries
 const router = express.Router();
