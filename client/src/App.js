@@ -4,6 +4,7 @@ import "./App.css";
 import TournamentSelect from "./components/ComboBox"; // Import TournamentSelect
 import CountrySelect from "./components/ComboBox2"; // Import CountrySelect
 import DataTable from "./components/DataTable"; // Import DataTable
+import MapComponent from './components/MapComponent';
 
 function App() {
   const [selectedTournamentId, setSelectedTournamentId] = useState(""); // Track selected tournament
@@ -40,6 +41,8 @@ function App() {
 
       {/* DataTable to display fetched player data */}
       {playerData.length > 0 && <DataTable playerData={playerData} />}
+      <h1>Leaflet Map</h1>
+      <MapComponent />
     </div>
   );
 }
