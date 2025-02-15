@@ -2,10 +2,12 @@ services:
   db:
     image: mysql:8
     container_name: mysql-container2
+    env_file:
+      - ./db.env
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
-      MYSQL_ROOT_PASSWORD: 
-      MYSQL_DATABASE: soccer
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD} 
+      MYSQL_DATABASE: ${DB_NAME}
     volumes:
       - ./db/soccer.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
@@ -18,11 +20,10 @@ services:
       context: .  # Set build context to the root directory
       dockerfile: ./server/Dockerfile  # Ensure it points to the correct Dockerfile
     container_name: node-server
+    env_file:
+      - ./db.env
     environment:
       - DB_HOST=db
-      - DB_USER=root
-      - DB_PASSWORD=
-      - DB_NAME=soccer
     ports:
       - "5000:5000"
     depends_on:
