@@ -8,16 +8,28 @@ const getPlayerDetailsByCountryAndTournament = (countryId, tournamentId) => {
 
     // SQL query to fetch player details
     const query = `
-      SELECT * FROM player
-  INNER JOIN player_tournament ON player.player_id = player_tournament.player_id
-  INNER JOIN club ON player_tournament.club_id = club.club_id
-  INNER JOIN city C2 ON club.city_id = C2.city_id
-  INNER JOIN city ON player.city_id = city.city_id
-  INNER JOIN country ON city.country_id = country.country_id
-  INNER JOIN league ON player_tournament.league_id = league.league_id
-  WHERE player.country_id = ? 
-    AND player_tournament.tournament_id = ?
-  ORDER BY player_tournament.number + 0
+     SELECT 
+  player.*, 
+  player_tournament.*, 
+  club.*, 
+  city.city_name AS player_city_name, 
+  city.x AS player_x, 
+  city.y AS player_y, 
+  C2.city_name AS club_city_name, 
+  C2.x AS club_x, 
+  C2.y AS club_y, 
+  country.*, 
+  league.*
+FROM player
+INNER JOIN player_tournament ON player.player_id = player_tournament.player_id
+INNER JOIN club ON player_tournament.club_id = club.club_id
+INNER JOIN city C2 ON club.city_id = C2.city_id
+INNER JOIN city ON player.city_id = city.city_id
+INNER JOIN country ON city.country_id = country.country_id
+INNER JOIN league ON player_tournament.league_id = league.league_id
+WHERE player.country_id = ? 
+  AND player_tournament.tournament_id = ?
+ORDER BY player_tournament.number + 0
     `;
 
     // Execute the query
