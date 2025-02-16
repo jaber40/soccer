@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import TournamentSelect from "./components/ComboBox"; // Import TournamentSelect
 import CountrySelect from "./components/ComboBox2"; // Import CountrySelect
@@ -11,6 +11,7 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState(""); // Track selected country
   const [selectedPlayer, setSelectedPlayer] = useState(""); // Track selected player
   const [playerData, setPlayerData] = useState([]); // Track player data for table
+  const [mapPoints, setMapPoints] = useState([]); // Track player coordinates for map
 
   // Function to handle the tournament selection change
   const handleTournamentChange = (tournamentId) => {
@@ -18,7 +19,19 @@ function App() {
     setSelectedCountry(""); // Reset country selection when tournament changes
     setSelectedPlayer(""); // Reset player selection when tournament changes
     setPlayerData([]); // Clear player data when tournament changes
+    setMapPoints([]); // Clear map points when tournament changes
   };
+
+  // Update mapPoints when playerData changes
+  useEffect(() => {
+    const points = playerData.map(player => ({
+      lat: player.club_x, // Club's city latitude
+      lng: player.club_y, // Club's city longitude
+      name: player.player_name, // Player name for popup
+    }));
+
+    setMapPoints(points);
+  }, [playerData]);
 
   return (
     <div className="App">
@@ -36,13 +49,15 @@ function App() {
           selectedPlayer={selectedPlayer}
           setSelectedPlayer={setSelectedPlayer}
           setPlayerData={setPlayerData} // Pass setPlayerData to update table
+          setMapPoints={setMapPoints}
         />
       )}
 
       {/* DataTable to display fetched player data */}
       {playerData.length > 0 && <DataTable playerData={playerData} />}
+
       <h1>Leaflet Map</h1>
-      <MapComponent />
+      <MapComponent mapPoints={mapPoints} />
     </div>
   );
 }

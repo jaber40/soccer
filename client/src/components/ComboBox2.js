@@ -1,7 +1,7 @@
 //src/components/ComboBox2.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ComboBox3 from './ComboBox3'; // Import ComboBox3
+import ComboBox3 from './ComboBox3';
 
 const CountrySelect = ({ 
   selectedTournamentId, 
@@ -9,7 +9,8 @@ const CountrySelect = ({
   setSelectedCountry, 
   setSelectedPlayer, 
   selectedPlayer, 
-  setPlayerData // New prop to update the data table
+  setPlayerData,
+  setMapPoints // New prop to update the Leaflet map
 }) => {
   const [countries, setCountries] = useState([]);
 
@@ -32,18 +33,31 @@ const CountrySelect = ({
     setSelectedCountry(countryId);
     setSelectedPlayer(""); // Reset player selection
 
-    // Fetch player details for the data table
     if (countryId && selectedTournamentId) {
       axios.get(`http://localhost:5000/api/players/details?countryId=${countryId}&tournamentId=${selectedTournamentId}`)
         .then((response) => {
-          setPlayerData(response.data); // Update player data table
+          const players = response.data;
+          setPlayerData(players); // Update player data table
+
+          // Extract player_x and player_y coordinates for the map
+          const mapPoints = players
+            .filter(player => player.player_x && player.player_y) // Ensure coordinates exist
+            .map(player => ({
+              lat: parseFloat(player.player_x),
+              lng: parseFloat(player.player_y),
+              name: player.player_name
+            }));
+
+          setMapPoints(mapPoints); // Update the map
         })
         .catch((error) => {
           console.error('Error fetching player details:', error);
-          setPlayerData([]); // Clear table on error
+          setPlayerData([]);
+          setMapPoints([]); // Clear map if error
         });
     } else {
-      setPlayerData([]); // Clear table if no valid selection
+      setPlayerData([]);
+      setMapPoints([]); // Clear map if no valid selection
     }
   };
 
@@ -63,7 +77,6 @@ const CountrySelect = ({
         ))}
       </select>
 
-      {/* Conditionally render ComboBox3 */}
       {selectedCountry && selectedTournamentId && (
         <ComboBox3
           selectedCountry={selectedCountry}
