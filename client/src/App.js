@@ -12,6 +12,7 @@ function App() {
   const [selectedPlayer, setSelectedPlayer] = useState(""); // Track selected player
   const [playerData, setPlayerData] = useState([]); // Track player data for table
   const [mapPoints, setMapPoints] = useState([]); // Track player coordinates for map
+  const [mapView, setMapView] = useState("club"); // "club" or "birthplace"
 
   // Function to handle the tournament selection change
   const handleTournamentChange = (tournamentId) => {
@@ -22,16 +23,16 @@ function App() {
     setMapPoints([]); // Clear map points when tournament changes
   };
 
-  // Update mapPoints when playerData changes
+  // Update mapPoints when playerData or mapView changes
   useEffect(() => {
     const points = playerData.map(player => ({
-      lat: player.club_x, // Club's city latitude
-      lng: player.club_y, // Club's city longitude
-      name: player.player_name, // Player name for popup
+      lat: mapView === "birthplace" ? player.player_x : player.club_x,
+      lng: mapView === "birthplace" ? player.player_y : player.club_y,
+      name: player.player_name,
     }));
 
     setMapPoints(points);
-  }, [playerData]);
+  }, [playerData, mapView]);
 
   return (
     <div className="App">
@@ -52,6 +53,30 @@ function App() {
           setMapPoints={setMapPoints}
         />
       )}
+
+      {/* Radio Buttons for Map View Selection */}
+      <div>
+        <label>
+          <input
+            type="radio"
+            name="mapView"
+            value="birthplace"
+            checked={mapView === "birthplace"}
+            onChange={() => setMapView("birthplace")}
+          />
+          View Birthplaces
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="mapView"
+            value="club"
+            checked={mapView === "club"}
+            onChange={() => setMapView("club")}
+          />
+          View Club Locations
+        </label>
+      </div>
 
       {/* DataTable to display fetched player data */}
       {playerData.length > 0 && <DataTable playerData={playerData} />}
