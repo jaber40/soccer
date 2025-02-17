@@ -12,7 +12,7 @@ const DataTable = ({ playerData }) => {
             <th>Player Name</th>
             <th>Position</th>
             <th>Age</th>
-            <th>City</th>
+            <th>Birthplace</th>
             <th>Country</th>
             <th>Club</th>
             <th>League</th>
@@ -27,7 +27,7 @@ const DataTable = ({ playerData }) => {
                 <td>{player.player_name}</td>
                 <td>{player.position}</td>
                 <td>{player.age}</td>
-                <td>{player.city_name}</td>
+                <td>{player.player_city_name}</td>
                 <td>{player.country_name}</td>
                 <td>{player.club_name}</td>
                 <td>{player.league_name}</td>
