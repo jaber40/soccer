@@ -1,4 +1,4 @@
-//src/components/ComboBox2.js
+// src/components/ComboBox2.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ComboBox3 from './ComboBox3';
@@ -14,6 +14,7 @@ const CountrySelect = ({
   setSelectedPlayerDetails
 }) => {
   const [countries, setCountries] = useState([]);
+  const [players, setPlayers] = useState([]); // State for players data
 
   useEffect(() => {
     if (selectedTournamentId) {
@@ -31,31 +32,38 @@ const CountrySelect = ({
 
   const handleChange = (event) => {
     const countryId = event.target.value;
+
+    // Prevent redundant updates
+    if (countryId === selectedCountry) return; 
+
     setSelectedCountry(countryId);
-    setSelectedPlayer(""); 
+    setSelectedPlayer(""); // Reset player selection
 
     if (countryId && selectedTournamentId) {
       axios.get(`http://localhost:5000/api/players/details?countryId=${countryId}&tournamentId=${selectedTournamentId}`)
         .then((response) => {
-          const players = response.data;
-          setPlayerData(players);
-
-          const mapPoints = players
+          const playersData = response.data || []; // Default to empty array if no data
+          setPlayers(playersData); // Set the players locally
+          setPlayerData(playersData); // Update parent component
+          
+          const mapPoints = playersData
             .filter(player => player.player_x && player.player_y)
             .map(player => ({
               lat: parseFloat(player.player_x),
               lng: parseFloat(player.player_y),
               name: player.player_name
             }));
-
+          
           setMapPoints(mapPoints);
         })
         .catch((error) => {
           console.error('Error fetching player details:', error);
+          setPlayers([]); // Reset players if there's an error
           setPlayerData([]);
           setMapPoints([]);
         });
     } else {
+      setPlayers([]); // Reset players when there's no country or tournament
       setPlayerData([]);
       setMapPoints([]);
     }
@@ -84,6 +92,7 @@ const CountrySelect = ({
           selectedPlayer={selectedPlayer}
           setSelectedPlayer={setSelectedPlayer}
           setSelectedPlayerDetails={setSelectedPlayerDetails}
+          players={players} // Pass players as a prop
         />
       )}
     </div>

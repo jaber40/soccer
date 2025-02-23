@@ -15,6 +15,7 @@ function App() {
   const [mapPoints, setMapPoints] = useState([]); // Track player coordinates for map
   const [mapView, setMapView] = useState("club"); // "club" or "birthplace"
   const [selectedPlayerDetails, setSelectedPlayerDetails] = useState(null); // Player details state
+  const [countries, setCountries] = useState([]); // Track countries list
 
   // Function to handle the tournament selection change
   const handleTournamentChange = (tournamentId) => {
@@ -25,16 +26,43 @@ function App() {
     setMapPoints([]); // Clear map points when tournament changes
   };
 
-  // Update mapPoints when playerData or mapView changes
+  // Fetch countries and players when tournament or country changes
   useEffect(() => {
-    const points = playerData.map(player => ({
-      lat: mapView === "birthplace" ? player.player_x : player.club_x,
-      lng: mapView === "birthplace" ? player.player_y : player.club_y,
-      name: player.player_name,
-    }));
+    if (selectedTournamentId) {
+      fetch(`http://localhost:5000/api/countries/${selectedTournamentId}`)
+        .then((response) => response.json())
+        .then((data) => setCountries(data))
+        .catch((error) => console.error('Error fetching countries:', error));
+    } else {
+      setCountries([]);
+    }
+  }, [selectedTournamentId]);
 
-    setMapPoints(points);
-  }, [playerData, mapView]);
+  useEffect(() => {
+    if (selectedCountry && selectedTournamentId) {
+      fetch(`http://localhost:5000/api/players/details?countryId=${selectedCountry}&tournamentId=${selectedTournamentId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setPlayerData(data);
+          const points = data
+            .filter((player) => player.player_x && player.player_y)
+            .map((player) => ({
+              lat: mapView === "birthplace" ? player.player_x : player.club_x,
+              lng: mapView === "birthplace" ? player.player_y : player.club_y,
+              name: player.player_name,
+            }));
+          setMapPoints(points);
+        })
+        .catch((error) => {
+          console.error('Error fetching player details:', error);
+          setPlayerData([]);
+          setMapPoints([]);
+        });
+    } else {
+      setPlayerData([]);
+      setMapPoints([]);
+    }
+  }, [selectedCountry, selectedTournamentId, mapView]);
 
   return (
     <div className="App">
@@ -49,7 +77,7 @@ function App() {
           selectedTournamentId={selectedTournamentId}
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}
-          selectedPlayer={selectedPlayer}
+          countries={countries} // Pass countries fetched in App.js
           setSelectedPlayer={setSelectedPlayer}
           setPlayerData={setPlayerData} // Pass setPlayerData to update table
           setMapPoints={setMapPoints}

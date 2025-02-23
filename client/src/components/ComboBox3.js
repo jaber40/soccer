@@ -1,29 +1,30 @@
 // src/components/ComboBox3.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
-const ComboBox3 = ({ selectedCountry, selectedTournamentId, selectedPlayer, setSelectedPlayer, setSelectedPlayerDetails, selectedPlayerDetails }) => {
-  const [players, setPlayers] = useState([]);
+const ComboBox3 = ({ 
+  selectedCountry, 
+  selectedTournamentId, 
+  selectedPlayer, 
+  setSelectedPlayer, 
+  setSelectedPlayerDetails, 
+  selectedPlayerDetails, 
+  players = [] // Set a default empty array if players is undefined
+}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (selectedCountry && selectedTournamentId) {
+    // Only set player data if necessary and players is defined
+    if (selectedCountry && selectedTournamentId && players.length) {
       setLoading(true);
-      setError(null); // Reset error state on new request
-      axios
-        .get(`http://localhost:5000/api/players/details?countryId=${selectedCountry}&tournamentId=${selectedTournamentId}`)
-        .then((response) => {
-          setPlayers(response.data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching players:', error);
-          setLoading(false);
-          setError('Failed to load players. Please try again later.');
-        });
+      setError(null);
+
+      // Ensure players array is not empty or undefined
+      const filteredPlayers = players.filter(player => player.country_id === selectedCountry);
+
+      setLoading(false);
     }
-  }, [selectedCountry, selectedTournamentId]);
+  }, [selectedCountry, selectedTournamentId, players]);
 
   const handlePlayerSelect = (event) => {
     const playerName = event.target.value;
