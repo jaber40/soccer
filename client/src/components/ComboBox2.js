@@ -7,10 +7,11 @@ const CountrySelect = ({
   selectedTournamentId, 
   selectedCountry, 
   setSelectedCountry, 
-  setSelectedPlayer, 
   selectedPlayer, 
-  setPlayerData,
-  setMapPoints // New prop to update the Leaflet map
+  setSelectedPlayer, 
+  setPlayerData, 
+  setMapPoints,
+  setSelectedPlayerDetails
 }) => {
   const [countries, setCountries] = useState([]);
 
@@ -31,33 +32,32 @@ const CountrySelect = ({
   const handleChange = (event) => {
     const countryId = event.target.value;
     setSelectedCountry(countryId);
-    setSelectedPlayer(""); // Reset player selection
+    setSelectedPlayer(""); 
 
     if (countryId && selectedTournamentId) {
       axios.get(`http://localhost:5000/api/players/details?countryId=${countryId}&tournamentId=${selectedTournamentId}`)
         .then((response) => {
           const players = response.data;
-          setPlayerData(players); // Update player data table
+          setPlayerData(players);
 
-          // Extract player_x and player_y coordinates for the map
           const mapPoints = players
-            .filter(player => player.player_x && player.player_y) // Ensure coordinates exist
+            .filter(player => player.player_x && player.player_y)
             .map(player => ({
               lat: parseFloat(player.player_x),
               lng: parseFloat(player.player_y),
               name: player.player_name
             }));
 
-          setMapPoints(mapPoints); // Update the map
+          setMapPoints(mapPoints);
         })
         .catch((error) => {
           console.error('Error fetching player details:', error);
           setPlayerData([]);
-          setMapPoints([]); // Clear map if error
+          setMapPoints([]);
         });
     } else {
       setPlayerData([]);
-      setMapPoints([]); // Clear map if no valid selection
+      setMapPoints([]);
     }
   };
 
@@ -83,6 +83,7 @@ const CountrySelect = ({
           selectedTournamentId={selectedTournamentId}
           selectedPlayer={selectedPlayer}
           setSelectedPlayer={setSelectedPlayer}
+          setSelectedPlayerDetails={setSelectedPlayerDetails}
         />
       )}
     </div>

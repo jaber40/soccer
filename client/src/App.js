@@ -5,6 +5,7 @@ import TournamentSelect from "./components/ComboBox"; // Import TournamentSelect
 import CountrySelect from "./components/ComboBox2"; // Import CountrySelect
 import DataTable from "./components/DataTable"; // Import DataTable
 import MapComponent from './components/MapComponent';
+import ComboBox3 from './components/ComboBox3'; // Import ComboBox3
 
 function App() {
   const [selectedTournamentId, setSelectedTournamentId] = useState(""); // Track selected tournament
@@ -13,6 +14,7 @@ function App() {
   const [playerData, setPlayerData] = useState([]); // Track player data for table
   const [mapPoints, setMapPoints] = useState([]); // Track player coordinates for map
   const [mapView, setMapView] = useState("club"); // "club" or "birthplace"
+  const [selectedPlayerDetails, setSelectedPlayerDetails] = useState(null); // Player details state
 
   // Function to handle the tournament selection change
   const handleTournamentChange = (tournamentId) => {
@@ -51,6 +53,19 @@ function App() {
           setSelectedPlayer={setSelectedPlayer}
           setPlayerData={setPlayerData} // Pass setPlayerData to update table
           setMapPoints={setMapPoints}
+          setSelectedPlayerDetails={setSelectedPlayerDetails} // Pass setter to ComboBox3
+        />
+      )}
+
+      {/* Conditionally render ComboBox3 only when both selectedCountry and selectedTournamentId are set */}
+      {selectedCountry && selectedTournamentId && (
+        <ComboBox3
+          selectedCountry={selectedCountry}
+          selectedTournamentId={selectedTournamentId}
+          selectedPlayer={selectedPlayer}
+          setSelectedPlayer={setSelectedPlayer}
+          setSelectedPlayerDetails={setSelectedPlayerDetails}
+          selectedPlayerDetails={selectedPlayerDetails} // Pass player details
         />
       )}
 
@@ -80,6 +95,17 @@ function App() {
 
       {/* DataTable to display fetched player data */}
       {playerData.length > 0 && <DataTable playerData={playerData} />}
+
+      {/* Display player details if available */}
+      {selectedPlayerDetails && (
+        <div>
+          <h4>Selected Player: {selectedPlayerDetails.player_name}</h4>
+          <p>Position: {selectedPlayerDetails.position}</p>
+          <p>Age: {selectedPlayerDetails.age}</p>
+          <p>Club: {selectedPlayerDetails.club_name}</p>
+          {/* More details can be added here */}
+        </div>
+      )}
 
       <h1>Leaflet Map</h1>
       <MapComponent mapPoints={mapPoints} />

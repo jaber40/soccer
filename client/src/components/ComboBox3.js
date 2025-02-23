@@ -1,27 +1,38 @@
 // src/components/ComboBox3.js
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ComboBox3 = ({ selectedCountry, selectedTournamentId, selectedPlayer, setSelectedPlayer }) => {
-  const [players, setPlayers] = useState([]); // State to store player data
+const ComboBox3 = ({ selectedCountry, selectedTournamentId, selectedPlayer, setSelectedPlayer, setSelectedPlayerDetails, selectedPlayerDetails }) => {
+  const [players, setPlayers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Fetch players when country or tournament changes
   useEffect(() => {
     if (selectedCountry && selectedTournamentId) {
+      setLoading(true);
+      setError(null); // Reset error state on new request
       axios
         .get(`http://localhost:5000/api/players/details?countryId=${selectedCountry}&tournamentId=${selectedTournamentId}`)
         .then((response) => {
-          setPlayers(response.data); // Populate the players state
+          setPlayers(response.data);
+          setLoading(false);
         })
         .catch((error) => {
           console.error('Error fetching players:', error);
+          setLoading(false);
+          setError('Failed to load players. Please try again later.');
         });
     }
   }, [selectedCountry, selectedTournamentId]);
 
-  // Handle player selection change
-  const handleChange = (event) => {
-    setSelectedPlayer(event.target.value); // Update selected player
+  const handlePlayerSelect = (event) => {
+    const playerName = event.target.value;
+    const selected = players.find((player) => player.player_name === playerName);
+
+    if (selected) {
+      setSelectedPlayerDetails(selected);
+      setSelectedPlayer(playerName);
+    }
   };
 
   return (
@@ -30,7 +41,8 @@ const ComboBox3 = ({ selectedCountry, selectedTournamentId, selectedPlayer, setS
       <select
         id="player"
         value={selectedPlayer || ""}
-        onChange={handleChange}
+        onChange={handlePlayerSelect}
+        disabled={loading}
       >
         <option value="">--Select a Player--</option>
         {players.map((player) => (
@@ -40,10 +52,15 @@ const ComboBox3 = ({ selectedCountry, selectedTournamentId, selectedPlayer, setS
         ))}
       </select>
 
-      {/* Display the selected player's name */}
-      {selectedPlayer && (
+      {loading && <p>Loading players...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      {selectedPlayerDetails && (
         <div>
-          <p>Selected Player: {selectedPlayer}</p>
+          <h4>Selected Player: {selectedPlayerDetails.player_name}</h4>
+          <p>Position: {selectedPlayerDetails.position}</p>
+          <p>Age: {selectedPlayerDetails.age}</p>
+          <p>Club: {selectedPlayerDetails.club_name}</p>
         </div>
       )}
     </div>
