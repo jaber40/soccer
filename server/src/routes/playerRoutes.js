@@ -5,6 +5,7 @@ const playerService = require('../services/playerService');
 
 // Endpoint to fetch player details based on country and tournament
 router.get('/details', async (req, res) => {
+  console.log('Request to /details:', req.query);
   const { countryId, tournamentId } = req.query;
 
   // Ensure the query parameters are provided and are valid

@@ -16,6 +16,29 @@ function App() {
   const [mapView, setMapView] = useState("club"); // "club" or "birthplace"
   const [selectedPlayerDetails, setSelectedPlayerDetails] = useState(null); // Player details state
   const [countries, setCountries] = useState([]); // Track countries list
+  const [loading, setLoading] = useState(false); // Loading state for fetch operations
+  const [error, setError] = useState(""); // Error handling state
+
+  // Fetch countries when selectedTournamentId changes
+  useEffect(() => {
+    if (selectedTournamentId) {
+      setLoading(true);
+      fetch(`http://localhost:5000/api/countries/${selectedTournamentId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setCountries(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching countries:", error);
+          setCountries([]);
+          setError("Failed to load countries.");
+          setLoading(false);
+        });
+    } else {
+      setCountries([]);
+    }
+  }, [selectedTournamentId]);
 
   // Function to handle the tournament selection change
   const handleTournamentChange = (tournamentId) => {
@@ -24,22 +47,13 @@ function App() {
     setSelectedPlayer(""); // Reset player selection when tournament changes
     setPlayerData([]); // Clear player data when tournament changes
     setMapPoints([]); // Clear map points when tournament changes
+    setError(""); // Reset error state
   };
 
-  // Fetch countries and players when tournament or country changes
-  useEffect(() => {
-    if (selectedTournamentId) {
-      fetch(`http://localhost:5000/api/countries/${selectedTournamentId}`)
-        .then((response) => response.json())
-        .then((data) => setCountries(data))
-        .catch((error) => console.error('Error fetching countries:', error));
-    } else {
-      setCountries([]);
-    }
-  }, [selectedTournamentId]);
-
+  // Fetch player data and map points when selectedCountry or selectedTournamentId changes
   useEffect(() => {
     if (selectedCountry && selectedTournamentId) {
+      setLoading(true);
       fetch(`http://localhost:5000/api/players/details?countryId=${selectedCountry}&tournamentId=${selectedTournamentId}`)
         .then((response) => response.json())
         .then((data) => {
@@ -52,11 +66,14 @@ function App() {
               name: player.player_name,
             }));
           setMapPoints(points);
+          setLoading(false);
         })
         .catch((error) => {
-          console.error('Error fetching player details:', error);
+          console.error("Error fetching player details:", error);
           setPlayerData([]);
           setMapPoints([]);
+          setError("Failed to load player details.");
+          setLoading(false);
         });
     } else {
       setPlayerData([]);
@@ -97,30 +114,6 @@ function App() {
         />
       )}
 
-      {/* Radio Buttons for Map View Selection */}
-      <div>
-        <label>
-          <input
-            type="radio"
-            name="mapView"
-            value="birthplace"
-            checked={mapView === "birthplace"}
-            onChange={() => setMapView("birthplace")}
-          />
-          View Birthplaces
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="mapView"
-            value="club"
-            checked={mapView === "club"}
-            onChange={() => setMapView("club")}
-          />
-          View Club Locations
-        </label>
-      </div>
-
       {/* DataTable to display fetched player data */}
       {playerData.length > 0 && <DataTable playerData={playerData} />}
 
@@ -131,7 +124,6 @@ function App() {
           <p>Position: {selectedPlayerDetails.position}</p>
           <p>Age: {selectedPlayerDetails.age}</p>
           <p>Club: {selectedPlayerDetails.club_name}</p>
-          {/* More details can be added here */}
         </div>
       )}
 

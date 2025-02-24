@@ -4,7 +4,7 @@ const router = express.Router();
 const playerSelService = require('../services/playerSelService'); // Corrected import path
 
 // Endpoint to fetch selected player details based on playerId and tournamentId
-router.get('/selected/details', async (req, res) => {
+router.get('/details', async (req, res) => {
   const { playerId, tournamentId } = req.query;
 
   if (!playerId || !tournamentId) {
