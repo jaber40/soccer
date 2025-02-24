@@ -81,6 +81,11 @@ function App() {
     }
   }, [selectedCountry, selectedTournamentId, mapView]);
 
+  // Handle the radio button change
+  const handleMapViewChange = (event) => {
+    setMapView(event.target.value); // Update map view between "club" and "birthplace"
+  };
+
   return (
     <div className="App">
       <h1>My SQL Data App</h1>
@@ -113,6 +118,30 @@ function App() {
           selectedPlayerDetails={selectedPlayerDetails} // Pass player details
         />
       )}
+
+      {/* Radio button to toggle map view */}
+      <div>
+        <label>
+          <input
+            type="radio"
+            name="mapView"
+            value="club"
+            checked={mapView === "club"}
+            onChange={handleMapViewChange}
+          />
+          Club
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="mapView"
+            value="birthplace"
+            checked={mapView === "birthplace"}
+            onChange={handleMapViewChange}
+          />
+          Birthplace
+        </label>
+      </div>
 
       {/* DataTable to display fetched player data */}
       {playerData.length > 0 && <DataTable playerData={playerData} />}
