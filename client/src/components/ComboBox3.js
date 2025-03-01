@@ -32,13 +32,6 @@ const ComboBox3 = ({
         ))}
       </select>
 
-      {selectedPlayerDetails && (
-        <div>
-          <h4>Selected Player: {selectedPlayerDetails.player_name}</h4>
-          <p>Position: {selectedPlayerDetails.position}</p>
-          <p>Age: {selectedPlayerDetails.age}</p>
-        </div>
-      )}
     </div>
   );
 };
