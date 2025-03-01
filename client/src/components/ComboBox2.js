@@ -46,41 +46,8 @@ const CountrySelect = ({
 
     setSelectedCountry(countryId); // Set the selected country
     setSelectedPlayer(""); // Reset the selected player when country changes
-
-    // Fetch player details when a country and tournament are selected
-    if (countryId && selectedTournamentId) {
-      setLoading(true);
-      axios.get(`http://localhost:5000/api/players/details?countryId=${countryId}&tournamentId=${selectedTournamentId}`)
-        .then((response) => {
-          const playersData = response.data || [];
-          setPlayers(playersData); // Store the list of players
-          setPlayerData(playersData); // Update the player data in the parent component
-
-          // Map the players' coordinates for updating the map
-          const mapPoints = playersData
-            .filter(player => player.player_x && player.player_y)
-            .map(player => ({
-              lat: parseFloat(player.player_x),
-              lng: parseFloat(player.player_y),
-              name: player.player_name
-            }));
-
-          setMapPoints(mapPoints); // Set the map points based on player coordinates
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching player details:', error);
-          setPlayers([]); // Reset players if there's an error
-          setPlayerData([]);
-          setMapPoints([]);
-          setError("Failed to load player details.");
-          setLoading(false);
-        });
-    } else {
-      setPlayers([]); // Reset players if no country or tournament is selected
-      setPlayerData([]);
-      setMapPoints([]);
-    }
+    setSelectedPlayerDetails(null); // Reset selected player details
+    
   };
 
   return (
