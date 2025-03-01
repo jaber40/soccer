@@ -1,7 +1,6 @@
 // src/components/ComboBox2.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ComboBox3 from './ComboBox3';
 
 const CountrySelect = ({ 
   selectedTournamentId, 
