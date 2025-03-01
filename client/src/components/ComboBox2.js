@@ -68,15 +68,7 @@ const CountrySelect = ({
       {loading && <p>Loading countries...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {selectedCountry && selectedTournamentId && (
-        <ComboBox3
-          selectedCountry={selectedCountry}
-          selectedTournamentId={selectedTournamentId}
-          selectedPlayer={selectedPlayer} // Pass the current selectedPlayer value
-          setSelectedPlayer={setSelectedPlayer} // Pass the setSelectedPlayer function
-          setSelectedPlayerDetails={setSelectedPlayerDetails} // Pass the setter from App.js
-        />
-      )}
+   
     </div>
   );
 };
