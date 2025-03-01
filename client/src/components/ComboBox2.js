@@ -8,13 +8,11 @@ const CountrySelect = ({
   selectedCountry, 
   setSelectedCountry, 
   setSelectedPlayer, 
-  setPlayerData, 
-  setMapPoints,
-  setSelectedPlayerDetails,
-  selectedPlayer
+  setSelectedPlayerDetails, // Pass setSelectedPlayerDetails from App.js
+  selectedPlayer,
+  setPlayerData
 }) => {
   const [countries, setCountries] = useState([]); // Store the list of countries
-  const [players, setPlayers] = useState([]); // Store the list of players
   const [loading, setLoading] = useState(false); // Loading state for API requests
   const [error, setError] = useState(null); // Error state for failed API requests
 
@@ -46,8 +44,8 @@ const CountrySelect = ({
 
     setSelectedCountry(countryId); // Set the selected country
     setSelectedPlayer(""); // Reset the selected player when country changes
-    setSelectedPlayerDetails(null); // Reset selected player details
-    
+    setSelectedPlayerDetails(null); // Reset selected player details when country changes
+    setPlayerData([]);  // Reset playerData if country changes
   };
 
   return (
@@ -76,8 +74,7 @@ const CountrySelect = ({
           selectedTournamentId={selectedTournamentId}
           selectedPlayer={selectedPlayer} // Pass the current selectedPlayer value
           setSelectedPlayer={setSelectedPlayer} // Pass the setSelectedPlayer function
-          setSelectedPlayerDetails={setSelectedPlayerDetails}
-          players={players} // Pass the list of players to ComboBox3
+          setSelectedPlayerDetails={setSelectedPlayerDetails} // Pass the setter from App.js
         />
       )}
     </div>

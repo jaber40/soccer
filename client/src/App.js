@@ -18,6 +18,7 @@ function App() {
   const [countries, setCountries] = useState([]); // Track countries list
   const [loading, setLoading] = useState(false); // Loading state for fetch operations
   const [error, setError] = useState(""); // Error handling state
+  const [players, setPlayers] = useState([]); // Track list of players
 
   // Fetch countries when selectedTournamentId changes
   useEffect(() => {
@@ -40,24 +41,16 @@ function App() {
     }
   }, [selectedTournamentId]);
 
-  // Function to handle the tournament selection change
-  const handleTournamentChange = (tournamentId) => {
-    setSelectedTournamentId(tournamentId);
-    setSelectedCountry(""); // Reset country selection when tournament changes
-    setSelectedPlayer(""); // Reset player selection when tournament changes
-    setPlayerData([]); // Clear player data when tournament changes
-    setMapPoints([]); // Clear map points when tournament changes
-    setError(""); // Reset error state
-  };
-
-  // Fetch player data and map points when selectedCountry or selectedTournamentId changes
+  // Fetch player data when selectedCountry or selectedTournamentId changes
   useEffect(() => {
     if (selectedCountry && selectedTournamentId) {
       setLoading(true);
       fetch(`http://localhost:5000/api/players/details?countryId=${selectedCountry}&tournamentId=${selectedTournamentId}`)
         .then((response) => response.json())
         .then((data) => {
-          setPlayerData(data);
+          console.log("Fetched player data:", data);  // Log the fetched data
+          setPlayers(data); // Set players data
+          setPlayerData(data); // Update playerData state for DataTable
           const points = data
             .filter((player) => player.player_x && player.player_y)
             .map((player) => ({
@@ -70,21 +63,60 @@ function App() {
         })
         .catch((error) => {
           console.error("Error fetching player details:", error);
-          setPlayerData([]);
+          setPlayers([]);
           setMapPoints([]);
           setError("Failed to load player details.");
           setLoading(false);
         });
     } else {
-      setPlayerData([]);
+      setPlayers([]);
       setMapPoints([]);
+      if (!selectedCountry || !selectedTournamentId) {
+        setPlayerData([]);  // Only reset if both country and tournament are unselected
+      }
     }
   }, [selectedCountry, selectedTournamentId, mapView]);
+
+  // Log the player data right before passing it to DataTable
+console.log("Player Data passed to DataTable:", playerData);
+
+  useEffect(() => {
+  console.log("selectedCountry:", selectedCountry);
+  console.log("selectedTournamentId:", selectedTournamentId);
+}, [selectedCountry, selectedTournamentId]);
+
+  // Function to handle the tournament selection change
+  const handleTournamentChange = (tournamentId) => {
+    setSelectedTournamentId(tournamentId);
+    setSelectedCountry(""); // Reset country selection when tournament changes
+    setSelectedPlayer(""); // Reset player selection when tournament changes
+    setPlayerData([]); // Clear player data when tournament changes
+    setMapPoints([]); // Clear map points when tournament changes
+    setError(""); // Reset error state
+    setPlayers([]); // Reset players data when tournament changes
+  };
 
   // Handle the radio button change
   const handleMapViewChange = (event) => {
     setMapView(event.target.value); // Update map view between "club" and "birthplace"
   };
+
+  // Fetch player details when selectedPlayer changes
+  useEffect(() => {
+    if (selectedPlayer && selectedTournamentId) {
+      fetch(`http://localhost:5000/api/players/selected/details?playerId=${selectedPlayer}&tournamentId=${selectedTournamentId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setSelectedPlayerDetails(data); // Update player details
+        })
+        .catch((error) => {
+          console.error("Error fetching selected player details:", error);
+          setSelectedPlayerDetails(null);
+        });
+    } else {
+      setSelectedPlayerDetails(null); // Reset selected player details when player changes or is reset
+    }
+  }, [selectedPlayer, selectedTournamentId]);
 
   return (
     <div className="App">
@@ -114,8 +146,9 @@ function App() {
           selectedTournamentId={selectedTournamentId}
           selectedPlayer={selectedPlayer}
           setSelectedPlayer={setSelectedPlayer}
+          players={players} // Pass players fetched in App.js
           setSelectedPlayerDetails={setSelectedPlayerDetails}
-          selectedPlayerDetails={selectedPlayerDetails} // Pass player details
+          selectedPlayerDetails={selectedPlayerDetails}
         />
       )}
 
@@ -143,7 +176,7 @@ function App() {
         </label>
       </div>
 
-      {/* DataTable to display fetched player data */}
+      {/* Display the DataTable only if playerData exists */}
       {playerData.length > 0 && <DataTable playerData={playerData} />}
 
       {/* Display player details if available */}

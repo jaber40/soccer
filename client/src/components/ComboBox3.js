@@ -1,39 +1,16 @@
 // src/components/ComboBox3.js
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const ComboBox3 = ({
   selectedCountry,
   selectedTournamentId,
   selectedPlayer,
   setSelectedPlayer,
+  players = [], // Default to an empty array if players is undefined
   setSelectedPlayerDetails,
   selectedPlayerDetails,
 }) => {
-  const [players, setPlayers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (selectedCountry && selectedTournamentId) {
-      setLoading(true);
-      fetch(`http://localhost:5000/api/players/details?countryId=${selectedCountry}&tournamentId=${selectedTournamentId}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setPlayers(data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching player details:", error);
-          setPlayers([]);
-          setError("Failed to load players.");
-          setLoading(false);
-        });
-    } else {
-      setPlayers([]);
-    }
-  }, [selectedCountry, selectedTournamentId]);
-
-  // Handle player selection change
   const handlePlayerChange = (event) => {
     const playerId = event.target.value;
     setSelectedPlayer(playerId);
@@ -55,9 +32,6 @@ const ComboBox3 = ({
         ))}
       </select>
 
-      {loading && <p>Loading players...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-
       {selectedPlayerDetails && (
         <div>
           <h4>Selected Player: {selectedPlayerDetails.player_name}</h4>
@@ -70,4 +44,3 @@ const ComboBox3 = ({
 };
 
 export default ComboBox3;
-
