@@ -1,6 +1,20 @@
 // client/src/components/MapComponent.js
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import L from 'leaflet';
+
+// Define the custom marker symbol
+const createCustomMarker = (playerName) => {
+  return L.divIcon({
+    className: 'custom-marker-icon',
+    html: `
+      <div>
+      </div>
+    `,
+    iconSize: [10, 10],  // Customize size of the icon
+    iconAnchor: [15, 15], // Position the icon properly
+  });
+};
 
 const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
   const map = useMap();
@@ -41,11 +55,6 @@ const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
 };
 
 const MapComponent = ({ mapPoints, selectedPlayerId }) => {
-  // Log selectedPlayerId whenever it changes
-  useEffect(() => {
-    console.log('🎯 Selected Player ID Changed:', selectedPlayerId);
-  }, [selectedPlayerId]);
-
   return (
     <MapContainer center={[20, 0]} zoom={2} style={{ height: "500px", width: "100%" }}>
       <TileLayer
@@ -53,11 +62,11 @@ const MapComponent = ({ mapPoints, selectedPlayerId }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       {mapPoints.map((point, index) => {
-        console.log('📍 Rendering point:', point);
+        // Use the custom marker with player name
+        const customMarker = createCustomMarker(point.name);
 
         return (
-          <Marker key={index} position={[point.lat, point.lng]}>
-            {/* Show Popup only for the selected player */}
+          <Marker key={index} position={[point.lat, point.lng]} icon={customMarker}>
             {parseInt(point.player_id) === parseInt(selectedPlayerId) && (
               <Popup>{point.name}</Popup>
             )}
