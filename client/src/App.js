@@ -1,26 +1,25 @@
 // src/App.js
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import TournamentSelect from "./components/ComboBox"; // Import TournamentSelect
-import CountrySelect from "./components/ComboBox2"; // Import CountrySelect
-import DataTable from "./components/DataTable"; // Import DataTable
+import TournamentSelect from "./components/ComboBox";
+import CountrySelect from "./components/ComboBox2";
+import DataTable from "./components/DataTable";
 import MapComponent from './components/MapComponent';
-import ComboBox3 from './components/ComboBox3'; // Import ComboBox3
+import ComboBox3 from './components/ComboBox3';
 
 function App() {
-  const [selectedTournamentId, setSelectedTournamentId] = useState(""); // Track selected tournament
-  const [selectedCountry, setSelectedCountry] = useState(""); // Track selected country
-  const [selectedPlayer, setSelectedPlayer] = useState(""); // Track selected player
-  const [playerData, setPlayerData] = useState([]); // Track player data for table
-  const [mapPoints, setMapPoints] = useState([]); // Track player coordinates for map
-  const [mapView, setMapView] = useState("club"); // "club" or "birthplace"
-  const [selectedPlayerDetails, setSelectedPlayerDetails] = useState(null); // Player details state
-  const [countries, setCountries] = useState([]); // Track countries list
-  const [loading, setLoading] = useState(false); // Loading state for fetch operations
-  const [error, setError] = useState(""); // Error handling state
-  const [players, setPlayers] = useState([]); // Track list of players
+  const [selectedTournamentId, setSelectedTournamentId] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedPlayer, setSelectedPlayer] = useState("");
+  const [playerData, setPlayerData] = useState([]);
+  const [mapPoints, setMapPoints] = useState([]);
+  const [mapView, setMapView] = useState("club"); // Handle map view state here
+  const [selectedPlayerDetails, setSelectedPlayerDetails] = useState(null);
+  const [countries, setCountries] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [players, setPlayers] = useState([]);
 
-  // Fetch countries when selectedTournamentId changes
   useEffect(() => {
     if (selectedTournamentId) {
       setLoading(true);
@@ -41,19 +40,18 @@ function App() {
     }
   }, [selectedTournamentId]);
 
-  // Fetch player data when selectedCountry or selectedTournamentId changes
   useEffect(() => {
     if (selectedCountry && selectedTournamentId) {
       setLoading(true);
       fetch(`http://localhost:5000/api/players/details?countryId=${selectedCountry}&tournamentId=${selectedTournamentId}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log("Fetched player data:", data);  // Log the fetched data
-          setPlayers(data); // Set players data
-          setPlayerData(data); // Update playerData state for DataTable
+          setPlayers(data);
+          setPlayerData(data);
           const points = data
             .filter((player) => player.player_x && player.player_y)
             .map((player) => ({
+              player_id: player.player_id, // Add player_id here
               lat: mapView === "birthplace" ? player.player_x : player.club_x,
               lng: mapView === "birthplace" ? player.player_y : player.club_y,
               name: player.player_name,
@@ -72,49 +70,44 @@ function App() {
       setPlayers([]);
       setMapPoints([]);
       if (!selectedCountry || !selectedTournamentId) {
-        setPlayerData([]);  // Only reset if both country and tournament are unselected
+        setPlayerData([]);
       }
     }
   }, [selectedCountry, selectedTournamentId, mapView]);
 
-  // Log the player data right before passing it to DataTable
-console.log("Player Data passed to DataTable:", playerData);
-
-  useEffect(() => {
-  console.log("selectedCountry:", selectedCountry);
-  console.log("selectedTournamentId:", selectedTournamentId);
-}, [selectedCountry, selectedTournamentId]);
-
-  // Function to handle the tournament selection change
   const handleTournamentChange = (tournamentId) => {
     setSelectedTournamentId(tournamentId);
-    setSelectedCountry(""); // Reset country selection when tournament changes
-    setSelectedPlayer(""); // Reset player selection when tournament changes
-    setPlayerData([]); // Clear player data when tournament changes
-    setMapPoints([]); // Clear map points when tournament changes
-    setError(""); // Reset error state
-    setPlayers([]); // Reset players data when tournament changes
+    setSelectedCountry("");
+    setSelectedPlayer("");
+    setPlayerData([]);
+    setMapPoints([]);
+    setError("");
+    setPlayers([]);
   };
 
-  // Handle the radio button change
+   // Handle ComboBox3 change (selecting a player)
+  const handlePlayerChange = (playerId) => {
+    setSelectedPlayer(playerId); // This will update the selected player and trigger map zoom
+    console.log('Selected Player ID:', playerId);  // Verify the change
+  };
+
   const handleMapViewChange = (event) => {
-    setMapView(event.target.value); // Update map view between "club" and "birthplace"
+    setMapView(event.target.value); // Update map view
   };
 
-  // Fetch player details when selectedPlayer changes
   useEffect(() => {
     if (selectedPlayer && selectedTournamentId) {
       fetch(`http://localhost:5000/api/players/selected/details?playerId=${selectedPlayer}&tournamentId=${selectedTournamentId}`)
         .then((response) => response.json())
         .then((data) => {
-          setSelectedPlayerDetails(data); // Update player details
+          setSelectedPlayerDetails(data);
         })
         .catch((error) => {
           console.error("Error fetching selected player details:", error);
           setSelectedPlayerDetails(null);
         });
     } else {
-      setSelectedPlayerDetails(null); // Reset selected player details when player changes or is reset
+      setSelectedPlayerDetails(null);
     }
   }, [selectedPlayer, selectedTournamentId]);
 
@@ -122,37 +115,34 @@ console.log("Player Data passed to DataTable:", playerData);
     <div className="App">
       <h1>My SQL Data App</h1>
 
-      {/* TournamentSelect component */}
       <TournamentSelect onTournamentChange={handleTournamentChange} />
 
-      {/* Conditionally render CountrySelect based on the selected tournament */}
       {selectedTournamentId && (
         <CountrySelect
           selectedTournamentId={selectedTournamentId}
           selectedCountry={selectedCountry}
           setSelectedCountry={setSelectedCountry}
-          countries={countries} // Pass countries fetched in App.js
+          countries={countries}
           setSelectedPlayer={setSelectedPlayer}
-          setPlayerData={setPlayerData} // Pass setPlayerData to update table
+          setPlayerData={setPlayerData}
           setMapPoints={setMapPoints}
-          setSelectedPlayerDetails={setSelectedPlayerDetails} // Pass setter to ComboBox3
+          setSelectedPlayerDetails={setSelectedPlayerDetails}
         />
       )}
 
-      {/* Conditionally render ComboBox3 only when both selectedCountry and selectedTournamentId are set */}
       {selectedCountry && selectedTournamentId && (
         <ComboBox3
+          onPlayerChange={handlePlayerChange}
           selectedCountry={selectedCountry}
           selectedTournamentId={selectedTournamentId}
           selectedPlayer={selectedPlayer}
           setSelectedPlayer={setSelectedPlayer}
-          players={players} // Pass players fetched in App.js
+          players={players}
           setSelectedPlayerDetails={setSelectedPlayerDetails}
           selectedPlayerDetails={selectedPlayerDetails}
         />
       )}
 
-      {/* Radio button to toggle map view */}
       <div>
         <label>
           <input
@@ -176,10 +166,8 @@ console.log("Player Data passed to DataTable:", playerData);
         </label>
       </div>
 
-      {/* Display the DataTable only if playerData exists */}
       {playerData.length > 0 && <DataTable playerData={playerData} />}
 
-      {/* Display player details if available */}
       {selectedPlayerDetails && (
         <div>
           <h4>Selected Player: {selectedPlayerDetails.player_name}</h4>
@@ -190,7 +178,7 @@ console.log("Player Data passed to DataTable:", playerData);
       )}
 
       <h1>Leaflet Map</h1>
-      <MapComponent mapPoints={mapPoints} />
+      <MapComponent mapPoints={mapPoints} selectedPlayerId={selectedPlayer} />
     </div>
   );
 }
