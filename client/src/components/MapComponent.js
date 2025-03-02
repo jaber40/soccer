@@ -58,8 +58,8 @@ const MapComponent = ({ mapPoints, selectedPlayerId }) => {
         return (
           <Marker key={index} position={[point.lat, point.lng]}>
             {/* Show Popup only for the selected player */}
-            {point.player_id === selectedPlayerId && (
-              <Popup autoOpen>{point.name}</Popup>
+            {parseInt(point.player_id) === parseInt(selectedPlayerId) && (
+              <Popup>{point.name}</Popup>
             )}
           </Marker>
         );
