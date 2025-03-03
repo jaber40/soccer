@@ -7,12 +7,12 @@ import L from 'leaflet';
 const createCustomMarker = (playerName) => {
   return L.divIcon({
     className: 'custom-marker-icon',
-    html: `
-      <div>
-      </div>
-    `,
+    html: 
+      `<div>
+      </div>`
+    ,
     iconSize: [10, 10],  // Customize size of the icon
-    iconAnchor: [15, 15], // Position the icon properly
+    iconAnchor: [5, 5], // Position the icon properly
   });
 };
 
@@ -20,34 +20,34 @@ const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
   const map = useMap();
 
   useEffect(() => {
-    console.log("🔹 Map Points Array:", mapPoints);
-    console.log("🔹 Selected Player ID (Type: " + typeof selectedPlayerId + "):", selectedPlayerId);
+    console.log("Map Points Array:", mapPoints);
+    console.log("Selected Player ID (Type: " + typeof selectedPlayerId + "):", selectedPlayerId);
 
     if (mapPoints.length > 0) {
       if (selectedPlayerId) {
         // Find the selected player's location in the points array
         const selectedPoint = mapPoints.find(point => {
-          console.log(`➡ Checking point:`, point);
-          console.log(`➡ point.player_id (Type: ${typeof point.player_id}):`, point.player_id);
+          console.log("Checking point:", point);
+          console.log("point.player_id (Type: " + typeof point.player_id + "):", point.player_id);
           return Number(point.player_id) === Number(selectedPlayerId); // Ensure both are numbers
         });
 
-        console.log("✅ Selected Player Point:", selectedPoint);
+        console.log("Selected Player Point:", selectedPoint);
 
         if (selectedPoint) {
-          console.log('🔍 Zooming to player location:', selectedPoint.lat, selectedPoint.lng);
+          console.log('Zooming to player location:', selectedPoint.lat, selectedPoint.lng);
           map.setView([selectedPoint.lat, selectedPoint.lng], 10, { animate: true });
         } else {
-          console.log("⚠️ Selected player not found in map points.");
+          console.log("Selected player not found in map points.");
         }
       } else {
         // If no player is selected, fit the map to show all points
         const bounds = mapPoints.map(point => [point.lat, point.lng]);
-        console.log("🔄 Fitting map bounds:", bounds);
+        console.log("Fitting map bounds:", bounds);
         map.fitBounds(bounds, { padding: [50, 50] });
       }
     } else {
-      console.log("⚠️ No map points available.");
+      console.log("No map points available.");
     }
   }, [mapPoints, selectedPlayerId, map]);
 
