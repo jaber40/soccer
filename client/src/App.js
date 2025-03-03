@@ -166,6 +166,9 @@ function App() {
         </label>
       </div>
 
+      <h1>Leaflet Map</h1>
+      <MapComponent mapPoints={mapPoints} selectedPlayerId={selectedPlayer} />
+
       {playerData.length > 0 && <DataTable playerData={playerData} />}
 
       {selectedPlayerDetails && (
@@ -177,8 +180,6 @@ function App() {
         </div>
       )}
 
-      <h1>Leaflet Map</h1>
-      <MapComponent mapPoints={mapPoints} selectedPlayerId={selectedPlayer} />
     </div>
   );
 }
