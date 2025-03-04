@@ -4,7 +4,6 @@ import React from "react";
 const DataTable = ({ playerData }) => {
   return (
     <div>
-      <h2>Player Details</h2>
       <table border="1" className="data-table">
         <thead>
           <tr>

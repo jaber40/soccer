@@ -55,6 +55,9 @@ const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
 };
 
 const MapComponent = ({ mapPoints, selectedPlayerId }) => {
+  // Find the selected player point only once
+  const selectedPlayerPoint = mapPoints.find(point => Number(point.player_id) === Number(selectedPlayerId));
+
   return (
     <MapContainer center={[20, 0]} zoom={2} style={{ height: "500px", width: "100%" }}>
       <TileLayer
@@ -62,12 +65,12 @@ const MapComponent = ({ mapPoints, selectedPlayerId }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       {mapPoints.map((point, index) => {
-        // Use the custom marker with player name
-        const customMarker = createCustomMarker(point.name);
+        const customMarker = createCustomMarker();
 
         return (
           <Marker key={index} position={[point.lat, point.lng]} icon={customMarker}>
-            {parseInt(point.player_id) === parseInt(selectedPlayerId) && (
+            {/* Only render the popup for the selected player */}
+            {selectedPlayerPoint && selectedPlayerPoint.player_id === point.player_id && (
               <Popup>{point.name}</Popup>
             )}
           </Marker>
@@ -77,5 +80,6 @@ const MapComponent = ({ mapPoints, selectedPlayerId }) => {
     </MapContainer>
   );
 };
+
 
 export default MapComponent;

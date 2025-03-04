@@ -113,7 +113,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>My SQL Data App</h1>
+      <h3>International Soccer</h3>
 
       <TournamentSelect onTournamentChange={handleTournamentChange} />
 
@@ -166,19 +166,18 @@ function App() {
         </label>
       </div>
 
-      <h1>Leaflet Map</h1>
-      <MapComponent mapPoints={mapPoints} selectedPlayerId={selectedPlayer} />
-
-      {playerData.length > 0 && <DataTable playerData={playerData} />}
-
       {selectedPlayerDetails && (
         <div>
-          <h4>Selected Player: {selectedPlayerDetails.player_name}</h4>
+          <p>Selected Player: {selectedPlayerDetails.player_name}</p>
           <p>Position: {selectedPlayerDetails.position}</p>
           <p>Age: {selectedPlayerDetails.age}</p>
           <p>Club: {selectedPlayerDetails.club_name}</p>
         </div>
       )}
+
+      <MapComponent mapPoints={mapPoints} selectedPlayerId={selectedPlayer} />
+
+      {playerData.length > 0 && <DataTable playerData={playerData} />}
 
     </div>
   );
