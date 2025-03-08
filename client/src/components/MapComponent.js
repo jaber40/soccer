@@ -2,20 +2,29 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
+import MarkerClusterGroup from 'react-leaflet-markercluster'; // Import MarkerClusterGroup
 
-// Define the custom marker symbol
-const createCustomMarker = (playerName) => {
+// Define a smaller custom marker for unclustered points
+const createCustomMarker = () => {
   return L.divIcon({
     className: 'custom-marker-icon',
-    html: 
-      `<div>
-      </div>`
-    ,
-    iconSize: [10, 10],  // Customize size of the icon
-    iconAnchor: [5, 5], // Position the icon properly
+    html: `<div style="background-color: #3388cc; color: white; padding: 6px; border-radius: 50%; font-size: 12px; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px;">•</div>`,
+    iconSize: [20, 20],  // Smaller size for individual points
+    iconAnchor: [10, 10], // Position the icon properly in the center
   });
 };
 
+// Define a larger custom marker for clusters with number
+const createClusterMarker = (count) => {
+  return L.divIcon({
+    className: 'custom-cluster-icon',
+    html: `<div style="background-color: #3388cc; color: white; padding: 10px 15px; border-radius: 50%; font-size: 18px; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;">${count}</div>`,
+    iconSize: [40, 40],  // Larger size for clustered points
+    iconAnchor: [20, 20], // Position the icon properly in the center
+  });
+};
+
+// MapUpdater handles zooming to selected player or fitting all points
 const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
   const map = useMap();
 
@@ -55,7 +64,6 @@ const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
 };
 
 const MapComponent = ({ mapPoints, selectedPlayerId }) => {
-  // Find the selected player point only once
   const selectedPlayerPoint = mapPoints.find(point => Number(point.player_id) === Number(selectedPlayerId));
 
   return (
@@ -64,22 +72,32 @@ const MapComponent = ({ mapPoints, selectedPlayerId }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {mapPoints.map((point, index) => {
-        const customMarker = createCustomMarker();
+      {/* Marker Cluster Group */}
+      <MarkerClusterGroup
+        iconCreateFunction={(cluster) => {
+          const count = cluster.getChildCount();  // Get number of markers in the cluster
+          return createClusterMarker(count);     // Create larger marker for clusters
+        }}
+        zoomToBoundsOnClick={false}  // Prevent automatic zoom when a cluster is clicked
+        spiderfyOnMaxZoom={true}     // Enable spiderfying at max zoom
+        spiderfyDistanceMultiplier={3} // Adjust the multiplier to increase distance between spiderfied markers
+      >
+        {mapPoints.map((point, index) => {
+          const customMarker = createCustomMarker();  // Use smaller marker for individual points
 
-        return (
-          <Marker key={index} position={[point.lat, point.lng]} icon={customMarker}>
-            {/* Only render the popup for the selected player */}
-            {selectedPlayerPoint && selectedPlayerPoint.player_id === point.player_id && (
-              <Popup>{point.name}</Popup>
-            )}
-          </Marker>
-        );
-      })}
+          return (
+            <Marker key={index} position={[point.lat, point.lng]} icon={customMarker}>
+              {/* Only render the popup for the selected player */}
+              {selectedPlayerPoint && selectedPlayerPoint.player_id === point.player_id && (
+                <Popup>{point.name}</Popup>
+              )}
+            </Marker>
+          );
+        })}
+      </MarkerClusterGroup>
       <MapUpdater mapPoints={mapPoints} selectedPlayerId={selectedPlayerId} />
     </MapContainer>
   );
 };
-
 
 export default MapComponent;
