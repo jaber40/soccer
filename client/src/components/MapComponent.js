@@ -64,8 +64,6 @@ const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
 };
 
 const MapComponent = ({ mapPoints, selectedPlayerId }) => {
-  const selectedPlayerPoint = mapPoints.find(point => Number(point.player_id) === Number(selectedPlayerId));
-
   return (
     <MapContainer center={[20, 0]} zoom={2} style={{ height: "500px", width: "100%" }}>
       <TileLayer
@@ -87,10 +85,8 @@ const MapComponent = ({ mapPoints, selectedPlayerId }) => {
 
           return (
             <Marker key={index} position={[point.lat, point.lng]} icon={customMarker}>
-              {/* Only render the popup for the selected player */}
-              {selectedPlayerPoint && selectedPlayerPoint.player_id === point.player_id && (
-                <Popup>{point.name}</Popup>
-              )}
+              {/* Render popup for all players */}
+              <Popup>{point.name}</Popup>
             </Marker>
           );
         })}
@@ -101,3 +97,4 @@ const MapComponent = ({ mapPoints, selectedPlayerId }) => {
 };
 
 export default MapComponent;
+
