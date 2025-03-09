@@ -4,13 +4,13 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster'; // Import MarkerClusterGroup
 
-// Define a smaller custom marker for unclustered points
+/// Define a smaller custom marker for unclustered points
 const createCustomMarker = () => {
   return L.divIcon({
     className: 'custom-marker-icon',
-    html: `<div style="background-color: #3388cc; color: white; padding: 6px; border-radius: 50%; font-size: 12px; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px;">•</div>`,
-    iconSize: [20, 20],  // Smaller size for individual points
-    iconAnchor: [10, 10], // Position the icon properly in the center
+    html: `<div style="background-color: #90EE90; color: white; padding: 0px; border-radius: 50%; font-size: 4px; display: flex; align-items: center; justify-content: center; width: 10px; height: 10px; border: 1px solid black;"></div>`,
+    iconSize: [10, 10],  // Smaller size for individual points
+    iconAnchor: [5, 5], // Position the icon properly in the center
   });
 };
 
@@ -18,9 +18,9 @@ const createCustomMarker = () => {
 const createClusterMarker = (count) => {
   return L.divIcon({
     className: 'custom-cluster-icon',
-    html: `<div style="background-color: #3388cc; color: white; padding: 10px 15px; border-radius: 50%; font-size: 18px; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;">${count}</div>`,
-    iconSize: [40, 40],  // Larger size for clustered points
-    iconAnchor: [20, 20], // Position the icon properly in the center
+    html: `<div style="background-color: #90EE90; color: white; padding: 5px 8px; border-radius: 50%; font-size: 8px; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border: 1px solid black;">${count}</div>`,
+    iconSize: [20, 20],  // Larger size for clustered points
+    iconAnchor: [10, 10], // Position the icon properly in the center
   });
 };
 
@@ -76,9 +76,12 @@ const MapComponent = ({ mapPoints, selectedPlayerId }) => {
           const count = cluster.getChildCount();  // Get number of markers in the cluster
           return createClusterMarker(count);     // Create larger marker for clusters
         }}
-        zoomToBoundsOnClick={false}  // Prevent automatic zoom when a cluster is clicked
-        spiderfyOnMaxZoom={true}     // Enable spiderfying at max zoom
-        spiderfyDistanceMultiplier={3} // Adjust the multiplier to increase distance between spiderfied markers
+        zoomToBoundsOnClick={false}     // Prevent automatic zoom when a cluster is clicked
+        spiderfyOnMaxZoom={true}        // Enable spiderfying at max zoom
+        spiderfyDistanceMultiplier={2}  // Adjust the multiplier to increase distance between spiderfied markers
+        maxClusterRadius={1}            // Max pixel radius of cluster
+        spiderfyOnEveryZoom={true}      // Ensures spiderfied markers remain expanded when zooming
+        disableClusteringAtZoom={null}  // Ensures clustering is never disabled
       >
         {mapPoints.map((point, index) => {
           const customMarker = createCustomMarker();  // Use smaller marker for individual points
