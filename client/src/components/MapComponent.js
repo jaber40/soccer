@@ -45,7 +45,7 @@ const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
 
         if (selectedPoint) {
           console.log('Zooming to player location:', selectedPoint.lat, selectedPoint.lng);
-          map.setView([selectedPoint.lat, selectedPoint.lng], 10, { animate: true });
+          map.setView([selectedPoint.lat, selectedPoint.lng], 6, { animate: true });
         } else {
           console.log("Selected player not found in map points.");
         }
