@@ -24,11 +24,11 @@ const createClusterMarker = (count) => {
   });
 };
 
-const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
+const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode }) => {
   const map = useMap();
 
   useEffect(() => {
-    map.closePopup(); // Close any open popup before changing selection
+    map.closePopup(); // Close any existing popups
 
     if (mapPoints.length > 0) {
       if (selectedPlayerId) {
@@ -39,10 +39,18 @@ const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
           map.invalidateSize();
           map.flyTo([selectedPoint.lat, selectedPoint.lng], 6, { animate: true });
 
-          L.popup()
-            .setLatLng([selectedPoint.lat, selectedPoint.lng])
-            .setContent(selectedPoint.name)
-            .openOn(map);
+          // Update popup content based on popupMode
+          const popupContent =
+            popupMode === 'birthplace'
+              ? `<strong>${selectedPoint.name}</strong><br>${selectedPoint.birthplace}`
+              : `<strong>${selectedPoint.name}</strong><br>${selectedPoint.club}`;
+
+          setTimeout(() => {
+            L.popup()
+              .setLatLng([selectedPoint.lat, selectedPoint.lng])
+              .setContent(popupContent)
+              .openOn(map);
+          }, 300); // Small delay to ensure popup updates
         }
       } else {
         const bounds = mapPoints.map(point => [point.lat, point.lng]);
@@ -52,23 +60,23 @@ const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
         }
       }
     } else {
-      // **Force a view reset when no points exist**
       setTimeout(() => {
         map.invalidateSize();
-        map.setView([20, 0], 2); // Reset to default world view
-      }, 300); // Slight delay to ensure state updates
+        map.setView([20, 0], 2);
+      }, 300);
     }
-  }, [mapPoints, selectedPlayerId, map]);
+  }, [mapPoints, selectedPlayerId, popupMode, map]);
 
   return null;
 };
 
-const MapComponent = ({ mapPoints, selectedPlayerId }) => {
+
+const MapComponent = ({ mapPoints, selectedPlayerId, popupMode }) => {
   return (
     <MapContainer 
       center={[20, 0]} 
       zoom={2} 
-      maxBounds={[[-90, -180], [90, 180]]} // Prevent excessive zoom out
+      maxBounds={[[-90, -180], [90, 180]]} 
       style={{ height: "500px", width: "100%" }}
     >
       <TileLayer
@@ -76,15 +84,14 @@ const MapComponent = ({ mapPoints, selectedPlayerId }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
 
-      {/* Marker Cluster Group */}
       <MarkerClusterGroup
         iconCreateFunction={(cluster) => createClusterMarker(cluster.getChildCount())}
         zoomToBoundsOnClick={false}
         spiderfyOnMaxZoom={true}
         spiderfyDistanceMultiplier={2}
         maxClusterRadius={1}
-        spiderfyOnEveryZoom={true}      // Ensures spiderfied markers remain expanded when zooming
-        disableClusteringAtZoom={null}  // Ensures clustering is never disabled
+        spiderfyOnEveryZoom={true}
+        disableClusteringAtZoom={null}
       >
         {mapPoints.map((point, index) => (
           <Marker
@@ -93,14 +100,18 @@ const MapComponent = ({ mapPoints, selectedPlayerId }) => {
             icon={createCustomMarker()}
             data-player-id={point.player_id}
           >
-            <Popup>{point.name}</Popup>
+            <Popup>
+              <strong>{point.name}</strong><br />
+              {popupMode === 'birthplace' ? point.birthplace : point.club}
+            </Popup>
           </Marker>
         ))}
       </MarkerClusterGroup>
 
-      <MapUpdater mapPoints={mapPoints} selectedPlayerId={selectedPlayerId} />
+      <MapUpdater mapPoints={mapPoints} selectedPlayerId={selectedPlayerId} popupMode={popupMode} />
     </MapContainer>
   );
 };
+
 
 export default MapComponent;
