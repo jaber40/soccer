@@ -24,13 +24,11 @@ const createClusterMarker = (count) => {
   });
 };
 
-// Handles zooming and popups
 const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
   const map = useMap();
 
   useEffect(() => {
-    // Close any open popup before changing the selection
-    map.closePopup();
+    map.closePopup(); // Close any open popup before changing selection
 
     if (mapPoints.length > 0) {
       if (selectedPlayerId) {
@@ -38,25 +36,27 @@ const MapUpdater = ({ mapPoints, selectedPlayerId }) => {
 
         if (selectedPoint) {
           console.log('Zooming to:', selectedPoint.lat, selectedPoint.lng);
-
-          // Fix centering issue: Ensure Leaflet recalculates the map size and flyTo()
-          map.invalidateSize();  
+          map.invalidateSize();
           map.flyTo([selectedPoint.lat, selectedPoint.lng], 6, { animate: true });
 
-          // Open popup at the selected player’s location
           L.popup()
             .setLatLng([selectedPoint.lat, selectedPoint.lng])
             .setContent(selectedPoint.name)
             .openOn(map);
         }
       } else {
-        // Fit all points within view
         const bounds = mapPoints.map(point => [point.lat, point.lng]);
         if (bounds.length > 0) {
-          map.invalidateSize();  
+          map.invalidateSize();
           map.fitBounds(bounds, { padding: [50, 50] });
         }
       }
+    } else {
+      // **Force a view reset when no points exist**
+      setTimeout(() => {
+        map.invalidateSize();
+        map.setView([20, 0], 2); // Reset to default world view
+      }, 300); // Slight delay to ensure state updates
     }
   }, [mapPoints, selectedPlayerId, map]);
 
