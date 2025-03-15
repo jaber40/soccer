@@ -55,7 +55,9 @@ function App() {
               lat: mapView === "birthplace" ? player.player_x : player.club_x,
               lng: mapView === "birthplace" ? player.player_y : player.club_y,
               club: player.club_name,
+              league: player.league_name,
               birthplace: player.player_city_name,
+              birth_country: player.country_name,
               name: player.player_name,
             }));
           setMapPoints(points);

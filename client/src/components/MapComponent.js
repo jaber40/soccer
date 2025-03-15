@@ -42,8 +42,8 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode }) => {
           // Update popup content based on popupMode
           const popupContent =
             popupMode === 'birthplace'
-              ? `<strong>${selectedPoint.name}</strong><br>${selectedPoint.birthplace}`
-              : `<strong>${selectedPoint.name}</strong><br>${selectedPoint.club}`;
+              ? `<strong>${selectedPoint.name}</strong><br>${selectedPoint.birthplace}, ${selectedPoint.birth_country}`
+              : `<strong>${selectedPoint.name}</strong><br>${selectedPoint.club}<br>${selectedPoint.league}`;
 
           setTimeout(() => {
             L.popup()
@@ -102,7 +102,7 @@ const MapComponent = ({ mapPoints, selectedPlayerId, popupMode }) => {
         mouseover: (e) => {
           const popupContent = `
             <strong>${point.name}</strong><br>
-            ${popupMode === 'birthplace' ? point.birthplace : point.club}
+            ${popupMode === 'birthplace' ? `${point.birthplace}, ${point.birth_country}` : `${point.club}<br>${point.league}`}
           `;
 
           const popup = L.popup()
