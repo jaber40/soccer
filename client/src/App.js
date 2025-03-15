@@ -177,7 +177,7 @@ function App() {
         </div>
       )}
 
-      <MapComponent mapPoints={mapPoints} selectedPlayerId={selectedPlayer} />
+      <MapComponent mapPoints={mapPoints} selectedPlayerId={selectedPlayer} popupMode={mapView} />
 
       {playerData.length > 0 && <DataTable playerData={playerData} />}
 
