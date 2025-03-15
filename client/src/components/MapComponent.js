@@ -93,20 +93,33 @@ const MapComponent = ({ mapPoints, selectedPlayerId, popupMode }) => {
         spiderfyOnEveryZoom={true}
         disableClusteringAtZoom={null}
       >
-        {mapPoints.map((point, index) => (
-          <Marker
-            key={index}
-            position={[point.lat, point.lng]}
-            icon={createCustomMarker()}
-            data-player-id={point.player_id}
-          >
-            <Popup>
-              <strong>{point.name}</strong><br />
-              {popupMode === 'birthplace' ? point.birthplace : point.club}
-            </Popup>
-          </Marker>
-        ))}
-      </MarkerClusterGroup>
+  {mapPoints.map((point, index) => (
+    <Marker
+      key={index}
+      position={[point.lat, point.lng]}
+      icon={createCustomMarker()}
+      eventHandlers={{
+        mouseover: (e) => {
+          const popupContent = `
+            <strong>${point.name}</strong><br>
+            ${popupMode === 'birthplace' ? point.birthplace : point.club}
+          `;
+
+          const popup = L.popup()
+            .setLatLng(e.latlng)
+            .setContent(popupContent)
+            .openOn(e.target._map);
+
+          e.target.bindPopup(popup).openPopup();
+        },
+        mouseout: (e) => {
+          e.target.closePopup();
+        },
+      }}
+    />
+  ))}
+</MarkerClusterGroup>
+
 
       <MapUpdater mapPoints={mapPoints} selectedPlayerId={selectedPlayerId} popupMode={popupMode} />
     </MapContainer>
