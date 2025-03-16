@@ -2,33 +2,25 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import MarkerClusterGroup from 'react-leaflet-markercluster'; // Import MarkerClusterGroup
+import MarkerClusterGroup from 'react-leaflet-markercluster';
+import '../App.css'; // Import the updated App.css
 
-// Define a custom marker for individual points (Orange-Peach)
-const createCustomMarker = () => {
-  return L.divIcon({
-    className: 'custom-marker-icon',
-    html: `<div style="background-color: #FF8000; color: white; padding: 0px; border-radius: 50%; font-size: 4px; display: flex; align-items: center; justify-content: center; width: 10px; height: 10px; border: 1px solid black;"></div>`,
-    iconSize: [10, 10],
-    iconAnchor: [5, 5],
-  });
-};
+// Define a custom marker for individual points
+const createCustomMarker = () => L.divIcon({
+  className: 'custom-marker-icon'
+});
 
 // Define a custom cluster marker
-const createClusterMarker = (count) => {
-  return L.divIcon({
-    className: 'custom-cluster-icon',
-    html: `<div style="background-color: #FF8000; color: black; padding: 5px 8px; border-radius: 50%; font-size: 10px; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border: 1px solid black;">${count}</div>`,
-    iconSize: [20, 20],
-    iconAnchor: [10, 10],
-  });
-};
+const createClusterMarker = (count) => L.divIcon({
+  className: 'custom-cluster-icon',
+  html: `${count}`
+});
 
 const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode }) => {
   const map = useMap();
 
   useEffect(() => {
-    map.closePopup(); // Close any existing popups
+    map.closePopup();
 
     if (mapPoints.length > 0) {
       if (selectedPlayerId) {
@@ -39,18 +31,16 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode }) => {
           map.invalidateSize();
           map.flyTo([selectedPoint.lat, selectedPoint.lng], 6, { animate: true });
 
-          // Update popup content based on popupMode
-          const popupContent =
-            popupMode === 'birthplace'
-              ? `<strong>${selectedPoint.name}</strong><br>${selectedPoint.birthplace}, ${selectedPoint.birth_country}`
-              : `<strong>${selectedPoint.name}</strong><br>${selectedPoint.club}<br>${selectedPoint.league}`;
+          const popupContent = popupMode === 'birthplace'
+            ? `<strong>${selectedPoint.name}</strong><br>${selectedPoint.birthplace}, ${selectedPoint.birth_country}`
+            : `<strong>${selectedPoint.name}</strong><br>${selectedPoint.club}<br>${selectedPoint.league}`;
 
           setTimeout(() => {
             L.popup()
               .setLatLng([selectedPoint.lat, selectedPoint.lng])
               .setContent(popupContent)
               .openOn(map);
-          }, 300); // Small delay to ensure popup updates
+          }, 300);
         }
       } else {
         const bounds = mapPoints.map(point => [point.lat, point.lng]);
@@ -69,7 +59,6 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode }) => {
 
   return null;
 };
-
 
 const MapComponent = ({ mapPoints, selectedPlayerId, popupMode }) => {
   return (
@@ -93,38 +82,37 @@ const MapComponent = ({ mapPoints, selectedPlayerId, popupMode }) => {
         spiderfyOnEveryZoom={true}
         disableClusteringAtZoom={null}
       >
-  {mapPoints.map((point, index) => (
-    <Marker
-      key={index}
-      position={[point.lat, point.lng]}
-      icon={createCustomMarker()}
-      eventHandlers={{
-        mouseover: (e) => {
-          const popupContent = `
-            <strong>${point.name}</strong><br>
-            ${popupMode === 'birthplace' ? `${point.birthplace}, ${point.birth_country}` : `${point.club}<br>${point.league}`}
-          `;
+        {mapPoints.map((point, index) => (
+          <Marker
+            key={index}
+            position={[point.lat, point.lng]}
+            icon={createCustomMarker()}
+            eventHandlers={{
+              mouseover: (e) => {
+                const popupContent = `
+                  <strong>${point.name}</strong><br>
+                  ${popupMode === 'birthplace' ? `${point.birthplace}, ${point.birth_country}` : `${point.club}<br>${point.league}`}
+                `;
 
-          const popup = L.popup()
-            .setLatLng(e.latlng)
-            .setContent(popupContent)
-            .openOn(e.target._map);
+                const popup = L.popup()
+                  .setLatLng(e.latlng)
+                  .setContent(popupContent)
+                  .openOn(e.target._map);
 
-          e.target.bindPopup(popup).openPopup();
-        },
-        mouseout: (e) => {
-          e.target.closePopup();
-        },
-      }}
-    />
-  ))}
-</MarkerClusterGroup>
-
+                e.target.bindPopup(popup).openPopup();
+              },
+              mouseout: (e) => {
+                e.target.closePopup();
+              },
+            }}
+          />
+        ))}
+      </MarkerClusterGroup>
 
       <MapUpdater mapPoints={mapPoints} selectedPlayerId={selectedPlayerId} popupMode={popupMode} />
     </MapContainer>
   );
 };
 
-
 export default MapComponent;
+

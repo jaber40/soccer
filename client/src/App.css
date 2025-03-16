@@ -29,22 +29,30 @@
 }
 
 .custom-marker-icon {
-  width: 20px;
-  height: 20px;
-  background-color: green;
+  width: 10px;
+  height: 10px;
+  background-color: #FF8000;
   border-radius: 50%;
-  border: 2px solid white;
+  border: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Optional shadow for better visibility */
+  font-size: 4px;
+  color: white;
 }
 
-.custom-marker-icon div {
-  text-align: center;
-  font-size: 12px; /* Adjust size of the text */
-  color: white;
-  font-weight: bold;
+.custom-cluster-icon {
+  background-color: #FF8000;
+  color: black;
+  padding: 5px 8px;
+  border-radius: 50%;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
 }
 
 @keyframes App-logo-spin {
@@ -57,4 +65,3 @@
 }
 
 @import 'leaflet/dist/leaflet.css';
-
