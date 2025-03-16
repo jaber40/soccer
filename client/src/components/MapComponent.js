@@ -16,6 +16,11 @@ const createClusterMarker = (count) => L.divIcon({
   html: `${count}`
 });
 
+// Define a custom country marker
+const createCountryMarker = (count) => L.divIcon({
+  className: 'country-cluster-icon',
+});
+
 const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode }) => {
   const map = useMap();
 
