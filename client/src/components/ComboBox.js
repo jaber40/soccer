@@ -5,17 +5,33 @@ import axios from 'axios';
 const TournamentSelect = ({ onTournamentChange }) => {
   const [tournaments, setTournaments] = useState([]); // State to store tournament data
   const [selectedTournament, setSelectedTournament] = useState(''); // State for selected tournament
+  const [countriesData, setCountriesData] = useState([]); // State to store countries.json data
+  const [filteredCountries, setFilteredCountries] = useState([]); // State for filtered countries based on selected tournament
 
   // Fetch tournament data from the server
   useEffect(() => {
     axios.get('http://localhost:5000/api/tournaments') // Make API call to fetch tournaments
       .then((response) => {
+        console.log('Tournaments fetched:', response.data); // Log tournaments data
         setTournaments(response.data); // Populate the tournaments state
       })
       .catch((error) => {
         console.error('Error fetching tournaments:', error); // Handle errors
       });
   }, []); // Empty dependency array to fetch once when the component mounts
+
+  // Fetch countries data from countries.json (located in /public)
+  useEffect(() => {
+    fetch('/countries.json') // Fetch from public directory
+      .then(response => response.json())
+      .then(data => {
+        console.log('Countries data fetched:', data); // Log countries.json data
+        setCountriesData(data); // Set the countries data
+      })
+      .catch((error) => {
+        console.error('Error fetching countries.json:', error);
+      });
+  }, []); // This should only run once when the component mounts
 
   // Handle the selection change
   const handleChange = (event) => {
@@ -25,6 +41,38 @@ const TournamentSelect = ({ onTournamentChange }) => {
 
     onTournamentChange(tournamentId); // Pass the tournament_id to the parent
   };
+
+  // Function to filter and match countries with coordinates based on the selected tournament
+  const matchCountryCoordinates = (countries) => {
+    console.log('Matching countries with coordinates...');
+    const matchedCountries = countries.map(country => {
+      const countryData = countriesData.find(c => c.country_name === country.country_name);
+      if (countryData) {
+        console.log(`Matched country: ${country.country_name} - Coordinates: (${countryData.x}, ${countryData.y})`);
+        return { ...country, x: countryData.x, y: countryData.y };
+      } else {
+        console.log(`No coordinates found for country: ${country.country_name}`);
+        return country;
+      }
+    });
+    console.log('Matched countries:', matchedCountries);
+    return matchedCountries;
+  };
+
+  // Use this effect to update the filtered countries when a tournament is selected
+  useEffect(() => {
+    if (selectedTournament) {
+      axios.get(`http://localhost:5000/api/countries/${selectedTournament}`)
+        .then((response) => {
+          const filtered = response.data;
+          const matchedCountries = matchCountryCoordinates(filtered); // Match coordinates
+          setFilteredCountries(matchedCountries); // Set filtered countries with coordinates
+        })
+        .catch((error) => {
+          console.error('Error fetching countries:', error);
+        });
+    }
+  }, [selectedTournament, countriesData]);
 
   return (
     <div>
@@ -46,3 +94,4 @@ const TournamentSelect = ({ onTournamentChange }) => {
 };
 
 export default TournamentSelect;
+
