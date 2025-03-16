@@ -13,12 +13,27 @@ function App() {
   const [selectedPlayer, setSelectedPlayer] = useState("");
   const [playerData, setPlayerData] = useState([]);
   const [mapPoints, setMapPoints] = useState([]);
-  const [mapView, setMapView] = useState("club"); // Handle map view state here
+  const [mapView, setMapView] = useState("club");
   const [selectedPlayerDetails, setSelectedPlayerDetails] = useState(null);
   const [countries, setCountries] = useState([]);
+  const [matchedCountries, setMatchedCountries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [players, setPlayers] = useState([]);
+  const [countriesData, setCountriesData] = useState([]); // State for countries.json data
+
+  // Fetch countries.json from the public folder
+  useEffect(() => {
+    fetch('/countries.json') // Fetch from the public directory
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Countries data fetched:', data);  // Log countries.json data
+        setCountriesData(data); // Set countries data from JSON
+      })
+      .catch((error) => {
+        console.error('Error fetching countries.json:', error);
+      });
+  }, []);
 
   useEffect(() => {
     if (selectedTournamentId) {
@@ -26,19 +41,44 @@ function App() {
       fetch(`http://localhost:5000/api/countries/${selectedTournamentId}`)
         .then((response) => response.json())
         .then((data) => {
+          console.log('Countries fetched for tournament:', data);  // Log countries data
           setCountries(data);
+          const matchedCountries = matchCountryCoordinates(data); // Match countries with coordinates
+          setMatchedCountries(matchedCountries);
           setLoading(false);
         })
         .catch((error) => {
           console.error("Error fetching countries:", error);
           setCountries([]);
+          setMatchedCountries([]); // Reset matched countries on error
           setError("Failed to load countries.");
           setLoading(false);
         });
     } else {
       setCountries([]);
+      setMatchedCountries([]);
     }
-  }, [selectedTournamentId]);
+  }, [selectedTournamentId, countriesData]);
+
+// Function to match countries with coordinates from countries.json
+const matchCountryCoordinates = (countries) => {
+  const matched = countries.map((country) => {
+    const countryData = countriesData.find((c) => c.country_name === country.country_name);
+    const result = countryData
+      ? { 
+          ...country, 
+          x: Number(countryData.x),  
+          y: Number(countryData.y)   
+        } 
+      : country;
+
+    console.log("Matching country:", country.country_name, "=>", result); // Debugging log
+    return result;
+  });
+
+  console.log("Final matched countries:", matched); // Log the full result
+  return matched;
+};
 
   useEffect(() => {
     if (selectedCountry && selectedTournamentId) {
@@ -51,7 +91,7 @@ function App() {
           const points = data
             .filter((player) => player.player_x && player.player_y)
             .map((player) => ({
-              player_id: player.player_id, // Add player_id here
+              player_id: player.player_id,
               lat: mapView === "birthplace" ? player.player_x : player.club_x,
               lng: mapView === "birthplace" ? player.player_y : player.club_y,
               club: player.club_name,
@@ -89,14 +129,13 @@ function App() {
     setPlayers([]);
   };
 
-   // Handle ComboBox3 change (selecting a player)
   const handlePlayerChange = (playerId) => {
-    setSelectedPlayer(playerId); // This will update the selected player and trigger map zoom
-    console.log('Selected Player ID:', playerId);  // Verify the change
+    setSelectedPlayer(playerId);
+    console.log('Selected Player ID:', playerId);
   };
 
   const handleMapViewChange = (event) => {
-    setMapView(event.target.value); // Update map view
+    setMapView(event.target.value);
   };
 
   useEffect(() => {
@@ -115,11 +154,17 @@ function App() {
     }
   }, [selectedPlayer, selectedTournamentId]);
 
+  console.log("Props sent to MapComponent:", { mapPoints, matchedCountries });
+  
   return (
     <div className="App">
       <h3>International Soccer</h3>
 
-      <TournamentSelect onTournamentChange={handleTournamentChange} />
+      <TournamentSelect
+        onTournamentChange={handleTournamentChange}
+        setMatchedCountries={setMatchedCountries}
+      />
+
 
       {selectedTournamentId && (
         <CountrySelect
@@ -179,10 +224,9 @@ function App() {
         </div>
       )}
 
-      <MapComponent mapPoints={mapPoints} selectedPlayerId={selectedPlayer} popupMode={mapView} />
+      <MapComponent mapPoints={mapPoints} selectedPlayerId={selectedPlayer} popupMode={mapView} matchedCountries={matchedCountries} />
 
       {playerData.length > 0 && <DataTable playerData={playerData} />}
-
     </div>
   );
 }

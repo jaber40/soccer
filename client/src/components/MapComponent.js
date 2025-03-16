@@ -1,5 +1,5 @@
 // client/src/components/MapComponent.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
@@ -17,16 +17,27 @@ const createClusterMarker = (count) => L.divIcon({
 });
 
 // Define a custom country marker
-const createCountryMarker = (count) => L.divIcon({
-  className: 'country-cluster-icon',
+const createCountryMarker = (countryName) => L.divIcon({
+  className: 'country-marker-icon',
+  html: `<div class="country-marker">${countryName}</div>`
 });
 
-const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode }) => {
+const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints }) => {
   const map = useMap();
 
   useEffect(() => {
     map.closePopup();
 
+    // Remove previous markers and country points when selection changes
+    if (mapPoints.length > 0 || countryPoints.length > 0) {
+      map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+          map.removeLayer(layer);
+        }
+      });
+    }
+
+    // Render player markers (existing functionality)
     if (mapPoints.length > 0) {
       if (selectedPlayerId) {
         const selectedPoint = mapPoints.find(point => Number(point.player_id) === Number(selectedPlayerId));
@@ -60,17 +71,56 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode }) => {
         map.setView([20, 0], 2);
       }, 300);
     }
-  }, [mapPoints, selectedPlayerId, popupMode, map]);
+
+    // Render country markers with x, y coordinates
+    if (countryPoints.length > 0) {
+      countryPoints.forEach((point) => {
+      console.log('Rendering country marker:', point);
+    if (point.lat && point.lng) {  // Ensure valid coordinates
+      const icon = createCountryMarker(point.name);
+      console.log('Marker icon:', icon); // Log the created icon
+      L.marker([point.lng, point.lat], { icon }).addTo(map); // Add marker directly without popup
+  } else {
+    console.error('Invalid coordinates for country:', point);
+  }
+});
+
+    }
+
+  }, [mapPoints, selectedPlayerId, popupMode, map, countryPoints]);
 
   return null;
 };
 
-const MapComponent = ({ mapPoints, selectedPlayerId, popupMode }) => {
+const MapComponent = ({ mapPoints, selectedPlayerId, popupMode, matchedCountries }) => {
+  const [countryPoints, setCountryPoints] = useState([]);
+
+  useEffect(() => {
+    if (matchedCountries && matchedCountries.length > 0) {
+      // Filter matched countries and get their coordinates
+      const filteredCountries = matchedCountries.map(country => ({
+        name: country.country_name,
+        lat: country.x,  // Assuming 'x' is latitude
+        lng: country.y,  // Assuming 'y' is longitude
+      }));
+
+      // Check if the country coordinates are valid
+      filteredCountries.forEach((country) => {
+        if (!country.lat || !country.lng) {
+          console.error('Invalid coordinates found:', country);
+        }
+      });
+
+      setCountryPoints(filteredCountries);
+      console.log("Filtered countries with coordinates:", filteredCountries);  // Log for debugging
+    }
+  }, [matchedCountries]);
+
   return (
-    <MapContainer 
-      center={[20, 0]} 
-      zoom={2} 
-      maxBounds={[[-90, -180], [90, 180]]} 
+    <MapContainer
+      center={[20, 0]}
+      zoom={2}
+      maxBounds={[[-90, -180], [90, 180]]}
       style={{ height: "500px", width: "100%" }}
     >
       <TileLayer
@@ -114,10 +164,14 @@ const MapComponent = ({ mapPoints, selectedPlayerId, popupMode }) => {
         ))}
       </MarkerClusterGroup>
 
-      <MapUpdater mapPoints={mapPoints} selectedPlayerId={selectedPlayerId} popupMode={popupMode} />
+      <MapUpdater
+        mapPoints={mapPoints}
+        selectedPlayerId={selectedPlayerId}
+        popupMode={popupMode}
+        countryPoints={countryPoints}
+      />
     </MapContainer>
   );
 };
 
 export default MapComponent;
-
