@@ -1,4 +1,5 @@
 // client/src/components/MapComponent.js
+// client/src/components/MapComponent.js
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -22,35 +23,68 @@ const createCountryMarker = (countryName) => L.divIcon({
   html: `<div class="country-marker">${countryName}</div>`
 });
 
-const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints }) => {
+const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints, clearCountryMarkers }) => {
   const map = useMap();
 
   useEffect(() => {
     map.closePopup();
 
-    // Remove previous markers and country points when selection changes
-    if (mapPoints.length > 0 || countryPoints.length > 0) {
+    console.log('Num of country points:', countryPoints.length);
+    console.log('Num of map points:', mapPoints.length);
+
+    if (mapPoints.length < 1 && countryPoints.length > 0) {
+      map.setView([20, 0], 2); // Resets zoom to the full world view
+    }
+
+    // Remove ALL previous markers when tournament or country selection changes
+    map.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        map.removeLayer(layer);
+      }
+    });
+
+     // Render country markers
+    if (countryPoints.length > 0) {
+      countryPoints.forEach((point) => {
+        if (point.lat && point.lng) {
+          const icon = createCountryMarker(point.name);
+          L.marker([point.lat, point.lng], { icon }).addTo(map);
+        } else {
+          console.error('Invalid coordinates for country:', point);
+        }
+      });
+      //map.setView([20, 0], 2); // Resets zoom to the full world view
+    }
+
+    if (mapPoints.length > 0 && countryPoints.length > 0) {
       map.eachLayer((layer) => {
-        if (layer instanceof L.Marker) {
+        if (layer instanceof L.Marker && layer.options.icon.options.className === 'country-marker-icon') {
           map.removeLayer(layer);
         }
       });
     }
 
-    // Render player markers (existing functionality)
+       // Zoom to the extent of player markers (requested update)
+    if (mapPoints.length > 0) {
+      const latitudes = mapPoints.map(point => point.lat);
+      const longitudes = mapPoints.map(point => point.lng);
+      const bounds = [
+        [Math.min(...latitudes), Math.min(...longitudes)],
+        [Math.max(...latitudes), Math.max(...longitudes)]
+      ];
+      map.fitBounds(bounds, { padding: [50, 50] }); // Adjust padding if needed
+    }
+
+    // Render player markers
     if (mapPoints.length > 0) {
       if (selectedPlayerId) {
         const selectedPoint = mapPoints.find(point => Number(point.player_id) === Number(selectedPlayerId));
-
         if (selectedPoint) {
-          console.log('Zooming to:', selectedPoint.lat, selectedPoint.lng);
           map.invalidateSize();
           map.flyTo([selectedPoint.lat, selectedPoint.lng], 6, { animate: true });
-
           const popupContent = popupMode === 'birthplace'
             ? `<strong>${selectedPoint.name}</strong><br>${selectedPoint.birthplace}, ${selectedPoint.birth_country}`
             : `<strong>${selectedPoint.name}</strong><br>${selectedPoint.club}<br>${selectedPoint.league}`;
-
           setTimeout(() => {
             L.popup()
               .setLatLng([selectedPoint.lat, selectedPoint.lng])
@@ -58,36 +92,10 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints }) =
               .openOn(map);
           }, 300);
         }
-      } else {
-        const bounds = mapPoints.map(point => [point.lat, point.lng]);
-        if (bounds.length > 0) {
-          map.invalidateSize();
-          map.fitBounds(bounds, { padding: [50, 50] });
-        }
       }
-    } else {
-      setTimeout(() => {
-        map.invalidateSize();
-        map.setView([20, 0], 2);
-      }, 300);
     }
 
-    // Render country markers with x, y coordinates
-    if (countryPoints.length > 0) {
-      countryPoints.forEach((point) => {
-      console.log('Rendering country marker:', point);
-    if (point.lat && point.lng) {  // Ensure valid coordinates
-      const icon = createCountryMarker(point.name);
-      console.log('Marker icon:', icon); // Log the created icon
-      L.marker([point.lng, point.lat], { icon }).addTo(map); // Add marker directly without popup
-  } else {
-    console.error('Invalid coordinates for country:', point);
-  }
-});
-
-    }
-
-  }, [mapPoints, selectedPlayerId, popupMode, map, countryPoints]);
+  }, [mapPoints, selectedPlayerId, popupMode, map, countryPoints, clearCountryMarkers]);
 
   return null;
 };
@@ -97,22 +105,20 @@ const MapComponent = ({ mapPoints, selectedPlayerId, popupMode, matchedCountries
 
   useEffect(() => {
     if (matchedCountries && matchedCountries.length > 0) {
-      // Filter matched countries and get their coordinates
+      console.log("Matched Countries:", matchedCountries);
+      
+      // Clear country markers when ComboBox2 selection changes
+      setCountryPoints([]);
+
       const filteredCountries = matchedCountries.map(country => ({
         name: country.country_name,
-        lat: country.x,  // Assuming 'x' is latitude
-        lng: country.y,  // Assuming 'y' is longitude
+        lat: country.y,  // Fix: 'y' is latitude
+        lng: country.x,  // Fix: 'x' is longitude
       }));
 
-      // Check if the country coordinates are valid
-      filteredCountries.forEach((country) => {
-        if (!country.lat || !country.lng) {
-          console.error('Invalid coordinates found:', country);
-        }
-      });
-
       setCountryPoints(filteredCountries);
-      console.log("Filtered countries with coordinates:", filteredCountries);  // Log for debugging
+    } else {
+      setCountryPoints([]); // Ensure clearing when no matched countries
     }
   }, [matchedCountries]);
 
@@ -148,12 +154,10 @@ const MapComponent = ({ mapPoints, selectedPlayerId, popupMode, matchedCountries
                   <strong>${point.name}</strong><br>
                   ${popupMode === 'birthplace' ? `${point.birthplace}, ${point.birth_country}` : `${point.club}<br>${point.league}`}
                 `;
-
                 const popup = L.popup()
                   .setLatLng(e.latlng)
                   .setContent(popupContent)
                   .openOn(e.target._map);
-
                 e.target.bindPopup(popup).openPopup();
               },
               mouseout: (e) => {
@@ -169,6 +173,7 @@ const MapComponent = ({ mapPoints, selectedPlayerId, popupMode, matchedCountries
         selectedPlayerId={selectedPlayerId}
         popupMode={popupMode}
         countryPoints={countryPoints}
+        clearCountryMarkers={() => setCountryPoints([])} // Pass clearing function
       />
     </MapContainer>
   );
