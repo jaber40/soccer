@@ -40,9 +40,9 @@ const CountrySelect = ({
 
     // Prevent redundant updates if the country is already selected
     if (countryId === selectedCountry) return;
-
-    setSelectedCountry(countryId); // Set the selected country
     setSelectedPlayer(""); // Reset the selected player when country changes
+    setSelectedCountry(countryId); // Set the selected country
+    
     setSelectedPlayerDetails(null); // Reset selected player details when country changes
     setPlayerData([]);  // Reset playerData if country changes
   };

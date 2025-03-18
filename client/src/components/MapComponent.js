@@ -1,5 +1,4 @@
 // client/src/components/MapComponent.js
-// client/src/components/MapComponent.js
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -33,7 +32,15 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints, cle
     console.log('Num of map points:', mapPoints.length);
 
     if (mapPoints.length < 1 && countryPoints.length > 0) {
-      map.setView([20, 0], 2); // Resets zoom to the full world view
+      //map.setView([20, 0], 2); // Resets zoom to the full world view
+      const latitudes = countryPoints.map(point => point.lat);
+  const longitudes = countryPoints.map(point => point.lng);
+  const countryBounds = [
+    [Math.min(...latitudes), Math.min(...longitudes)],
+    [Math.max(...latitudes), Math.max(...longitudes)]
+  ];
+
+  map.fitBounds(countryBounds, { padding: [50, 50] });
     }
 
     // Remove ALL previous markers when tournament or country selection changes
@@ -60,40 +67,43 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints, cle
       map.eachLayer((layer) => {
         if (layer instanceof L.Marker && layer.options.icon.options.className === 'country-marker-icon') {
           map.removeLayer(layer);
-        }
+        } 
       });
     }
 
-       // Zoom to the extent of player markers (requested update)
-    if (mapPoints.length > 0) {
-      const latitudes = mapPoints.map(point => point.lat);
-      const longitudes = mapPoints.map(point => point.lng);
-      const bounds = [
-        [Math.min(...latitudes), Math.min(...longitudes)],
-        [Math.max(...latitudes), Math.max(...longitudes)]
-      ];
-      map.fitBounds(bounds, { padding: [50, 50] }); // Adjust padding if needed
-    }
+// Update: Zoom to the extent of player markers and render player markers
+if (selectedPlayerId) {
+  // If a player is selected, zoom to their location
+  const selectedPoint = mapPoints.find(point => Number(point.player_id) === Number(selectedPlayerId));
+  if (selectedPoint) {
+    map.invalidateSize();
+    map.flyTo([selectedPoint.lat, selectedPoint.lng], 6, { animate: true }); // Fly to selected player
+    const popupContent = popupMode === 'birthplace'
+      ? `<strong>${selectedPoint.name}</strong><br>${selectedPoint.birthplace}, ${selectedPoint.birth_country}`
+      : `<strong>${selectedPoint.name}</strong><br>${selectedPoint.club}<br>${selectedPoint.league}`;
+    setTimeout(() => {
+      L.popup()
+        .setLatLng([selectedPoint.lat, selectedPoint.lng])
+        .setContent(popupContent)
+        .openOn(map);
+    }, 300);
+  }
+} else if (mapPoints.length > 0) {
+  // If no player is selected but there are player points, zoom to bounds of all players
+  const latitudes = mapPoints.map(point => point.lat);
+  const longitudes = mapPoints.map(point => point.lng);
+  const bounds = [
+    [Math.min(...latitudes), Math.min(...longitudes)],
+    [Math.max(...latitudes), Math.max(...longitudes)]
+  ];
 
-    // Render player markers
-    if (mapPoints.length > 0) {
-      if (selectedPlayerId) {
-        const selectedPoint = mapPoints.find(point => Number(point.player_id) === Number(selectedPlayerId));
-        if (selectedPoint) {
-          map.invalidateSize();
-          map.flyTo([selectedPoint.lat, selectedPoint.lng], 6, { animate: true });
-          const popupContent = popupMode === 'birthplace'
-            ? `<strong>${selectedPoint.name}</strong><br>${selectedPoint.birthplace}, ${selectedPoint.birth_country}`
-            : `<strong>${selectedPoint.name}</strong><br>${selectedPoint.club}<br>${selectedPoint.league}`;
-          setTimeout(() => {
-            L.popup()
-              .setLatLng([selectedPoint.lat, selectedPoint.lng])
-              .setContent(popupContent)
-              .openOn(map);
-          }, 300);
-        }
-      }
-    }
+  // Zoom to the bounds of player markers
+  map.fitBounds(bounds, { padding: [50, 50] });
+}
+
+// Optionally clear selected player when a country is selected (in parent component, for example)
+
+
 
   }, [mapPoints, selectedPlayerId, popupMode, map, countryPoints, clearCountryMarkers]);
 
