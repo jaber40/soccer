@@ -226,7 +226,13 @@ const matchCountryCoordinates = (countries) => {
 
       <MapComponent mapPoints={mapPoints} selectedPlayerId={selectedPlayer} popupMode={mapView} matchedCountries={matchedCountries} />
 
-      {playerData.length > 0 && <DataTable playerData={playerData} />}
+      {playerData.length > 0 && <DataTable 
+                                playerData={playerData} 
+                                setSelectedPlayer={setSelectedPlayer} 
+                                setSelectedPlayerDetails={setSelectedPlayerDetails} 
+                                players={players} 
+                                />
+}
     </div>
   );
 }

@@ -1,7 +1,16 @@
 //client/src/components/DataTable.js
 import React from "react";
 
-const DataTable = ({ playerData }) => {
+const DataTable = ({ playerData, setSelectedPlayer, setSelectedPlayerDetails, players }) => {
+  
+  const handleRowDoubleClick = (playerId) => {
+    setSelectedPlayer(playerId);
+    const player = players.find((p) => p.player_id === parseInt(playerId));
+    if (player) {
+      setSelectedPlayerDetails(player);
+    }
+  };
+
   return (
     <div>
       <table border="1" className="data-table">
@@ -21,7 +30,11 @@ const DataTable = ({ playerData }) => {
         <tbody>
           {playerData.length > 0 ? (
             playerData.map((player) => (
-              <tr key={player.player_id}> {/* Use unique player_id as key */}
+              <tr 
+                key={player.player_id} 
+                onDoubleClick={() => handleRowDoubleClick(player.player_id)} 
+                style={{ cursor: "pointer" }}
+              >
                 <td>{player.number}</td>
                 <td>{player.player_name}</td>
                 <td>{player.position}</td>
