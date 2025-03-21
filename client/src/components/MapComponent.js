@@ -34,13 +34,6 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints }) =
     console.log('Num of country points:', countryPoints.length);
     console.log('Num of map points:', mapPoints.length);
 
-    // Remove previous player markers but keep country markers
-    //map.eachLayer((layer) => {
-     // if (layer instanceof L.Marker && !layer.options.icon?.options?.className?.includes('country-marker')) {
-       // map.removeLayer(layer);
-      //}
-    //});
-
    // Remove ALL previous markers when tournament or country selection changes
     map.eachLayer((layer) => {
       if (layer instanceof L.Marker) {
@@ -90,8 +83,17 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints }) =
           map.flyTo([selectedPoint.lat, selectedPoint.lng], 6, { animate: true });
 
           const popupContent = popupMode === 'birthplace'
-            ? `<strong>${selectedPoint.name}</strong><br>${selectedPoint.birthplace}, ${selectedPoint.birth_country}`
-            : `<strong>${selectedPoint.name}</strong><br>${selectedPoint.club}<br>${selectedPoint.league}`;
+          ? `
+            <div class="popup-content">
+            <strong>${selectedPoint.name}</strong><br>
+            ${selectedPoint.birthplace}, ${selectedPoint.birth_country}
+        </div>`
+        : `
+        <div class="popup-content">
+          <strong>${selectedPoint.name}</strong><br>
+          ${selectedPoint.club}<br>
+          ${selectedPoint.league}
+        </div>`;
 
           setTimeout(() => {
             if (renderId !== latestRender.current) return;
@@ -170,9 +172,15 @@ const MapComponent = ({ mapPoints, selectedPlayerId, popupMode, matchedCountries
             eventHandlers={{
               mouseover: (e) => {
                 const popupContent = `
-                  <strong>${point.name}</strong><br>
-                  ${popupMode === 'birthplace' ? `${point.birthplace}, ${point.birth_country}` : `${point.club}<br>${point.league}`}
-                `;
+  <div class="popup-content">
+    <strong>${point.name}</strong><br>
+    ${popupMode === 'birthplace' 
+      ? `${point.birthplace}, ${point.birth_country}`
+      : `${point.club}<br>${point.league}`
+    }
+  </div>
+`;
+
                 const popup = L.popup()
                   .setLatLng(e.latlng)
                   .setContent(popupContent)

@@ -28,6 +28,19 @@
   color: #61dafb;
 }
 
+.popup-content {
+  text-align: center;
+  background-color: rgba(128, 128, 128, 0.5) !important;
+  padding: 10px;
+  border: 1px solid black; /* Black border */
+  border-radius: 5px; /* Optional: rounded corners */
+}
+
+.popup-content img {
+  display: block;
+  margin: 0 auto;
+}
+
 .custom-marker-icon {
   width: 10px;
   height: 10px;

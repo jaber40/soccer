@@ -90,6 +90,7 @@ const matchCountryCoordinates = (countries) => {
           setPlayerData(data);
           const points = data
             .filter((player) => player.player_x && player.player_y)
+          
             .map((player) => ({
               player_id: player.player_id,
               lat: mapView === "birthplace" ? player.player_x : player.club_x,
@@ -98,6 +99,7 @@ const matchCountryCoordinates = (countries) => {
               league: player.league_name,
               birthplace: player.player_city_name,
               birth_country: player.country_name,
+              image: player.image_url,
               name: player.player_name,
             }));
           setMapPoints(points);
@@ -217,6 +219,7 @@ const matchCountryCoordinates = (countries) => {
 
       {selectedPlayerDetails && (
         <div>
+          <img src={`images/players/${selectedPlayerDetails.player_id}.jpg`} alt={selectedPlayerDetails.player_name} width="90" height="135" />
           <p>Selected Player: {selectedPlayerDetails.player_name}</p>
           <p>Position: {selectedPlayerDetails.position}</p>
           <p>Age: {selectedPlayerDetails.age}</p>
