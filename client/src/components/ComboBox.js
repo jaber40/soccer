@@ -1,4 +1,4 @@
-//src/components/ComboBox.js
+// src/components/ComboBox.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -79,10 +79,10 @@ const TournamentSelect = ({ onTournamentChange }) => {
       <label htmlFor="tournament">Select Tournament:</label>
       <select
         id="tournament"
-        value={selectedTournament}
+        value={selectedTournament || ""} // Ensure the select box is empty when no tournament is selected
         onChange={handleChange}
       >
-        <option value="">--Select a Tournament--</option>
+        <option value="" disabled>--Select a Tournament--</option> {/* Disabled placeholder */}
         {tournaments.map((tournament) => (
           <option key={tournament.tournament_id} value={tournament.tournament_id}>
             {tournament.tournament_name}
@@ -94,4 +94,3 @@ const TournamentSelect = ({ onTournamentChange }) => {
 };
 
 export default TournamentSelect;
-

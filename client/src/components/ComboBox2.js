@@ -52,11 +52,11 @@ const CountrySelect = ({
       <label htmlFor="country">Select Country:</label>
       <select
         id="country"
-        value={selectedCountry}
+        value={selectedCountry || ""}  // Ensure the select box is empty when no country is selected
         onChange={handleChange}
         disabled={loading}
       >
-        <option value="">--Select a Country--</option>
+        <option value="" disabled>--Select a Country--</option> {/* Disabled placeholder */}
         {countries.map((country) => (
           <option key={country.country_id} value={country.country_id}>
             {country.country_name}
@@ -66,8 +66,6 @@ const CountrySelect = ({
 
       {loading && <p>Loading countries...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
-
-   
     </div>
   );
 };
