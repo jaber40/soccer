@@ -161,7 +161,7 @@ const matchCountryCoordinates = (countries) => {
   return (
     <div className="App">
       <h3>International Soccer</h3>
-      <img src={`images/players/pic.jpg`} width="60" height="40" onError={(e) => { e.target.src = "images/soccer.jpg" }} />
+      <img src={`images/tournaments/${selectedTournamentId}.jpg`} width="60" height="40" onError={(e) => { e.target.src = "images/soccer.jpg" }} />
       
       <TournamentSelect
         onTournamentChange={handleTournamentChange}
@@ -194,7 +194,7 @@ const matchCountryCoordinates = (countries) => {
           setSelectedPlayerDetails={setSelectedPlayerDetails}
           selectedPlayerDetails={selectedPlayerDetails}
         />
-        <img src={`images/players/pic.jpg`} width="60" height="40" />
+        <img src={`images/countries/${selectedCountry}.png`} width="60" height="40" />
         </>
       )}
 
