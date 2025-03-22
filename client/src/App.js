@@ -161,7 +161,8 @@ const matchCountryCoordinates = (countries) => {
   return (
     <div className="App">
       <h3>International Soccer</h3>
-
+      <img src={`images/players/pic.jpg`} width="60" height="40" onError={(e) => { e.target.src = "images/soccer.jpg" }} />
+      
       <TournamentSelect
         onTournamentChange={handleTournamentChange}
         setMatchedCountries={setMatchedCountries}
@@ -182,6 +183,7 @@ const matchCountryCoordinates = (countries) => {
       )}
 
       {selectedCountry && selectedTournamentId && (
+      <>
         <ComboBox3
           onPlayerChange={handlePlayerChange}
           selectedCountry={selectedCountry}
@@ -192,6 +194,8 @@ const matchCountryCoordinates = (countries) => {
           setSelectedPlayerDetails={setSelectedPlayerDetails}
           selectedPlayerDetails={selectedPlayerDetails}
         />
+        <img src={`images/players/pic.jpg`} width="60" height="40" />
+        </>
       )}
 
       <div>
@@ -220,7 +224,7 @@ const matchCountryCoordinates = (countries) => {
       {selectedPlayerDetails && (
         <div>
           <img src={`images/players/${selectedPlayerDetails.player_id}.jpg`} alt={selectedPlayerDetails.player_name} width="90" height="135" />
-          <p>Selected Player: {selectedPlayerDetails.player_name}</p>
+          <p>{selectedPlayerDetails.player_name}</p>
           <p>Position: {selectedPlayerDetails.position}</p>
           <p>Age: {selectedPlayerDetails.age}</p>
           <p>Club: {selectedPlayerDetails.club_name}</p>

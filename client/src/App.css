@@ -30,9 +30,8 @@
 
 .popup-content {
   text-align: center;
-  background-color: rgba(128, 128, 128, 0.5) !important;
-  padding: 10px;
-  border: 1px solid black; /* Black border */
+  background-color: rgba(255, 240, 225, 0.5) !important;
+  padding: 2px;
   border-radius: 5px; /* Optional: rounded corners */
 }
 
