@@ -3,7 +3,7 @@ import React from "react";
 
 const DataTable = ({ playerData, setSelectedPlayer, setSelectedPlayerDetails, players }) => {
   
-  const handleRowDoubleClick = (playerId) => {
+  const handleRowClick = (playerId) => {
     setSelectedPlayer(playerId);
     const player = players.find((p) => p.player_id === parseInt(playerId));
     if (player) {
@@ -32,7 +32,7 @@ const DataTable = ({ playerData, setSelectedPlayer, setSelectedPlayerDetails, pl
             playerData.map((player) => (
               <tr 
                 key={player.player_id} 
-                onDoubleClick={() => handleRowDoubleClick(player.player_id)} 
+                onClick={() => handleRowClick(player.player_id)} 
                 style={{ cursor: "pointer" }}
               >
                 <td>{player.number}</td>
