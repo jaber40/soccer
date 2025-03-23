@@ -224,6 +224,8 @@ const matchCountryCoordinates = (countries) => {
       {selectedPlayerDetails && (
         <div>
           <img src={`images/players/${selectedPlayerDetails.player_id}.jpg`} alt={selectedPlayerDetails.player_name} width="90" height="135" />
+          <img src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`} width="60" height="60" />
+          <img src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} width="60" height="60" />
           <p>{selectedPlayerDetails.player_name}</p>
           <p>Position: {selectedPlayerDetails.position}</p>
           <p>Age: {selectedPlayerDetails.age}</p>
