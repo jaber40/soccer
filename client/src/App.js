@@ -161,7 +161,30 @@ const matchCountryCoordinates = (countries) => {
   return (
     <div className="App">
       <h3>International Soccer</h3>
-      <img src={`images/tournaments/${selectedTournamentId}.jpg`} width="120" height="80" onError={(e) => { e.target.src = "images/soccer.jpg" }} />
+      <img src={`images/tournaments/${selectedTournamentId}.jpg`} style={{ width: "135px", height: "90px", objectFit: "contain" }} onError={(e) => { e.target.src = "images/soccer.jpg" }} />
+
+        <div>
+        <label>
+          <input
+            type="radio"
+            name="mapView"
+            value="club"
+            checked={mapView === "club"}
+            onChange={handleMapViewChange}
+          />
+          Club
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="mapView"
+            value="birthplace"
+            checked={mapView === "birthplace"}
+            onChange={handleMapViewChange}
+          />
+          Birthplace
+        </label>
+      </div>
       
       <TournamentSelect
         onTournamentChange={handleTournamentChange}
@@ -197,29 +220,6 @@ const matchCountryCoordinates = (countries) => {
         <img src={`images/countries/${selectedCountry}.png`} width="30" height="20" />
         </>
       )}
-
-      <div>
-        <label>
-          <input
-            type="radio"
-            name="mapView"
-            value="club"
-            checked={mapView === "club"}
-            onChange={handleMapViewChange}
-          />
-          Club
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="mapView"
-            value="birthplace"
-            checked={mapView === "birthplace"}
-            onChange={handleMapViewChange}
-          />
-          Birthplace
-        </label>
-      </div>
 
       {selectedPlayerDetails && (
         <div>
