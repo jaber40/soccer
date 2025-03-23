@@ -1,7 +1,7 @@
 //client/src/components/DataTable.js
 import React from "react";
 
-const DataTable = ({ playerData, setSelectedPlayer, setSelectedPlayerDetails, players }) => {
+const DataTable = ({ playerData, setSelectedPlayer, setSelectedPlayerDetails, players, selectedPlayer }) => {
   
   const handleRowClick = (playerId) => {
     setSelectedPlayer(playerId);
@@ -33,6 +33,7 @@ const DataTable = ({ playerData, setSelectedPlayer, setSelectedPlayerDetails, pl
               <tr 
                 key={player.player_id} 
                 onClick={() => handleRowClick(player.player_id)} 
+                className={player.player_id === selectedPlayer ? "selected" : ""}
                 style={{ cursor: "pointer" }}
               >
                 <td>{player.number}</td>

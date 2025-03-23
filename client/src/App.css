@@ -91,7 +91,7 @@
   left: 0;
   top: 0;
   height: 100vh;
-  width: 70%;
+  width: 75%;
   display: flex;
   flex-direction: column;
 }
@@ -111,7 +111,7 @@
 
 /* Container for the right side components (30% width) */
 .right-side-container {
-  width: 30%;
+  width: 25%;
   height: 100vh;
   padding: 20px;
   box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
@@ -121,6 +121,7 @@
   position: relative;
   z-index: 10;
   align-items: center;
+  background-color: #3a3a3a; /* Dark gray */
 }
 
 /* Optional for Player Details section */
@@ -128,10 +129,54 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 1px;
   background-color: #f9f9f9;
   border-radius: 8px;
 }
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #333; /* Dark gray background */
+  color: white;
+  font-size: 12px; /* Smaller font size */
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #555;
+  padding: 8px;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #444; /* Slightly lighter gray for headers */
+  font-weight: bold;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #3a3a3a; /* Dark gray */
+}
+
+.data-table tr:nth-child(odd) {
+  background-color: #4a4a4a; /* Medium gray */
+}
+
+.data-table tr:hover {
+  background-color: #555; /* Highlight row on hover */
+  cursor: pointer;
+}
+
+.data-table tr.selected {
+  background-color: #bbb !important; /* Light gray for selected row */
+  color: black; /* Change text color for better contrast */
+}
+
+.data-table thead {
+  background-color: #333; /* Darker gray */
+  color: white; /* Ensure text is readable */
+}
+
 
 @keyframes App-logo-spin {
   from {

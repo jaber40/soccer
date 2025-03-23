@@ -173,6 +173,7 @@ function App() {
           setSelectedPlayer={setSelectedPlayer}
           setSelectedPlayerDetails={setSelectedPlayerDetails}
           players={players}
+          selectedPlayer={selectedPlayer}
         />
       )}
     </div>
@@ -233,7 +234,7 @@ function App() {
       )}
 
       {selectedCountry && selectedTournamentId && (
-        <>
+        <div>
           <ComboBox3
             onPlayerChange={handlePlayerChange}
             selectedCountry={selectedCountry}
@@ -244,8 +245,13 @@ function App() {
             setSelectedPlayerDetails={setSelectedPlayerDetails}
             selectedPlayerDetails={selectedPlayerDetails}
           />
-          <img src={`images/countries/${selectedCountry}.png`} width="30" height="20" />
-        </>
+          <img 
+            src={`images/countries/${selectedCountry}.png`} 
+            width="30" 
+            height="20" 
+            style={{ margin: "5px" }} 
+          />
+        </div>
       )}
 
       {selectedPlayerDetails && (
@@ -258,13 +264,13 @@ function App() {
           /><br />
           <img src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`} width="60" height="60" />
           <img src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} width="60" height="60" />
-          <p>{selectedPlayerDetails.player_name}</p>
-          <p>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</p>
-          <p>
-            {selectedPlayerDetails.position} Age: {selectedPlayerDetails.age}
-          </p>
-          <p>{selectedPlayerDetails.club_name}</p>
-          <p>{selectedPlayerDetails.league_name}</p>
+          <div style={{ fontSize: "0.9rem", lineHeight: "1.2" }}>
+          <div>{selectedPlayerDetails.player_name}</div>
+          <div>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</div>
+          <div>{selectedPlayerDetails.position} Age: {selectedPlayerDetails.age}</div>
+          <div>{selectedPlayerDetails.club_name}</div>
+          <div>{selectedPlayerDetails.league_name}</div>
+        </div>
         </div>
       )}
     </div>
