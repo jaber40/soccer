@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  display: flex; /* Enable flexbox layout */
+  width: 100%;
+  height: 100vh; /* Ensure the height fills the viewport */
+  flex-direction: row-reverse;
 }
 
 .App-logo {
@@ -80,6 +84,53 @@
   font-size: 10px;
   font-weight: bold;
   color: black;
+}
+
+.map-data-container {
+  position: relative;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-data-container > * {
+  width: 100%;
+}
+
+.map-data-container > :first-child { /* MapComponent */
+  height: 70%;
+}
+
+.map-data-container > :nth-child(2) { /* DataTable */
+  height: 30%;
+  overflow-y: auto; /* Enable scrolling if needed */
+}
+
+/* Container for the right side components (30% width) */
+.right-side-container {
+  width: 30%;
+  height: 100vh;
+  padding: 20px;
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10;
+  align-items: center;
+}
+
+/* Optional for Player Details section */
+.player-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
 }
 
 @keyframes App-logo-spin {

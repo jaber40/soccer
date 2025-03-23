@@ -60,25 +60,25 @@ function App() {
     }
   }, [selectedTournamentId, countriesData]);
 
-// Function to match countries with coordinates from countries.json
-const matchCountryCoordinates = (countries) => {
-  const matched = countries.map((country) => {
-    const countryData = countriesData.find((c) => c.country_name === country.country_name);
-    const result = countryData
-      ? { 
-          ...country, 
-          x: Number(countryData.x),  
-          y: Number(countryData.y)   
-        } 
-      : country;
+  // Function to match countries with coordinates from countries.json
+  const matchCountryCoordinates = (countries) => {
+    const matched = countries.map((country) => {
+      const countryData = countriesData.find((c) => c.country_name === country.country_name);
+      const result = countryData
+        ? { 
+            ...country, 
+            x: Number(countryData.x),  
+            y: Number(countryData.y)   
+          } 
+        : country;
 
-    console.log("Matching country:", country.country_name, "=>", result); // Debugging log
-    return result;
-  });
+      console.log("Matching country:", country.country_name, "=>", result); // Debugging log
+      return result;
+    });
 
-  console.log("Final matched countries:", matched); // Log the full result
-  return matched;
-};
+    console.log("Final matched countries:", matched); // Log the full result
+    return matched;
+  };
 
   useEffect(() => {
     if (selectedCountry && selectedTournamentId) {
@@ -90,7 +90,6 @@ const matchCountryCoordinates = (countries) => {
           setPlayerData(data);
           const points = data
             .filter((player) => player.player_x && player.player_y)
-          
             .map((player) => ({
               player_id: player.player_id,
               lat: mapView === "birthplace" ? player.player_x : player.club_x,
@@ -158,12 +157,40 @@ const matchCountryCoordinates = (countries) => {
 
   console.log("Props sent to MapComponent:", { mapPoints, matchedCountries });
   
-  return (
-    <div className="App">
-      <h3>International Soccer</h3>
-      <img src={`images/tournaments/${selectedTournamentId}.jpg`} style={{ width: "135px", height: "90px", objectFit: "contain" }} onError={(e) => { e.target.src = "images/soccer.jpg" }} />
+ return (
+  <div className="App">
+    {/* Left-side container for Map and Data Table */}
+    <div className="map-data-container">
+      <MapComponent
+        mapPoints={mapPoints}
+        selectedPlayerId={selectedPlayer}
+        popupMode={mapView}
+        matchedCountries={matchedCountries}
+      />
+      {playerData.length > 0 && (
+        <DataTable
+          playerData={playerData}
+          setSelectedPlayer={setSelectedPlayer}
+          setSelectedPlayerDetails={setSelectedPlayerDetails}
+          players={players}
+        />
+      )}
+    </div>
 
-        <div>
+    {/* Right-side container for the rest of the components */}
+    <div className="right-side-container">
+      {/* Title and Tournament Image */}
+      <h3>International Soccer</h3>
+      <img
+        src={`images/tournaments/${selectedTournamentId}.jpg`}
+        style={{ width: "120px", height: "80px", objectFit: "contain" }}
+        onError={(e) => {
+          e.target.src = "images/soccer.jpg";
+        }}
+      />
+
+      {/* Map View Radio Buttons */}
+      <div>
         <label>
           <input
             type="radio"
@@ -185,12 +212,12 @@ const matchCountryCoordinates = (countries) => {
           Birthplace
         </label>
       </div>
-      
+
+      {/* TournamentSelect */}
       <TournamentSelect
         onTournamentChange={handleTournamentChange}
         setMatchedCountries={setMatchedCountries}
       />
-
 
       {selectedTournamentId && (
         <CountrySelect
@@ -206,45 +233,44 @@ const matchCountryCoordinates = (countries) => {
       )}
 
       {selectedCountry && selectedTournamentId && (
-      <>
-        <ComboBox3
-          onPlayerChange={handlePlayerChange}
-          selectedCountry={selectedCountry}
-          selectedTournamentId={selectedTournamentId}
-          selectedPlayer={selectedPlayer}
-          setSelectedPlayer={setSelectedPlayer}
-          players={players}
-          setSelectedPlayerDetails={setSelectedPlayerDetails}
-          selectedPlayerDetails={selectedPlayerDetails}
-        />
-        <img src={`images/countries/${selectedCountry}.png`} width="30" height="20" />
+        <>
+          <ComboBox3
+            onPlayerChange={handlePlayerChange}
+            selectedCountry={selectedCountry}
+            selectedTournamentId={selectedTournamentId}
+            selectedPlayer={selectedPlayer}
+            setSelectedPlayer={setSelectedPlayer}
+            players={players}
+            setSelectedPlayerDetails={setSelectedPlayerDetails}
+            selectedPlayerDetails={selectedPlayerDetails}
+          />
+          <img src={`images/countries/${selectedCountry}.png`} width="30" height="20" />
         </>
       )}
 
       {selectedPlayerDetails && (
         <div>
-          <img src={`images/players/${selectedPlayerDetails.player_id}.jpg`} alt={selectedPlayerDetails.player_name} width="90" height="135" />
+          <img
+            src={`images/players/${selectedPlayerDetails.player_id}.jpg`}
+            alt={selectedPlayerDetails.player_name}
+            width="120"
+            height="180"
+          /><br />
           <img src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`} width="60" height="60" />
           <img src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} width="60" height="60" />
           <p>{selectedPlayerDetails.player_name}</p>
           <p>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</p>
-          <p>{selectedPlayerDetails.position}   Age: {selectedPlayerDetails.age}</p>
+          <p>
+            {selectedPlayerDetails.position} Age: {selectedPlayerDetails.age}
+          </p>
           <p>{selectedPlayerDetails.club_name}</p>
           <p>{selectedPlayerDetails.league_name}</p>
         </div>
       )}
-
-      <MapComponent mapPoints={mapPoints} selectedPlayerId={selectedPlayer} popupMode={mapView} matchedCountries={matchedCountries} />
-
-      {playerData.length > 0 && <DataTable 
-                                playerData={playerData} 
-                                setSelectedPlayer={setSelectedPlayer} 
-                                setSelectedPlayerDetails={setSelectedPlayerDetails} 
-                                players={players} 
-                                />
-}
     </div>
-  );
+  </div>
+);
+
 }
 
 export default App;
