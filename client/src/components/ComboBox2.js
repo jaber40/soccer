@@ -49,7 +49,6 @@ const CountrySelect = ({
 
   return (
     <div>
-      <label htmlFor="country">Select Country:</label>
       <select
         id="country"
         value={selectedCountry || ""}  // Ensure the select box is empty when no country is selected

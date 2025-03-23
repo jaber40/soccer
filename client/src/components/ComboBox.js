@@ -76,7 +76,6 @@ const TournamentSelect = ({ onTournamentChange }) => {
 
   return (
     <div>
-      <label htmlFor="tournament">Select Tournament:</label>
       <select
         id="tournament"
         value={selectedTournament || ""} // Ensure the select box is empty when no tournament is selected

@@ -161,7 +161,7 @@ const matchCountryCoordinates = (countries) => {
   return (
     <div className="App">
       <h3>International Soccer</h3>
-      <img src={`images/tournaments/${selectedTournamentId}.jpg`} width="60" height="40" onError={(e) => { e.target.src = "images/soccer.jpg" }} />
+      <img src={`images/tournaments/${selectedTournamentId}.jpg`} width="120" height="80" onError={(e) => { e.target.src = "images/soccer.jpg" }} />
       
       <TournamentSelect
         onTournamentChange={handleTournamentChange}
@@ -194,7 +194,7 @@ const matchCountryCoordinates = (countries) => {
           setSelectedPlayerDetails={setSelectedPlayerDetails}
           selectedPlayerDetails={selectedPlayerDetails}
         />
-        <img src={`images/countries/${selectedCountry}.png`} width="60" height="40" />
+        <img src={`images/countries/${selectedCountry}.png`} width="30" height="20" />
         </>
       )}
 
@@ -227,9 +227,10 @@ const matchCountryCoordinates = (countries) => {
           <img src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`} width="60" height="60" />
           <img src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} width="60" height="60" />
           <p>{selectedPlayerDetails.player_name}</p>
-          <p>Position: {selectedPlayerDetails.position}</p>
-          <p>Age: {selectedPlayerDetails.age}</p>
-          <p>Club: {selectedPlayerDetails.club_name}</p>
+          <p>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</p>
+          <p>{selectedPlayerDetails.position}   Age: {selectedPlayerDetails.age}</p>
+          <p>{selectedPlayerDetails.club_name}</p>
+          <p>{selectedPlayerDetails.league_name}</p>
         </div>
       )}
 

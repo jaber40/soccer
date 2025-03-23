@@ -22,7 +22,6 @@ const ComboBox3 = ({
 
   return (
     <div>
-      <label htmlFor="player">Select Player:</label>
       <select
         id="player"
         value={selectedPlayer || ""}  // Ensure the select box is empty when no player is selected
