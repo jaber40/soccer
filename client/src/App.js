@@ -181,7 +181,7 @@ function App() {
     {/* Right-side container for the rest of the components */}
     <div className="right-side-container">
       {/* Title and Tournament Image */}
-      <h3>International Soccer</h3>
+      <h3 style={{ color: "white" }}>International Soccer</h3>
       <img
         src={`images/tournaments/${selectedTournamentId}.jpg`}
         style={{ width: "120px", height: "80px", objectFit: "contain" }}
@@ -264,7 +264,7 @@ function App() {
           /><br />
           <img src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`} width="60" height="60" />
           <img src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} width="60" height="60" />
-          <div style={{ fontSize: "0.9rem", lineHeight: "1.2" }}>
+          <div style={{ fontSize: "0.9rem", lineHeight: "1.2", color: "#fff" }}>
           <div>{selectedPlayerDetails.player_name}</div>
           <div>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</div>
           <div>{selectedPlayerDetails.position} Age: {selectedPlayerDetails.age}</div>

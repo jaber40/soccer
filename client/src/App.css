@@ -94,6 +94,7 @@
   width: 75%;
   display: flex;
   flex-direction: column;
+  background-color: #3a3a3a; /* Dark gray */
 }
 
 .map-data-container > * {
@@ -113,7 +114,7 @@
 .right-side-container {
   width: 25%;
   height: 100vh;
-  padding: 20px;
+  padding: 8px;
   box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   display: flex;
@@ -145,7 +146,7 @@
 .data-table th,
 .data-table td {
   border: 1px solid #555;
-  padding: 8px;
+  padding: 0px;
   text-align: left;
 }
 
@@ -173,10 +174,23 @@
 }
 
 .data-table thead {
-  background-color: #333; /* Darker gray */
+  background-color: #000000;
   color: white; /* Ensure text is readable */
 }
 
+/* Style for the select elements */
+select {
+  background-color: #666666; /* Medium gray background color */
+  color: white; /* White font color for contrast */
+  border: 1px solid #444444; /* Dark border for contrast */
+  border-radius: 4px; /* Optional: Add rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Style for the radio buttons and labels */
+label {
+  color: white; /* White font color for labels */
+}
 
 @keyframes App-logo-spin {
   from {
