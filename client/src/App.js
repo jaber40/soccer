@@ -121,44 +121,24 @@ const matchCountryCoordinates = (countries) => {
   };
 
 const handleSelectPlayer = (playerId) => {
-  console.log("Selected player from map:", playerId); // Debugging log
-  
-  // Set the selected player
-  setSelectedPlayer(playerId);
-
-  // Fetch the player details and update the state
-  const selectedPlayer = players.find((p) => p.player_id === parseInt(playerId));
-  if (selectedPlayer) {
-    setSelectedPlayerDetails(selectedPlayer); // Update the player details
-  }
+  selectPlayer(playerId)
 };
 
 // Move the handleMarkerClick function outside of handleSelectPlayer
 const handleMarkerClick = (playerId) => {
-  console.log("Player clicked:", playerId); // Debugging log
-  setSelectedPlayer(playerId); // Update selected player
-  
-  // Fetch the player details and update the state
-  const selectedPlayer = players.find((p) => p.player_id === parseInt(playerId));
-  if (selectedPlayer) {
-    setSelectedPlayerDetails(selectedPlayer); // Update the player details
-  }
+  selectPlayer(playerId)
 };
 
 const handlePlayerChange = (playerId) => {
-  console.log("Player selected from ComboBox3:", playerId); // Debugging log
-  
-  // Set the selected player
+  selectPlayer(playerId)
+};
+
+const selectPlayer = (playerId) => {
+  console.log("Selected player:", playerId);
   setSelectedPlayer(playerId);
   
-  // Fetch the player details and update the state
-  const selectedPlayer = players.find((p) => p.player_id === parseInt(playerId));
-  if (selectedPlayer) {
-    setSelectedPlayerDetails(selectedPlayer); // Update the player details
-  }
-
-  // Also, set the selectedPlayerId if needed
-  setSelectedPlayerId(playerId);
+  const player = players.find(p => p.player_id === parseInt(playerId));
+  setSelectedPlayerDetails(player || null);
 };
 
   const handleMapViewChange = (event) => {
