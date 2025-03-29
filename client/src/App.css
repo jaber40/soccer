@@ -2,8 +2,8 @@
   text-align: center;
   display: flex; /* Enable flexbox layout */
   width: 100%;
-  height: 100vh; /* Ensure the height fills the viewport */
-  flex-direction: row-reverse;
+  height: 100vh; /* Ensure it fills the viewport */
+  flex-direction: row-reverse; /* Default: right-side-container on the right */
   background-color: #bbb;
 }
 
@@ -130,7 +130,29 @@
   overflow-y: auto; /* Enable scrolling if needed */
 }
 
-/* Container for the right side components (30% width) */
+/* Responsive stacking for smaller screens */
+@media (max-width: 768px) {
+  .App {
+    flex-direction: column; /* Stack elements vertically */
+    height: auto;
+  }
+
+  .map-data-container {
+    width: 100%; /* Full width */
+    height: auto; /* Adapt height dynamically */
+    order: 2; /* Ensures it appears below right-side-container */
+  }
+
+  .map-data-container > :first-child {
+    max-height: 50vh; /* Reduce map height on small screens */
+  }
+
+  .map-data-container > :nth-child(2) { /* DataTable */
+    height: auto; /* Allow it to grow as needed */
+    max-height: 50vh; /* Prevent excessive height */
+  }
+}
+
 .right-side-container {
   width: 25%;
   height: 100vh;
@@ -144,6 +166,17 @@
   align-items: center;
   background-color: #3a3a3a; /* Dark gray */
 }
+
+/* Responsive Stacking for Small Screens */
+@media (max-width: 768px) {
+  .right-side-container {
+    width: 100%; /* Full width */
+    height: auto; /* Allow it to shrink dynamically */
+    order: 1; /* Ensures it appears above `map-data-container` */
+    box-shadow: none; /* Remove side shadow to look natural in stacking */
+  }
+}
+
 
 /* Optional for Player Details section */
 .player-details {
