@@ -62,24 +62,13 @@ function App() {
   }, [selectedTournamentId, countriesData]);
 
   // Function to match countries with coordinates from countries.json
-  const matchCountryCoordinates = (countries) => {
-    const matched = countries.map((country) => {
-      const countryData = countriesData.find((c) => c.country_name === country.country_name);
-      const result = countryData
-        ? { 
-            ...country, 
-            x: Number(countryData.x),  
-            y: Number(countryData.y)   
-          } 
-        : country;
-
-      console.log("Matching country:", country.country_name, "=>", result); // Debugging log
-      return result;
-    });
-
-    console.log("Final matched countries:", matched); // Log the full result
-    return matched;
-  };
+const matchCountryCoordinates = (countries) => {
+  const countryMap = Object.fromEntries(countriesData.map(c => [c.country_name, c]));
+  return countries.map(country => ({
+    ...country,
+    ...(countryMap[country.country_name] ? { x: Number(countryMap[country.country_name].x), y: Number(countryMap[country.country_name].y) } : {})
+  }));
+};
 
   useEffect(() => {
     if (selectedCountry && selectedTournamentId) {
