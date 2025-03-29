@@ -248,7 +248,31 @@ label {
   color: white; /* White font color for labels */
 }
 
+.player-image {
+  width: 40%;
+  height: auto;
+}
 
+.club-image,
+.league-image {
+  width: 20%;
+  height: auto;
+}
+
+/* Adjust widths when screen width is narrow */
+@media (max-width: 768px) { /* For devices with screen width 768px or less */
+  .player-image {
+    width: 16%;
+  }
+
+  .club-image {
+    width: 8%;
+  }
+
+  .league-image {
+    width: 8%;
+  }
+}
 
 @keyframes App-logo-spin {
   from {
