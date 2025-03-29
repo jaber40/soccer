@@ -159,7 +159,7 @@ const selectPlayer = (playerId) => {
     } else {
       setSelectedPlayerDetails(null);
     }
-  }, [selectedPlayerId, selectedTournamentId]);
+  }, [selectedPlayer, selectedTournamentId]);
 
   console.log("Props sent to MapComponent:", { mapPoints, matchedCountries });
   
