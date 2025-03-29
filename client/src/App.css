@@ -1,10 +1,17 @@
+html, body {
+    background-color: #333;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 .App {
   text-align: center;
   display: flex; /* Enable flexbox layout */
   width: 100%;
   height: 100vh; /* Ensure it fills the viewport */
   flex-direction: row-reverse; /* Default: right-side-container on the right */
-  background-color: #bbb;
+  background-color: #333;
 }
 
 .App-logo {
@@ -96,7 +103,7 @@
   width: 75%;
   display: flex;
   flex-direction: column;
-  background-color: #3a3a3a; /* Dark gray */
+  background-color: #333; /* Dark gray */
 }
 
 .map-data-container > * {
@@ -164,7 +171,20 @@
   position: relative;
   z-index: 10;
   align-items: center;
-  background-color: #3a3a3a; /* Dark gray */
+  background-color: #333; /* Dark gray */
+}
+
+/* New Sub-container Styles */
+.left-side-mini {
+  width: 100%; /* Occupy full width by default */
+  background-color: #333; /* Optional: Adjust background */
+  margin-bottom: 5px;
+}
+
+.right-side-mini {
+  width: 100%; /* Occupy full width by default */
+  background-color: #333; /* Optional: Adjust background */
+  margin-top: 10px;
 }
 
 /* Responsive Stacking for Small Screens */
@@ -174,6 +194,19 @@
     height: auto; /* Allow it to shrink dynamically */
     order: 1; /* Ensures it appears above `map-data-container` */
     box-shadow: none; /* Remove side shadow to look natural in stacking */
+    display: flex;
+    flex-direction: row; /* Stack horizontally on narrow screens */
+    flex-wrap: wrap; /* Ensure proper wrapping for sub-containers */
+    justify-content: space-between; /* Ensure there is space between the sub-containers */
+    align-items: flex-start;
+  }
+
+  /* Adjust the sub-containers' width */
+  .left-side-mini,
+  .right-side-mini {
+    width: 50%; /* Adjust width to 48% for both sub-containers */
+    flex-grow: 0;
+    flex-shrink: 0;
   }
 }
 
@@ -234,6 +267,12 @@
   z-index: 10;
 }
 
+@media (max-width: 768px) {
+  .data-table {
+    font-size: 10px;
+  }
+}
+
 /* Style for the select elements */
 select {
   background-color: #666666; /* Medium gray background color */
@@ -262,15 +301,15 @@ label {
 /* Adjust widths when screen width is narrow */
 @media (max-width: 768px) { /* For devices with screen width 768px or less */
   .player-image {
-    width: 16%;
+    width: 32%;
   }
 
   .club-image {
-    width: 8%;
+    width: 16%;
   }
 
   .league-image {
-    width: 8%;
+    width: 16%;
   }
 }
 

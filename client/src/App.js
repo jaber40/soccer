@@ -189,6 +189,7 @@ const selectPlayer = (playerId) => {
 
     {/* Right-side container for the rest of the components */}
     <div className="right-side-container">
+    <div className="left-side-mini">
       {/* Title and Tournament Image */}
       <h3 style={{ color: "white" }}>International Soccer</h3>
       <img
@@ -262,8 +263,10 @@ const selectPlayer = (playerId) => {
           />
         </div>
       )}
+      </div>
 
       {selectedPlayerDetails && (
+        <div className="right-side-mini">
         <div>
           <img 
             src={`images/players/${selectedPlayerDetails.player_id}.jpg`} 
@@ -285,10 +288,11 @@ const selectPlayer = (playerId) => {
           <div>{selectedPlayerDetails.position} Age: {selectedPlayerDetails.age}</div>
           <div>{selectedPlayerDetails.club_name}</div>
           <div>{selectedPlayerDetails.league_name}</div>
-        </div>
+         </div>
+         </div>
         </div>
       )}
-    </div>
+      </div>
   </div>
 );
 
