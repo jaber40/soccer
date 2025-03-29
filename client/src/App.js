@@ -21,6 +21,7 @@ function App() {
   const [error, setError] = useState("");
   const [players, setPlayers] = useState([]);
   const [countriesData, setCountriesData] = useState([]); // State for countries.json data
+  const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
   // Fetch countries.json from the public folder
   useEffect(() => {
@@ -130,10 +131,46 @@ function App() {
     setPlayers([]);
   };
 
-  const handlePlayerChange = (playerId) => {
-    setSelectedPlayer(playerId);
-    console.log('Selected Player ID:', playerId);
-  };
+const handleSelectPlayer = (playerId) => {
+  console.log("Selected player from map:", playerId); // Debugging log
+  
+  // Set the selected player
+  setSelectedPlayer(playerId);
+
+  // Fetch the player details and update the state
+  const selectedPlayer = players.find((p) => p.player_id === parseInt(playerId));
+  if (selectedPlayer) {
+    setSelectedPlayerDetails(selectedPlayer); // Update the player details
+  }
+};
+
+// Move the handleMarkerClick function outside of handleSelectPlayer
+const handleMarkerClick = (playerId) => {
+  console.log("Player clicked:", playerId); // Debugging log
+  setSelectedPlayer(playerId); // Update selected player
+  
+  // Fetch the player details and update the state
+  const selectedPlayer = players.find((p) => p.player_id === parseInt(playerId));
+  if (selectedPlayer) {
+    setSelectedPlayerDetails(selectedPlayer); // Update the player details
+  }
+};
+
+const handlePlayerChange = (playerId) => {
+  console.log("Player selected from ComboBox3:", playerId); // Debugging log
+  
+  // Set the selected player
+  setSelectedPlayer(playerId);
+  
+  // Fetch the player details and update the state
+  const selectedPlayer = players.find((p) => p.player_id === parseInt(playerId));
+  if (selectedPlayer) {
+    setSelectedPlayerDetails(selectedPlayer); // Update the player details
+  }
+
+  // Also, set the selectedPlayerId if needed
+  setSelectedPlayerId(playerId);
+};
 
   const handleMapViewChange = (event) => {
     setMapView(event.target.value);
@@ -153,7 +190,7 @@ function App() {
     } else {
       setSelectedPlayerDetails(null);
     }
-  }, [selectedPlayer, selectedTournamentId]);
+  }, [selectedPlayerId, selectedTournamentId]);
 
   console.log("Props sent to MapComponent:", { mapPoints, matchedCountries });
   
@@ -166,6 +203,9 @@ function App() {
         selectedPlayerId={selectedPlayer}
         popupMode={mapView}
         matchedCountries={matchedCountries}
+        setSelectedPlayer={setSelectedPlayer}
+        setSelectedPlayerDetails={setSelectedPlayerDetails}
+        players={players}
       />
       {playerData.length > 0 && (
         <DataTable

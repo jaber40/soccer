@@ -121,7 +121,7 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints }) =
 
 
 
-const MapComponent = ({ mapPoints, selectedPlayerId, popupMode, matchedCountries }) => {
+const MapComponent = ({ mapPoints, selectedPlayerId, popupMode, matchedCountries, setSelectedPlayer, setSelectedPlayerDetails, players }) => {
   const [countryPoints, setCountryPoints] = useState([]);
 
   useEffect(() => {
@@ -142,6 +142,19 @@ const MapComponent = ({ mapPoints, selectedPlayerId, popupMode, matchedCountries
       setCountryPoints([]); // Ensure clearing when no matched countries
     }
   }, [matchedCountries]);
+
+const handleMarkerClick = (playerId) => {
+  console.log("Player clicked:", playerId); // Debugging
+
+  // Set the selected player ID
+  setSelectedPlayer(playerId);
+
+  // Fetch the player details and update the state
+  const selectedPlayer = players.find((p) => p.player_id === parseInt(playerId));
+  if (selectedPlayer) {
+    setSelectedPlayerDetails(selectedPlayer); // Update the player details for right-side container
+  }
+};
 
   return (
     <MapContainer
@@ -166,32 +179,34 @@ const MapComponent = ({ mapPoints, selectedPlayerId, popupMode, matchedCountries
       >
         {mapPoints.map((point, index) => (
           <Marker
-            key={index}
-            position={[point.lat, point.lng]}
-            icon={createCustomMarker()}
-            eventHandlers={{
-              mouseover: (e) => {
-                const popupContent = `
-  <div class="popup-content">
-    <strong>${point.name}</strong><br>
-    ${popupMode === 'birthplace' 
-      ? `${point.birthplace}, ${point.birth_country}`
-      : `${point.club}<br>${point.league}`
-    }
-  </div>
-`;
+  key={index}
+  position={[point.lat, point.lng]}
+  icon={createCustomMarker()}
+  eventHandlers={{
+    click: () => handleMarkerClick(point.player_id),
+    mouseover: (e) => {
+      const popupContent = `
+        <div class="popup-content">
+          <strong>${point.name}</strong><br>
+          ${popupMode === 'birthplace' 
+            ? `${point.birthplace}, ${point.birth_country}`
+            : `${point.club}<br>${point.league}`
+          }
+        </div>
+      `;
 
-                const popup = L.popup()
-                  .setLatLng(e.latlng)
-                  .setContent(popupContent)
-                  .openOn(e.target._map);
-                e.target.bindPopup(popup).openPopup();
-              },
-              mouseout: (e) => {
-                e.target.closePopup();
-              },
-            }}
-          />
+      const popup = L.popup()
+        .setLatLng(e.latlng)
+        .setContent(popupContent)
+        .openOn(e.target._map);
+      e.target.bindPopup(popup).openPopup();
+    },
+    mouseout: (e) => {
+      e.target.closePopup();
+    },
+  }}
+/>
+
         ))}
       </MarkerClusterGroup>
 
