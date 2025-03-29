@@ -268,11 +268,10 @@ const selectPlayer = (playerId) => {
           <img
             src={`images/players/${selectedPlayerDetails.player_id}.jpg`}
             alt={selectedPlayerDetails.player_name}
-            width="120"
-            height="180"
+            style={{ width: "40%", height: "auto" }}
           /><br />
-          <img src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`} width="60" height="60" />
-          <img src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} width="60" height="60" />
+          <img src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`} style={{ width: "20%", height: "auto" }} />
+          <img src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} style={{ width: "20%", height: "auto" }} />
           <div style={{ fontSize: "0.9rem", lineHeight: "1.2", color: "#fff" }}>
           <div>{selectedPlayerDetails.player_name}</div>
           <div>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</div>
