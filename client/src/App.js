@@ -282,7 +282,7 @@ const selectPlayer = (playerId) => {
             src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} 
             className="league-image" 
           />
-          <div style={{ fontSize: "0.9rem", lineHeight: "1.2", color: "#fff" }}>
+          <div className="player-details">
           <div>{selectedPlayerDetails.player_name}</div>
           <div>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</div>
           <div>{selectedPlayerDetails.position} Age: {selectedPlayerDetails.age}</div>
