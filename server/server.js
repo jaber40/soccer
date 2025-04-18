@@ -21,7 +21,7 @@ app.use('/api/players/selected', playerSelRoutes); // Player selection route
 // Start the express server
 function startServer() {
   app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running at ${process.env.API_BASE_URL}:${port}`);
   });
 }
 

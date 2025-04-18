@@ -270,8 +270,9 @@ const selectPlayer = (playerId) => {
         <div>
           <img 
             src={`images/players/${selectedPlayerDetails.player_id}.jpg`} 
-            alt={selectedPlayerDetails.player_name} 
-            className="player-image" 
+            alt={selectedPlayerDetails.player_name}
+            className="player-image"
+            onError={(e) => {e.target.src = "images/player.jpg";}}
           />
           <br />
           <img 

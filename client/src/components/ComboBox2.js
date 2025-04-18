@@ -19,7 +19,7 @@ const CountrySelect = ({
   useEffect(() => {
     if (selectedTournamentId) {
       setLoading(true);
-      axios.get(`http://localhost:5000/api/countries/${selectedTournamentId}`)
+      axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/countries/${selectedTournamentId}`)
         .then((response) => {
           setCountries(response.data); // Store the list of countries
           setLoading(false);

@@ -40,6 +40,8 @@ services:
       - "3000:3000"
     networks:
       - app-network
+    env_file:
+      - ./client/api_base.env
 
 networks:
   app-network:

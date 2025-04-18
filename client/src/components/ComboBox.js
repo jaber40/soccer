@@ -10,7 +10,7 @@ const TournamentSelect = ({ onTournamentChange }) => {
 
   // Fetch tournament data from the server
   useEffect(() => {
-    axios.get('http://localhost:5000/api/tournaments') // Make API call to fetch tournaments
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/tournaments`) // Make API call to fetch tournaments
       .then((response) => {
         console.log('Tournaments fetched:', response.data); // Log tournaments data
         setTournaments(response.data); // Populate the tournaments state
@@ -62,7 +62,7 @@ const TournamentSelect = ({ onTournamentChange }) => {
   // Use this effect to update the filtered countries when a tournament is selected
   useEffect(() => {
     if (selectedTournament) {
-      axios.get(`http://localhost:5000/api/countries/${selectedTournament}`)
+      axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/countries/${selectedTournament}`)
         .then((response) => {
           const filtered = response.data;
           const matchedCountries = matchCountryCoordinates(filtered); // Match coordinates
