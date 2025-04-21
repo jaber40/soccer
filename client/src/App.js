@@ -39,7 +39,7 @@ function App() {
   useEffect(() => {
     if (selectedTournamentId) {
       setLoading(true);
-      fetch(`http://localhost:5000/api/countries/${selectedTournamentId}`)
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/api/countries/${selectedTournamentId}`)
         .then((response) => response.json())
         .then((data) => {
           console.log('Countries fetched for tournament:', data);  // Log countries data
@@ -73,7 +73,7 @@ const matchCountryCoordinates = (countries) => {
   useEffect(() => {
     if (selectedCountry && selectedTournamentId) {
       setLoading(true);
-      fetch(`http://localhost:5000/api/players/details?countryId=${selectedCountry}&tournamentId=${selectedTournamentId}`)
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/api/players/details?countryId=${selectedCountry}&tournamentId=${selectedTournamentId}`)
         .then((response) => response.json())
         .then((data) => {
           setPlayers(data);
@@ -147,7 +147,7 @@ const selectPlayer = (playerId) => {
 
   useEffect(() => {
     if (selectedPlayer && selectedTournamentId) {
-      fetch(`http://localhost:5000/api/players/selected/details?playerId=${selectedPlayer}&tournamentId=${selectedTournamentId}`)
+      fetch(`${process.env.REACT_APP_API_BASE_URL}/api/players/selected/details?playerId=${selectedPlayer}&tournamentId=${selectedTournamentId}`)
         .then((response) => response.json())
         .then((data) => {
           setSelectedPlayerDetails(data);
