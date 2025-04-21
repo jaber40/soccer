@@ -343,4 +343,25 @@ label {
   animation: dots 1s steps(3, end) infinite;
 }
 
+.progress-container {
+  width: 60px;
+  height: 6px;
+  background-color: #ddd;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 10px auto; /* centers it horizontally */
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #4caf50; /* green */
+  width: 0%;
+  animation: fillProgress 30s linear forwards;
+}
+
+@keyframes fillProgress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
 @import 'leaflet/dist/leaflet.css';

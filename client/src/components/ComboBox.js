@@ -80,7 +80,7 @@ const TournamentSelect = ({ onTournamentChange }) => {
   return (
 <div>
   {loading ? (
-     <p style={{ fontFamily: 'monospace', fontSize: '16px' }}>
+     <p style={{ fontFamily: 'monospace', fontSize: '16px' color: 'white' }}>
     Loading<span className="dots"></span>
   </p>
   ) : (
