@@ -80,9 +80,14 @@ const TournamentSelect = ({ onTournamentChange }) => {
   return (
 <div>
   {loading ? (
-     <p style={{ fontFamily: 'monospace', fontSize: '16px' color: 'white' }}>
-    Loading<span className="dots"></span>
-  </p>
+    <>
+      <p style={{ fontFamily: 'monospace', fontSize: '16px', color: 'white' }}>
+        Loading<span className="dots"></span>
+      </p>
+      <div className="progress-container">
+        <div className="progress-bar"></div>
+      </div>
+    </>
   ) : (
     <select
       id="tournament"
