@@ -7,6 +7,7 @@ const TournamentSelect = ({ onTournamentChange }) => {
   const [selectedTournament, setSelectedTournament] = useState(''); // State for selected tournament
   const [countriesData, setCountriesData] = useState([]); // State to store countries.json data
   const [filteredCountries, setFilteredCountries] = useState([]); // State for filtered countries based on selected tournament
+  const [loading, setLoading] = useState(true); // 👈 New
 
   // Fetch tournament data from the server
   useEffect(() => {
@@ -14,9 +15,11 @@ const TournamentSelect = ({ onTournamentChange }) => {
       .then((response) => {
         console.log('Tournaments fetched:', response.data); // Log tournaments data
         setTournaments(response.data); // Populate the tournaments state
+        setLoading(false); // 👈 Done loading
       })
       .catch((error) => {
         console.error('Error fetching tournaments:', error); // Handle errors
+        setLoading(false); // 👈 Still turn off loading
       });
   }, []); // Empty dependency array to fetch once when the component mounts
 
@@ -75,20 +78,24 @@ const TournamentSelect = ({ onTournamentChange }) => {
   }, [selectedTournament, countriesData]);
 
   return (
-    <div>
-      <select
-        id="tournament"
-        value={selectedTournament || ""} // Ensure the select box is empty when no tournament is selected
-        onChange={handleChange}
-      >
-        <option value="" disabled>--Select a Tournament--</option> {/* Disabled placeholder */}
-        {tournaments.map((tournament) => (
-          <option key={tournament.tournament_id} value={tournament.tournament_id}>
-            {tournament.tournament_name}
-          </option>
-        ))}
-      </select>
-    </div>
+<div>
+  {loading ? (
+    <p>Loading tournaments...</p>
+  ) : (
+    <select
+      id="tournament"
+      value={selectedTournament || ""}
+      onChange={handleChange}
+    >
+      <option value="" disabled>--Select a Tournament--</option>
+      {tournaments.map((tournament) => (
+        <option key={tournament.tournament_id} value={tournament.tournament_id}>
+          {tournament.tournament_name}
+        </option>
+      ))}
+    </select>
+  )}
+</div>
   );
 };
 
