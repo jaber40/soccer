@@ -344,7 +344,7 @@ label {
 }
 
 .progress-container {
-  width: 60px;
+  width: 50%;
   height: 6px;
   background-color: #ddd;
   border-radius: 3px;
@@ -354,7 +354,7 @@ label {
 
 .progress-bar {
   height: 100%;
-  background-color: #4caf50; /* green */
+  background-color: #00e676; /* green */
   width: 0%;
   animation: fillProgress 30s linear forwards;
 }
