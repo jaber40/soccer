@@ -306,6 +306,7 @@ label {
 .league-image {
   width: 20%;
   height: auto;
+  border: 1px solid #555;
 }
 
 /* Adjust widths when screen width is narrow */

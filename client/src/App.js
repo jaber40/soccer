@@ -192,13 +192,14 @@ const selectPlayer = (playerId) => {
     <div className="left-side-mini">
       {/* Title and Tournament Image */}
       <h3 style={{ color: "white" }}>International Soccer</h3>
-      <img
-        src={`images/tournaments/${selectedTournamentId}.jpg`}
-        style={{ width: "120px", height: "80px", objectFit: "contain" }}
-        onError={(e) => {
-          e.target.src = "images/soccer.jpg";
-        }}
-      />
+     <img
+      src={`images/tournaments/${selectedTournamentId}.jpg`}
+      style={{ width: "20%", border: "1px solid darkgray", objectFit: "contain" }}
+      onError={(e) => {
+        e.target.src = "images/soccer.jpg";
+      }}
+    />
+
 
       {/* Map View Radio Buttons */}
       <div>
