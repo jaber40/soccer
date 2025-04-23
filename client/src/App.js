@@ -194,7 +194,7 @@ const selectPlayer = (playerId) => {
       <h3 style={{ color: "white" }}>International Soccer</h3>
      <img
       src={`images/tournaments/${selectedTournamentId}.jpg`}
-      style={{ width: "20%", border: "1px solid darkgray", objectFit: "contain" }}
+      style={{ width: "20%", border: "1px solid black", objectFit: "contain" }}
       onError={(e) => {
         e.target.src = "images/soccer.jpg";
       }}
