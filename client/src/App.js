@@ -260,7 +260,7 @@ const selectPlayer = (playerId) => {
             src={`images/countries/${selectedCountry}.png`} 
             width="30" 
             height="20" 
-            style={{ margin: "5px" }} 
+            style={{ margin: "5px", border: "1px solid black" }} 
           />
         </div>
       )}

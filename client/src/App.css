@@ -170,6 +170,7 @@ html, body {
   flex-direction: column;
   position: relative;
   z-index: 10;
+  border: 1px solid black;
   align-items: center;
   background-color: #333; /* Dark gray */
 }
