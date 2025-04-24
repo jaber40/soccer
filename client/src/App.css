@@ -361,6 +361,22 @@ label {
   }
 }
 
+/* Adjust widths when screen width is wide */
+@media (min-width: 768px) and (max-width: 1280px) { /* For devices with screen width 768px or less */
+  .player-image {
+    width: 40%;
+  }
+
+  .club-image {
+    width: 20%;
+  }
+
+  .league-image {
+    width: 20%;
+  }
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
