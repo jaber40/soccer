@@ -226,7 +226,7 @@ html, body {
     flex-direction: row; /* Align mini containers side by side */
     justify-content: space-between; /* Space mini containers out */
     align-items: flex-start; /* Align them to the top */
-    order: 1; /* Ensure this stays on the left */
+    order: 2; /* Ensure this stays on the left */
   }
 
   /* Left and Right mini containers setup */
@@ -240,7 +240,7 @@ html, body {
   /* Map container setup */
   .map-data-container {
     width: 60%; /* Right side takes up 60% of the width */
-    order: 2; /* Ensure it stays on the right */
+    order: 1; /* Ensure it stays on the right */
   }
 }
 
