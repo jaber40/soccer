@@ -212,6 +212,38 @@ html, body {
   }
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .right-side-container {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    order: 1;
+    box-shadow: none;
+  }
+
+  .left-side-mini,
+  .right-side-mini {
+    width: 48%;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  .map-data-container {
+    width: 60%;
+    order: 2;
+  }
+}
+
+
 
 /* Optional for Player Details section */
 .player-details {
