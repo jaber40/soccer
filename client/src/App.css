@@ -213,31 +213,34 @@ html, body {
 }
 
 @media (min-width: 768px) and (max-width: 1280px) {
+  /* Main container setup */
   .main-container {
     display: flex;
-    flex-direction: row; /* Ensures left-side is to the left of map */
-    height: auto; /* Allow it to grow with content */
+    flex-direction: row; /* Make sure it’s side-by-side (row layout) */
   }
 
+  /* Right-side container setup (the left one with mini containers) */
   .right-side-container {
-    width: 40%; /* Left side container will take 40% of the screen width */
-    order: 1; /* Ensures it stays on the left side */
+    width: 40%; /* Left side takes up 40% of the width */
     display: flex;
-    flex-direction: row; /* Ensures the mini containers are side by side */
-    justify-content: space-between; /* Space out the mini containers */
-    align-items: flex-start;
+    flex-direction: row; /* Align mini containers side by side */
+    justify-content: space-between; /* Space mini containers out */
+    align-items: flex-start; /* Align them to the top */
+    order: 1; /* Ensure this stays on the left */
   }
 
+  /* Left and Right mini containers setup */
   .left-side-mini,
   .right-side-mini {
-    width: 48%; /* Mini containers take up 48% width each, leaving a little space */
-    height: auto; /* Let them grow with content */
-    overflow: visible; /* Remove scrollbars */
+    width: 48%; /* Each mini container gets 48% width */
+    height: auto; /* Allow containers to grow based on content */
+    margin-bottom: 1%; /* Optional: space between the two mini containers */
   }
 
+  /* Map container setup */
   .map-data-container {
-    width: 60%; /* Right side (map) container takes up 60% of the screen width */
-    order: 2; /* Map container goes to the right */
+    width: 60%; /* Right side takes up 60% of the width */
+    order: 2; /* Ensure it stays on the right */
   }
 }
 
