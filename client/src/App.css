@@ -212,36 +212,37 @@ html, body {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1280px) {
   .main-container {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    height: 100vh; /* Full viewport height */
   }
 
   .right-side-container {
     width: 40%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
+    height: 100vh;
     order: 1;
-    box-shadow: none;
+    display: flex;
+    flex-direction: row; /* mini containers side by side */
   }
 
   .left-side-mini,
   .right-side-mini {
-    width: 48%;
-    flex-grow: 0;
-    flex-shrink: 0;
+    width: 50%;
+    height: 100vh; /* Each one fills vertical space */
+    overflow-y: auto; /* Optional: makes them scrollable if content exceeds height */
+    box-sizing: border-box; /* Ensure padding doesn't break layout */
+    padding: 0.5rem; /* Optional spacing */
   }
 
   .map-data-container {
     width: 60%;
+    height: 100vh;
     order: 2;
   }
 }
+
 
 
 
