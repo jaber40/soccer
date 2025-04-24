@@ -215,33 +215,32 @@ html, body {
 @media (min-width: 768px) and (max-width: 1280px) {
   .main-container {
     display: flex;
-    flex-direction: row;
-    height: 100vh; /* Full viewport height */
+    flex-direction: row; /* Ensures left-side is to the left of map */
+    height: auto; /* Allow it to grow with content */
   }
 
   .right-side-container {
-    width: 40%;
-    height: 100vh;
-    order: 1;
+    width: 40%; /* Left side container will take 40% of the screen width */
+    order: 1; /* Ensures it stays on the left side */
     display: flex;
-    flex-direction: row; /* mini containers side by side */
+    flex-direction: row; /* Ensures the mini containers are side by side */
+    justify-content: space-between; /* Space out the mini containers */
+    align-items: flex-start;
   }
 
   .left-side-mini,
   .right-side-mini {
-    width: 50%;
-    height: 100vh; /* Each one fills vertical space */
-    overflow-y: auto; /* Optional: makes them scrollable if content exceeds height */
-    box-sizing: border-box; /* Ensure padding doesn't break layout */
-    padding: 0.5rem; /* Optional spacing */
+    width: 48%; /* Mini containers take up 48% width each, leaving a little space */
+    height: auto; /* Let them grow with content */
+    overflow: visible; /* Remove scrollbars */
   }
 
   .map-data-container {
-    width: 60%;
-    height: 100vh;
-    order: 2;
+    width: 60%; /* Right side (map) container takes up 60% of the screen width */
+    order: 2; /* Map container goes to the right */
   }
 }
+
 
 
 
