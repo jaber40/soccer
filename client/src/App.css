@@ -12,6 +12,7 @@ html, body {
   height: 100vh; /* Ensure it fills the viewport */
   flex-direction: row-reverse; /* Default: right-side-container on the right */
   background-color: #333;
+  overflow-x: hidden; /* hides horizontal scroll */
 }
 
 .App-logo {
