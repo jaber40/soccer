@@ -134,7 +134,7 @@ html, body {
 
 .map-data-container > :nth-child(2) { /* DataTable */
   flex-shrink: 0;
-  height: 30%;
+  height: 30dvh;
   overflow-y: auto; /* Enable scrolling if needed */
   max-width: 100%;
 }
