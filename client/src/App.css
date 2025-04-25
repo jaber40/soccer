@@ -319,8 +319,9 @@ html, body {
 @media (max-width: 1280px) {
   .data-table {
     font-size: 10px;
-    height: 40%;
-    overflow-x: hidden; /* hides horizontal scroll */
+    height: 40% !important;
+    width: 100%;
+    overflow-x: hidden !important; /* hides horizontal scroll */
   }
 }
 
