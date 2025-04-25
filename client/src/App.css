@@ -317,6 +317,7 @@ html, body {
   .data-table {
     font-size: 10px;
     height: 35%;
+    overflow-x: hidden; /* hides horizontal scroll */
   }
 }
 
