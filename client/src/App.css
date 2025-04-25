@@ -241,6 +241,7 @@ html, body {
   .map-data-container {
     width: 60%; /* Right side takes up 60% of the width */
     order: 1; /* Ensure it stays on the right */
+    overflow-x: hidden; /* hides horizontal scroll */
   }
 }
 
