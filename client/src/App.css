@@ -136,6 +136,7 @@ html, body {
   flex-shrink: 0;
   height: 30%;
   overflow-y: auto; /* Enable scrolling if needed */
+  max-width: 100%;
 }
 
 /* Responsive stacking for smaller screens */
