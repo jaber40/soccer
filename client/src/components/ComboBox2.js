@@ -15,24 +15,37 @@ const CountrySelect = ({
   const [loading, setLoading] = useState(false); // Loading state for API requests
   const [error, setError] = useState(null); // Error state for failed API requests
 
+  // Helper to handle server sleep
+const handleServerSleep = () => {
+  console.warn('Server likely waking up. Waiting 5 seconds before reload...');
+  setTimeout(() => {
+    window.location.reload();
+  }, 5000);
+};
+
   // Fetch the list of countries when the selected tournament changes
-  useEffect(() => {
-    if (selectedTournamentId) {
-      setLoading(true);
-      axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/countries/${selectedTournamentId}`)
-        .then((response) => {
-          setCountries(response.data); // Store the list of countries
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching countries:', error);
-          setError("Failed to load countries.");
-          setLoading(false);
-        });
-    } else {
-      setCountries([]); // Reset countries if no tournament is selected
-    }
-  }, [selectedTournamentId]);
+ useEffect(() => {
+  if (selectedTournamentId) {
+    setLoading(true);
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/countries/${selectedTournamentId}`)
+      .then((response) => {
+        if (!Array.isArray(response.data) || response.data.length === 0) {
+          handleServerSleep();
+          return;
+        }
+
+        setCountries(response.data); // Store the list of countries
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching countries:', error);
+        handleServerSleep();
+      });
+  } else {
+    setCountries([]); // Reset countries if no tournament is selected
+  }
+}, [selectedTournamentId]);
+
 
   // Handle the change event when a country is selected
   const handleChange = (event) => {
