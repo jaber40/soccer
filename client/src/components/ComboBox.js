@@ -9,6 +9,14 @@ const TournamentSelect = ({ onTournamentChange }) => {
   const [filteredCountries, setFilteredCountries] = useState([]); // State for filtered countries based on selected tournament
   const [loading, setLoading] = useState(true); // 👈 New
 
+// Helper to handle server sleep
+const handleServerSleep = () => {
+  console.warn('Server likely waking up. Waiting 5 seconds before reload...');
+  setTimeout(() => {
+    window.location.reload();
+  }, 5000);
+};
+
 // Fetch tournament data from the server
 useEffect(() => {
   axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/tournaments`)
@@ -16,10 +24,7 @@ useEffect(() => {
       console.log('Tournaments fetched:', response.data);
 
       if (!Array.isArray(response.data) || response.data.length === 0) {
-        console.warn('Empty tournaments list, server probably just woke up. Waiting 5 seconds before reload...');
-        setTimeout(() => {
-          window.location.reload();
-        }, 5000); // wait 5 seconds before reloading
+        handleServerSleep();
         return;
       }
 
@@ -28,13 +33,10 @@ useEffect(() => {
     })
     .catch((error) => {
       console.error('Error fetching tournaments:', error);
-
-      console.warn('Fetch error, likely server waking up. Waiting 5 seconds before reload...');
-      setTimeout(() => {
-        window.location.reload();
-      }, 5000); // also wait 5 seconds then reload on error
+      handleServerSleep();
     });
 }, []); // Empty dependency array to fetch once when the component mounts
+
 
 
   // Fetch countries data from countries.json (located in /public)
@@ -77,19 +79,27 @@ useEffect(() => {
   };
 
   // Use this effect to update the filtered countries when a tournament is selected
-  useEffect(() => {
-    if (selectedTournament) {
-      axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/countries/${selectedTournament}`)
-        .then((response) => {
-          const filtered = response.data;
-          const matchedCountries = matchCountryCoordinates(filtered); // Match coordinates
-          setFilteredCountries(matchedCountries); // Set filtered countries with coordinates
-        })
-        .catch((error) => {
-          console.error('Error fetching countries:', error);
-        });
-    }
-  }, [selectedTournament, countriesData]);
+useEffect(() => {
+  if (selectedTournament) {
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/countries/${selectedTournament}`)
+      .then((response) => {
+        const filtered = response.data;
+
+        if (!Array.isArray(filtered) || filtered.length === 0) {
+          handleServerSleep();
+          return;
+        }
+
+        const matchedCountries = matchCountryCoordinates(filtered); // Match coordinates
+        setFilteredCountries(matchedCountries); // Set filtered countries with coordinates
+      })
+      .catch((error) => {
+        console.error('Error fetching countries:', error);
+        handleServerSleep();
+      });
+  }
+}, [selectedTournament, countriesData]);
+
 
   return (
 <div>
