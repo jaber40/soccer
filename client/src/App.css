@@ -88,7 +88,7 @@ html, body {
   background-color: #4169E1;
   border-radius: 50%;
   display: flex;
-  border: 2px solid dodgerblue;
+  border: 2px solid #33ccff;
   align-items: center; /* Center content vertically */
   justify-content: center; /* Center content horizontally */
   font-size: 10px;
