@@ -33,7 +33,7 @@ const DataTable = ({ playerData, setSelectedPlayer, setSelectedPlayerDetails, pl
               <tr 
                 key={player.player_id} 
                 onClick={() => handleRowClick(player.player_id)} 
-                className={player.player_id === selectedPlayer ? "selected" : ""}
+                className={player.player_id === parseInt(selectedPlayer) ? "selected" : ""}
                 style={{ cursor: "pointer" }}
               >
                 <td>{player.number}</td>
