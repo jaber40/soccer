@@ -9,19 +9,33 @@ const TournamentSelect = ({ onTournamentChange }) => {
   const [filteredCountries, setFilteredCountries] = useState([]); // State for filtered countries based on selected tournament
   const [loading, setLoading] = useState(true); // 👈 New
 
-  // Fetch tournament data from the server
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/tournaments`) // Make API call to fetch tournaments
-      .then((response) => {
-        console.log('Tournaments fetched:', response.data); // Log tournaments data
-        setTournaments(response.data); // Populate the tournaments state
-        setLoading(false); // 👈 Done loading
-      })
-      .catch((error) => {
-        console.error('Error fetching tournaments:', error); // Handle errors
-        setLoading(false); // 👈 Still turn off loading
-      });
-  }, []); // Empty dependency array to fetch once when the component mounts
+// Fetch tournament data from the server
+useEffect(() => {
+  axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/tournaments`)
+    .then((response) => {
+      console.log('Tournaments fetched:', response.data);
+
+      if (!Array.isArray(response.data) || response.data.length === 0) {
+        console.warn('Empty tournaments list, server probably just woke up. Waiting 5 seconds before reload...');
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000); // wait 5 seconds before reloading
+        return;
+      }
+
+      setTournaments(response.data); // Populate the tournaments state
+      setLoading(false); // Done loading
+    })
+    .catch((error) => {
+      console.error('Error fetching tournaments:', error);
+
+      console.warn('Fetch error, likely server waking up. Waiting 5 seconds before reload...');
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000); // also wait 5 seconds then reload on error
+    });
+}, []); // Empty dependency array to fetch once when the component mounts
+
 
   // Fetch countries data from countries.json (located in /public)
   useEffect(() => {
