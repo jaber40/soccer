@@ -30,12 +30,24 @@ useEffect(() => {
 
       setTournaments(response.data); // Populate the tournaments state
       setLoading(false); // Done loading
+
+      // 🧠 New idea: After tournaments are fetched, verify selectedTournament is still valid
+      const selectedStillExists = response.data.some(
+        (tournament) => tournament.id === selectedTournament
+      );
+
+      if (!selectedStillExists) {
+        console.warn('Selected tournament no longer valid after server wakeup.');
+        setSelectedTournament(null); // Reset or refetch as needed
+        // Optionally you could re-fetch related country/player data too
+      }
+
     })
     .catch((error) => {
       console.error('Error fetching tournaments:', error);
       handleServerSleep();
     });
-}, []); // Empty dependency array to fetch once when the component mounts
+}, []);
 
 
 
@@ -88,6 +100,12 @@ useEffect(() => {
         if (!Array.isArray(filtered) || filtered.length === 0) {
           handleServerSleep();
           return;
+        }
+
+        // 🧠 Check: Are the countries fetched for the current selectedTournament?
+        if (filtered.some(country => country.tournament_id !== selectedTournament)) {
+          console.warn('Fetched countries do not match the currently selected tournament after server wakeup.');
+          return; // Optionally you could trigger a re-fetch here
         }
 
         const matchedCountries = matchCountryCoordinates(filtered); // Match coordinates
