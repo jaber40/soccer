@@ -116,7 +116,7 @@ useEffect(() => {
         handleServerSleep();
       });
   }
-}, [selectedTournament, countriesData]);
+}, [selectedTournament]);
 
 
   return (
