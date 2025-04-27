@@ -73,7 +73,7 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints }) =
           [Math.min(...latitudes), Math.min(...longitudes)],
           [Math.max(...latitudes), Math.max(...longitudes)]
         ];
-        map.fitBounds(countryBounds, { padding: [50, 50] });
+        map.fitBounds(countryBounds, { padding: [25, 25] });
 
       } else if (selectedPlayerId) {
         // Zoom to selected player
@@ -109,7 +109,7 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints }) =
           [Math.min(...latitudes), Math.min(...longitudes)],
           [Math.max(...latitudes), Math.max(...longitudes)]
         ];
-        map.fitBounds(bounds, { padding: [50, 50] });
+        map.fitBounds(bounds, { padding: [25, 25] });
       }
 
     }, 300); // Small delay to ensure final state is used
