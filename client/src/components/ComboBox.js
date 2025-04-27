@@ -17,7 +17,6 @@ const handleServerSleep = () => {
   }, 5000);
 };
 
-// Fetch tournament data from the server
 useEffect(() => {
   axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/tournaments`)
     .then((response) => {
@@ -38,8 +37,10 @@ useEffect(() => {
 
       if (!selectedStillExists) {
         console.warn('Selected tournament no longer valid after server wakeup.');
-        setSelectedTournament(null); // Reset or refetch as needed
-        // Optionally you could re-fetch related country/player data too
+        setSelectedTournament(null); // Reset selection to prevent showing stale data
+
+        // Optionally trigger a refetch for related data (countries, players)
+        setFilteredCountries([]); // Clear country list if needed
       }
 
     })
@@ -47,7 +48,8 @@ useEffect(() => {
       console.error('Error fetching tournaments:', error);
       handleServerSleep();
     });
-}, []);
+}, []); // Only fetch tournaments once, when the component mounts
+
 
 
 
@@ -93,6 +95,9 @@ useEffect(() => {
   // Use this effect to update the filtered countries when a tournament is selected
 useEffect(() => {
   if (selectedTournament) {
+    // ⬇️ Clear stale data first
+    setFilteredCountries([]); 
+
     axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/countries/${selectedTournament}`)
       .then((response) => {
         const filtered = response.data;
@@ -102,21 +107,21 @@ useEffect(() => {
           return;
         }
 
-        // 🧠 Check: Are the countries fetched for the current selectedTournament?
-        if (filtered.some(country => country.tournament_id !== selectedTournament)) {
+        const allMatch = filtered.every(country => country.tournament_id === selectedTournament);
+        if (!allMatch) {
           console.warn('Fetched countries do not match the currently selected tournament after server wakeup.');
-          return; // Optionally you could trigger a re-fetch here
+          return; // Quietly discard
         }
 
-        const matchedCountries = matchCountryCoordinates(filtered); // Match coordinates
-        setFilteredCountries(matchedCountries); // Set filtered countries with coordinates
+        const matchedCountries = matchCountryCoordinates(filtered);
+        setFilteredCountries(matchedCountries);
       })
       .catch((error) => {
         console.error('Error fetching countries:', error);
         handleServerSleep();
       });
   }
-}, [selectedTournament]);
+}, [selectedTournament]); // Only selectedTournament as dependency
 
 
   return (
