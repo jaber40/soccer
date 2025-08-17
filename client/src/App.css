@@ -414,7 +414,7 @@ label {
 
 .progress-bar {
   height: 100%;
-  background-color: #00e676; /* green */
+  background-color: #ffff00; /* green */
   width: 0%;
   animation: fillProgress 30s linear forwards;
 }
