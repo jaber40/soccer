@@ -196,6 +196,7 @@ const selectPlayer = (playerId) => {
       src={`images/tournaments/${selectedTournamentId}.jpg`}
       style={{ width: "20%", border: "1px solid black", objectFit: "contain" }}
       onError={(e) => {
+        e.target.onerror = null;
         e.target.src = "images/soccer.jpg";
       }}
     />
@@ -276,13 +277,17 @@ const selectPlayer = (playerId) => {
             src={`images/players/${selectedPlayerDetails.player_id}.jpg`} 
             alt={selectedPlayerDetails.player_name}
             className="player-image"
-            onError={(e) => {e.target.src = "images/player.jpg";}}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "images/player.jpg";
+            }}
           />
           <br />
           <img 
             src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`} 
             className="club-image"
             onError={(e) => {
+              e.target.onerror = null;
               e.target.src = "images/club_logo.jpg";
             }}
           />
@@ -290,6 +295,7 @@ const selectPlayer = (playerId) => {
             src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} 
             className="league-image"
             onError={(e) => {
+              e.target.onerror = null;
               e.target.src = "images/league_logo.jpg";
             }}
           />
