@@ -279,6 +279,9 @@ const selectPlayer = (playerId) => {
           <img 
             src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`} 
             className="club-image" 
+            onError={(e) => {
+            e.target.src = "images/club_logo.jpg";
+            }}
           />
           <img 
             src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} 
