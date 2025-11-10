@@ -260,7 +260,10 @@ const selectPlayer = (playerId) => {
             src={`images/countries/${selectedCountry}.png`} 
             width="30" 
             height="20" 
-            style={{ margin: "5px", border: "1px solid black" }} 
+            style={{ margin: "5px", border: "1px solid black" }}
+            onError={(e) => {
+            e.target.src = "images/flag_logo.jpg";
+            }} 
           />
         </div>
       )}
@@ -285,7 +288,10 @@ const selectPlayer = (playerId) => {
           />
           <img 
             src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} 
-            className="league-image" 
+            className="league-image"
+            onError={(e) => {
+            e.target.src = "images/league_logo.jpg";
+            }} 
           />
           <div className="player-details">
           <div>{selectedPlayerDetails.player_name}</div>
