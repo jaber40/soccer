@@ -195,9 +195,6 @@ const selectPlayer = (playerId) => {
      <img
       src={`images/tournaments/${selectedTournamentId}.jpg`}
       style={{ width: "20%", border: "1px solid black", objectFit: "contain" }}
-      onError={(e) => {
-        e.target.src = "images/soccer.jpg";
-      }}
     />
 
 
