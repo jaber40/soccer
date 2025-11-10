@@ -189,6 +189,11 @@ html, body {
   background-color: #333; /* Optional: Adjust background */
   margin-top: 10px;
   justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* vertical centering */
+  align-items: center;       /* horizontal centering */
+  min-height: 200px;         /* keeps consistent height even when image fails */
 }
 
 /* Responsive Stacking for Small Screens */
