@@ -1,33 +1,30 @@
 // src/server.js
 const express = require('express');
 const cors = require('cors');
-const basicAuth = require('express-basic-auth');
-const path = require('path');
+const basicAuth = require('express-basic-auth'); // added for auth
+const tournamentRoutes = require('./src/routes/tournamentRoutes');
+const countryRoutes = require('./src/routes/countryRoutes');
+const playerRoutes = require('./src/routes/playerRoutes');
+const playerSelRoutes = require('./src/routes/playerSelRoutes'); // player_sel routes
 require('dotenv').config();
 
 const app = express();
 const port = 5000;
 
-// 🔹 Use __dirname to safely require routes
-const tournamentRoutes = require(path.join(__dirname, 'routes', 'tournamentRoutes'));
-const countryRoutes = require(path.join(__dirname, 'routes', 'countryRoutes'));
-const playerRoutes = require(path.join(__dirname, 'routes', 'playerRoutes'));
-const playerSelRoutes = require(path.join(__dirname, 'routes', 'playerSelRoutes'));
+// Enable CORS
+app.use(cors());
 
-// 🔒 Conditional Basic Auth (must be before CORS)
+// 🔒 Conditional Basic Auth
+// Only enable if ENABLE_SITE_AUTH=true in environment variables
 if (process.env.ENABLE_SITE_AUTH === 'true') {
-  console.log('Applying Basic Auth middleware...');
   app.use(
     basicAuth({
       users: { [process.env.SITE_USER]: process.env.SITE_PASS },
-      challenge: true,
+      challenge: true, // triggers browser login popup
       unauthorizedResponse: 'Access denied',
     })
   );
 }
-
-// Enable CORS after auth
-app.use(cors());
 
 // API routes
 app.use('/api/tournaments', tournamentRoutes);
@@ -36,9 +33,14 @@ app.use('/api/players', playerRoutes);
 app.use('/api/players/selected', playerSelRoutes);
 
 // Start server
-app.listen(port, () => {
-  console.log(`Server running at ${process.env.API_BASE_URL}`);
-});
+function startServer() {
+  app.listen(port, () => {
+    console.log(`Server running at ${process.env.API_BASE_URL}`);
+  });
+}
+
+startServer();
+
 
 
 
