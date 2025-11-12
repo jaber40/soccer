@@ -1,15 +1,18 @@
 // src/server.js
 const express = require('express');
 const cors = require('cors');
-const basicAuth = require('express-basic-auth'); 
-const tournamentRoutes = require('./routes/tournamentRoutes');
-const countryRoutes = require('./routes/countryRoutes');
-const playerRoutes = require('./routes/playerRoutes');
-const playerSelRoutes = require('./routes/playerSelRoutes');
+const basicAuth = require('express-basic-auth');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 const port = 5000;
+
+// 🔹 Use __dirname to safely require routes
+const tournamentRoutes = require(path.join(__dirname, 'routes', 'tournamentRoutes'));
+const countryRoutes = require(path.join(__dirname, 'routes', 'countryRoutes'));
+const playerRoutes = require(path.join(__dirname, 'routes', 'playerRoutes'));
+const playerSelRoutes = require(path.join(__dirname, 'routes', 'playerSelRoutes'));
 
 // 🔒 Conditional Basic Auth (must be before CORS)
 if (process.env.ENABLE_SITE_AUTH === 'true') {
@@ -36,6 +39,7 @@ app.use('/api/players/selected', playerSelRoutes);
 app.listen(port, () => {
   console.log(`Server running at ${process.env.API_BASE_URL}`);
 });
+
 
 
 
