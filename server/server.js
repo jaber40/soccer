@@ -11,8 +11,6 @@ require('dotenv').config();
 const app = express();
 const port = 5000;
 
-// Enable CORS
-app.use(cors());
 
 // 🔒 Conditional Basic Auth
 // Only enable if ENABLE_SITE_AUTH=true in environment variables
@@ -25,6 +23,10 @@ if (process.env.ENABLE_SITE_AUTH === 'true') {
     })
   );
 }
+
+// Enable CORS
+app.use(cors());
+
 
 // API routes
 app.use('/api/tournaments', tournamentRoutes);
