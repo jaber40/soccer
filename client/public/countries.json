@@ -45,7 +45,7 @@
   { "country_name": "Japan", "x": 138.2529, "y": 36.2048 },
   { "country_name": "Mexico", "x": -102.5528, "y": 23.6345 },
   { "country_name": "Morocco", "x": -7.0926, "y": 31.7917 },
-  { "country_name": "Holland", "x": 5.2913, "y": 52.1326 },
+  { "country_name": "Netherlands", "x": 5.2913, "y": 52.1326 },
   { "country_name": "Nigeria", "x": 8.6753, "y": 9.082 },
   { "country_name": "Pakistan", "x": 69.3451, "y": 30.3753 },
   { "country_name": "Peru", "x": -75.0152, "y": -9.19 },
@@ -84,5 +84,6 @@
   { "country_name": "Senegal", "x": -14.6928, "y": 14.4974 },
   { "country_name": "Serbia", "x": 21.0059, "y": 44.0165 },
   { "country_name": "Tunisia", "x": 9.5375, "y": 33.8869 },
+  { "country_name": "Ghana", "x": 7.9465, "y": -1.0232 },
   { "country_name": "Qatar", "x": 51.1839, "y": 25.3548 }
 ]
