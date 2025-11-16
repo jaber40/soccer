@@ -23,6 +23,31 @@ function App() {
   const [countriesData, setCountriesData] = useState([]); // State for countries.json data
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
+  useEffect(() => {
+    let inactivityTime = 0;
+    const maxInactivity = 5 * 60 * 1000; // 5 minutes
+
+    const resetTimer = () => {
+      inactivityTime = Date.now();
+    };
+
+    // Whenever user interacts, reset timer
+    window.addEventListener("mousemove", resetTimer);
+    window.addEventListener("keydown", resetTimer);
+    window.addEventListener("touchstart", resetTimer);
+    window.addEventListener("click", resetTimer);
+
+    resetTimer(); // initialize
+
+    const interval = setInterval(() => {
+      if (Date.now() - inactivityTime > maxInactivity) {
+        window.location.reload();  // refresh the whole app
+      }
+    }, 30000); // check every 30 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   // Fetch countries.json from the public folder
   useEffect(() => {
     fetch('/countries.json') // Fetch from the public directory
