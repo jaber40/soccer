@@ -80,7 +80,7 @@ const MapUpdater = ({ mapPoints, selectedPlayerId, popupMode, countryPoints }) =
         const selectedPoint = mapPoints.find((p) => Number(p.player_id) === Number(selectedPlayerId));
         if (selectedPoint) {
           map.invalidateSize();
-          map.flyTo([selectedPoint.lat, selectedPoint.lng], 8, { animate: true });
+          map.flyTo([selectedPoint.lat, selectedPoint.lng], 5, { animate: true });
 
           const popupContent = popupMode === 'birthplace'
           ? `
