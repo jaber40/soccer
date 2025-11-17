@@ -25,38 +25,43 @@ function App() {
 
 
 //Handle inactivity for connectivity to database
-useEffect(() => {
-  const MAX_INACTIVITY = 5 * 60 * 1000; // 5 minutes
-  let lastActive = Date.now();
+// 5 minutes
+const INACTIVITY_LIMIT = 5 * 60 * 1000;
 
-  const updateActivity = () => {
-    lastActive = Date.now();
-  };
+let lastActivity = Date.now();
 
-  // Activity listeners
-  const events = ["mousemove", "keydown", "click", "touchstart", "scroll"];
-  events.forEach(evt => window.addEventListener(evt, updateActivity));
+// Normal activity events (PC + mobile)
+const activityEvents = [
+  "mousemove",
+  "keydown",
+  "click",
+  "touchstart",
+  "scroll"
+];
 
-  // Page visibility handler (mobile-safe)
-  const handleVisibility = () => {
-    if (!document.hidden) {
-      const now = Date.now();
-      const inactiveFor = now - lastActive;
+activityEvents.forEach(event => {
+  window.addEventListener(event, () => {
+    lastActivity = Date.now();
+  });
+});
 
-      if (inactiveFor > MAX_INACTIVITY) {
-        console.warn("Reloading after long inactivity...");
-        window.location.reload();
-      }
+// Desktop works fine with a normal interval
+setInterval(() => {
+  if (Date.now() - lastActivity > INACTIVITY_LIMIT) {
+    window.location.reload();
+  }
+}, 30000); // 30 seconds
+
+// 👇 Mobile fix: detect coming back from screen off / background
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) {
+    // Tab became visible again
+    if (Date.now() - lastActivity > INACTIVITY_LIMIT) {
+      window.location.reload();
     }
-  };
+  }
+});
 
-  document.addEventListener("visibilitychange", handleVisibility);
-
-  return () => {
-    events.forEach(evt => window.removeEventListener(evt, updateActivity));
-    document.removeEventListener("visibilitychange", handleVisibility);
-  };
-}, []);
 
 
 
