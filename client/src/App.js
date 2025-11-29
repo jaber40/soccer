@@ -245,7 +245,7 @@ const selectPlayer = (playerId) => {
           border: "none",
           borderRadius: "5px",
           cursor: "pointer",
-          fontSize: "12px"
+          fontSize: "12px",
           display: "inline-block",  // prevents flex parent from stretching
           width: "auto",            // ensure it only wraps text
           height: "auto",
