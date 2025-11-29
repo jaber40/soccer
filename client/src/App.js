@@ -240,6 +240,8 @@ const selectPlayer = (playerId) => {
           right: "10px",       // distance from left
           zIndex: 9999,        // on top of everything
           padding: "5px 5px",
+          width: "20px",         // button width
+          height: "10px",         // button height
           backgroundColor: "#333",
           color: "#fff",
           border: "none",
