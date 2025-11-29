@@ -15,7 +15,10 @@ const ContactForm = () => {
     setStatus("Sending...");
 
     try {
-      const res = await axios.post("/api/contact", form);
+     const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/contact`,
+        form
+      );
       if (res.data.success) {
         setStatus("Message sent!");
         setForm({ name: "", email: "", message: "" });
