@@ -16,7 +16,7 @@ const ContactForm = () => {
 
     try {
      const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/contact`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/contact`,
         form
       );
       if (res.data.success) {
