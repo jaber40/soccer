@@ -14,6 +14,8 @@ const contactRoutes = require("./src/routes/contactRoutes");
 
 // Enable CORS
 app.use(cors());
+app.use(express.json());
+
 
 // API routes
 app.use('/api/tournaments', tournamentRoutes);
