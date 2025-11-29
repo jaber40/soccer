@@ -255,44 +255,6 @@ const selectPlayer = (playerId) => {
         Contact
       </button>
       
-      {showForm && (
-        <div
-          style={{
-            position: "absolute",     // <--- NOT FIXED
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "rgba(0,0,0,0.5)", // dark overlay
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 9999,
-          }}
-          onClick={() => setShowForm(false)} // click outside closes modal
-        >
-          <div
-            style={{
-              backgroundColor: "#fff",
-              padding: "20px",
-              borderRadius: "10px",
-              width: "90%",          // responsive width
-              maxWidth: "500px",     // max size
-              maxHeight: "90vh",     // prevent overflow
-              overflowY: "auto",     // scroll if content is tall
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <ContactForm />
-            <button
-              onClick={() => setShowForm(false)}
-              style={{ marginTop: "10px", padding: "5px 10px" }}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
 
     </div>
 
@@ -421,7 +383,44 @@ const selectPlayer = (playerId) => {
       )}
       </div>
 
-       
+       {showForm && (
+        <div
+          style={{
+            position: "absolute",     // <--- NOT FIXED
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.5)", // dark overlay
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+          }}
+          onClick={() => setShowForm(false)} // click outside closes modal
+        >
+          <div
+            style={{
+              backgroundColor: "#fff",
+              padding: "20px",
+              borderRadius: "10px",
+              width: "90%",          // responsive width
+              maxWidth: "500px",     // max size
+              maxHeight: "90vh",     // prevent overflow
+              overflowY: "auto",     // scroll if content is tall
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ContactForm />
+            <button
+              onClick={() => setShowForm(false)}
+              style={{ marginTop: "10px", padding: "5px 10px" }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
   </div>
 );
