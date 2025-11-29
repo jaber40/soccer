@@ -253,7 +253,7 @@ const selectPlayer = (playerId) => {
       {showForm && (
         <div
           style={{
-            position: "fixed",   // covers whole viewport
+            position: "absolute",     // <--- NOT FIXED
             top: 0,
             left: 0,
             width: "100vw",
@@ -262,7 +262,7 @@ const selectPlayer = (playerId) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            zIndex: 9998,        // just below the button
+            zIndex: 9999,
           }}
           onClick={() => setShowForm(false)} // click outside closes modal
         >
@@ -288,7 +288,7 @@ const selectPlayer = (playerId) => {
           </div>
         </div>
       )}
-      
+
     </div>
 
     {/* Right-side container for the rest of the components */}
