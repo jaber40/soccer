@@ -235,7 +235,7 @@ const selectPlayer = (playerId) => {
       <button
         onClick={() => setShowForm(true)}
         style={{
-          position: "fixed",   // float above other elements
+          position: "absolute",   // float above other elements
           top: "10px",      // distance from bottom
           right: "10px",       // distance from left
           zIndex: 9999,        // on top of everything
