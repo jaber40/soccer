@@ -352,52 +352,69 @@ const selectPlayer = (playerId) => {
           <div>{selectedPlayerDetails.club_name}</div>
           <div>{selectedPlayerDetails.league_name}</div>
          </div>
-             <button
-                onClick={() => setShowForm(true)}
-                style={{ position: "fixed", bottom: "20px", right: "20px", padding: "10px 15px" }}
-              >
-                Contact
-            </button>
-              {showForm && (
-                <div
-                  style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    width: "100vw",
-                    height: "100vh",
-                    backgroundColor: "rgba(0,0,0,0.5)",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    zIndex: 1000,
-                  }}
-                  onClick={() => setShowForm(false)} // click outside closes modal
-                >
-                  <div
-                    style={{
-                      backgroundColor: "#fff",
-                      padding: "20px",
-                      borderRadius: "10px",
-                      minWidth: "300px",
-                      maxWidth: "500px",
-                    }}
-                    onClick={(e) => e.stopPropagation()} // prevent modal close when clicking inside
-                  >
-                    <ContactForm />
-                    <button
-                      onClick={() => setShowForm(false)}
-                      style={{ marginTop: "10px", padding: "5px 10px" }}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              )}
+             
          </div>
         </div>
       )}
       </div>
+
+       <button
+        onClick={() => setShowForm(true)}
+        style={{
+          position: "fixed",   // float above other elements
+          bottom: "10px",      // distance from bottom
+          left: "10px",       // distance from left
+          zIndex: 9999,        // on top of everything
+          padding: "5px 5px",
+          backgroundColor: "#333",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Contact
+      </button>
+      
+      {showForm && (
+        <div
+          style={{
+            position: "fixed",   // covers whole viewport
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.5)", // dark overlay
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9998,        // just below the button
+          }}
+          onClick={() => setShowForm(false)} // click outside closes modal
+        >
+          <div
+            style={{
+              backgroundColor: "#fff",
+              padding: "20px",
+              borderRadius: "10px",
+              width: "90%",          // responsive width
+              maxWidth: "500px",     // max size
+              maxHeight: "90vh",     // prevent overflow
+              overflowY: "auto",     // scroll if content is tall
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ContactForm />
+            <button
+              onClick={() => setShowForm(false)}
+              style={{ marginTop: "10px", padding: "5px 10px" }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
   </div>
 );
 
