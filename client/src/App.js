@@ -7,6 +7,8 @@ import DataTable from "./components/DataTable";
 import MapComponent from './components/MapComponent';
 import ComboBox3 from './components/ComboBox3';
 
+import ContactForm from "./components/ContactForm";
+
 function App() {
   const [selectedTournamentId, setSelectedTournamentId] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -22,6 +24,8 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [countriesData, setCountriesData] = useState([]); // State for countries.json data
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
+
+  const [showForm, setShowForm] = useState(false);
 
 
 //Handle inactivity for connectivity to database
@@ -348,6 +352,48 @@ const selectPlayer = (playerId) => {
           <div>{selectedPlayerDetails.club_name}</div>
           <div>{selectedPlayerDetails.league_name}</div>
          </div>
+             <button
+                onClick={() => setShowForm(true)}
+                style={{ position: "fixed", bottom: "20px", right: "20px", padding: "10px 15px" }}
+              >
+                Contact
+            </button>
+              {showForm && (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "100vh",
+                    backgroundColor: "rgba(0,0,0,0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: 1000,
+                  }}
+                  onClick={() => setShowForm(false)} // click outside closes modal
+                >
+                  <div
+                    style={{
+                      backgroundColor: "#fff",
+                      padding: "20px",
+                      borderRadius: "10px",
+                      minWidth: "300px",
+                      maxWidth: "500px",
+                    }}
+                    onClick={(e) => e.stopPropagation()} // prevent modal close when clicking inside
+                  >
+                    <ContactForm />
+                    <button
+                      onClick={() => setShowForm(false)}
+                      style={{ marginTop: "10px", padding: "5px 10px" }}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              )}
          </div>
         </div>
       )}

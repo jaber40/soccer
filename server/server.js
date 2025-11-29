@@ -1,4 +1,6 @@
 // src/server.js
+import contactRoutes from "./src/routes/contactRoutes.js";
+
 const express = require('express');
 const cors = require('cors');
 const tournamentRoutes = require('./src/routes/tournamentRoutes');
@@ -18,6 +20,8 @@ app.use('/api/tournaments', tournamentRoutes);
 app.use('/api/countries', countryRoutes);
 app.use('/api/players', playerRoutes);
 app.use('/api/players/selected', playerSelRoutes);
+
+app.use("/api/contact", contactRoutes);
 
 // Start server
 function startServer() {
