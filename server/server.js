@@ -1,6 +1,4 @@
 // src/server.js
-import contactRoutes from "./src/routes/contactRoutes.js";
-
 const express = require('express');
 const cors = require('cors');
 const tournamentRoutes = require('./src/routes/tournamentRoutes');
@@ -11,6 +9,8 @@ require('dotenv').config();
 
 const app = express();
 const port = 5000;
+
+const contactRoutes = require("./src/routes/contactRoutes");
 
 // Enable CORS
 app.use(cors());

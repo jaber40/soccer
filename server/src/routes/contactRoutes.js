@@ -1,6 +1,6 @@
-// server/src/routes/contactRoutes.js
-import express from "express";
-import nodemailer from "nodemailer";
+// src/routes/contactRoutes.js
+const express = require("express");
+const nodemailer = require("nodemailer");
 
 const router = express.Router();
 
@@ -8,7 +8,6 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   const { name, email, message } = req.body;
 
-  // Basic input validation
   if (!email || !message || message.length > 2000) {
     return res.status(400).json({ error: "Invalid input" });
   }
@@ -26,7 +25,7 @@ router.post("/", async (req, res) => {
 
     await transporter.sendMail({
       from: `"Soccer Site Contact" <${process.env.CONTACT_EMAIL}>`,
-      to: process.env.CONTACT_EMAIL, // send to yourself
+      to: process.env.CONTACT_EMAIL,
       subject: `New Contact Form Message from ${name || "Anonymous"}`,
       text: `Email: ${email}\n\nMessage:\n${message}`,
     });
@@ -38,4 +37,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
