@@ -41,7 +41,7 @@ const ContactForm = () => {
 
   return (
     <div className="contact-form" style={{ maxWidth: "500px", margin: "0 auto" }}>
-      <h2>Contact Us</h2>
+      <h2>Contact</h2>
       <form onSubmit={handleSubmit}>
 
         {/* Honeypot Field (hidden from human users) */}
