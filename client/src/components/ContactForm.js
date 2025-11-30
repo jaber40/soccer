@@ -40,7 +40,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="contact-form" style={{ maxWidth: "500px", margin: "10 auto" }}>
+    <div className="contact-form" style={{ maxWidth: "500px", margin: "0 auto" }}>
       <h2>Contact</h2>
       <form onSubmit={handleSubmit}>
 
@@ -61,7 +61,7 @@ const ContactForm = () => {
           placeholder="Your Name (optional)"
           value={form.name}
           onChange={handleChange}
-          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
+          style={{ width: "100%", padding: "8px", marginBottom: "10px", marginRight: "10px" }}
         />
 
         <input
@@ -71,7 +71,7 @@ const ContactForm = () => {
           value={form.email}
           onChange={handleChange}
           required
-          style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
+          style={{ width: "100%", padding: "8px", marginBottom: "10px", marginRight: "10px" }}
         />
 
         <textarea
@@ -80,7 +80,7 @@ const ContactForm = () => {
           value={form.message}
           onChange={handleChange}
           required
-          style={{ width: "100%", padding: "8px", marginBottom: "10px", minHeight: "100px" }}
+          style={{ width: "100%", padding: "8px", marginBottom: "10px", minHeight: "100px", marginRight: "10px" }}
         />
 
         <button type="submit" style={{ padding: "10px 20px" }}>
