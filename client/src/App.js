@@ -241,7 +241,7 @@ const selectPlayer = (playerId) => {
           zIndex: 9999,        // on top of everything
           padding: "10px 10px",
           backgroundColor: "black",
-          color: "gray",
+          color: "lightgray",
           border: "none",
           borderRadius: "5px",
           cursor: "pointer",
