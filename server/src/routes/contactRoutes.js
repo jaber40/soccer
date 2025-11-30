@@ -1,40 +1,29 @@
 // src/routes/contactRoutes.js
-const express = require("express");
-const nodemailer = require("nodemailer");
-
+const express = require('express');
 const router = express.Router();
 
-// POST /api/contact
-router.post("/", async (req, res) => {
-  const { name, email, message } = req.body;
+const { submitContact } = require('../services/contactService');
+const contactLimiter = require('../middleware/rateLimitContact');
 
-  if (!email || !message || message.length > 2000) {
-    return res.status(400).json({ error: "Invalid input" });
-  }
-
+router.post('/', contactLimiter, async (req, res) => {
   try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp.office365.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.CONTACT_EMAIL,
-        pass: process.env.CONTACT_EMAIL_PASSWORD,
-      },
+    // Honeypot: if filled → bot
+    if (req.body.website && req.body.website.trim() !== "") {
+      return res.status(200).json({ success: true });
+    }
+
+    const id = await submitContact(req.body);
+
+    res.status(200).json({
+      success: true,
+      id
     });
 
-    await transporter.sendMail({
-      from: `"Soccer Site Contact" <${process.env.CONTACT_EMAIL}>`,
-      to: process.env.CONTACT_EMAIL,
-      subject: `New Contact Form Message from ${name || "Anonymous"}`,
-      text: `Email: ${email}\n\nMessage:\n${message}`,
-    });
-
-    res.json({ success: true, message: "Message sent!" });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to send message" });
+    console.error("Error saving contact:", err);
+    res.status(500).json({ success: false, error: "Server error" });
   }
 });
 
 module.exports = router;
+
