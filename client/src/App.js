@@ -240,7 +240,7 @@ const selectPlayer = (playerId) => {
           right: "10px",       // distance from left
           zIndex: 9999,        // on top of everything
           padding: "10px 10px",
-          backgroundColor: "#333",
+          backgroundColor: "lightgray",
           color: "#fff",
           border: "none",
           borderRadius: "5px",
@@ -249,6 +249,8 @@ const selectPlayer = (playerId) => {
           display: "inline-block",  // prevents flex parent from stretching
           width: "auto",            // ensure it only wraps text
           height: "auto",
+          opacity: 0.6,
+          border: "1px solid gray",
           alignSelf: "flex-start",  // stops flex from stretching vertically
         }}
       >
