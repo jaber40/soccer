@@ -240,8 +240,8 @@ const selectPlayer = (playerId) => {
           right: "10px",       // distance from left
           zIndex: 9999,        // on top of everything
           padding: "10px 10px",
-          backgroundColor: "gray",
-          color: "darkgray",
+          backgroundColor: "darkgray",
+          color: "black",
           border: "none",
           borderRadius: "5px",
           cursor: "pointer",
