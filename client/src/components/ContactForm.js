@@ -7,7 +7,7 @@ const ContactForm = () => {
     name: "",
     email: "",
     message: "",
-    website: ""  // honeypot field
+    website: "" // Honeypot field
   });
 
   const [status, setStatus] = useState("");
@@ -29,27 +29,28 @@ const ContactForm = () => {
       if (res.data.success) {
         setStatus("Message sent!");
         setForm({ name: "", email: "", message: "", website: "" });
+      } else {
+        setStatus("Failed to send message.");
       }
+
     } catch (err) {
-      setStatus("Failed to send message.");
       console.error(err);
+      setStatus("Failed to send message.");
     }
   };
 
   return (
     <div className="contact-form" style={{ maxWidth: "500px", margin: "0 auto" }}>
       <h2>Contact Us</h2>
-
       <form onSubmit={handleSubmit}>
-        {/* Honeypot Field (hidden from users, visible to bots) */}
+
+        {/* Honeypot Field (hidden from human users) */}
         <input
           type="text"
           name="website"
           value={form.website}
           onChange={handleChange}
-          style={{
-            display: "none"
-          }}
+          style={{ display: "none" }}
           tabIndex="-1"
           autoComplete="off"
         />
@@ -79,12 +80,7 @@ const ContactForm = () => {
           value={form.message}
           onChange={handleChange}
           required
-          style={{
-            width: "100%",
-            padding: "8px",
-            marginBottom: "10px",
-            minHeight: "100px"
-          }}
+          style={{ width: "100%", padding: "8px", marginBottom: "10px", minHeight: "100px" }}
         />
 
         <button type="submit" style={{ padding: "10px 20px" }}>

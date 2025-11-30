@@ -1,12 +1,12 @@
-//server/src/services/contactService.js
+// server/src/services/contactService.js
 const validator = require('validator');
 const { saveContact } = require('../dao/contactDAO');
 
 async function submitContact(formData) {
   let { name, email, message } = formData;
 
-  // Validate
-  if (!validator.isLength(name || "", { min: 1, max: 255 })) {
+  // Validation
+  if (!validator.isLength(name || "", { min: 0, max: 255 })) {
     throw new Error("Invalid name");
   }
   if (!validator.isEmail(email || "")) {
@@ -24,6 +24,4 @@ async function submitContact(formData) {
   return await saveContact(name, email, message);
 }
 
-module.exports = {
-  submitContact
-};
+module.exports = { submitContact };
