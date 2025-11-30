@@ -40,7 +40,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="contact-form" style={{ maxWidth: "500px", margin: "0 auto" }}>
+    <div className="contact-form" style={{ maxWidth: "500px", margin: "10 auto" }}>
       <h2>Contact</h2>
       <form onSubmit={handleSubmit}>
 
