@@ -348,7 +348,6 @@ const selectPlayer = (playerId) => {
         <div>
           <img 
             src={`images/players/${selectedPlayerDetails.player_id}.jpg`}
-            style="display: none;"
             alt={selectedPlayerDetails.player_name}
             className="player-image"
             onError={(e) => {
@@ -358,8 +357,7 @@ const selectPlayer = (playerId) => {
           />
           <br />
           <img 
-            src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`}
-            style="display: none;" 
+            src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`} 
             className="club-image"
             onError={(e) => {
               e.target.onerror = null;
@@ -367,8 +365,7 @@ const selectPlayer = (playerId) => {
             }}
           />
           <img 
-            src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`}
-            style="display: none;"
+            src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} 
             className="league-image"
             onError={(e) => {
               e.target.onerror = null;
