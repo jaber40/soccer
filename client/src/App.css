@@ -44,21 +44,21 @@ html, body {
 
 /* Give the wrapper the translucent background */
 .leaflet-popup-content-wrapper {
-  background: rgba(250, 250, 250, 0.5) !important;
+  background: rgba(240, 240, 240, 0.5) !important;
   box-shadow: none;
   border-radius: 5px;
 }
 
 /* Match the tip */
 .leaflet-popup-tip {
-  background: rgba(250, 250, 250, 0.5) !important;
+  background: rgba(240, 240, 240, 0.5) !important;
   box-shadow: none;
 }
 
 /* Keep content clean */
 .popup-content {
   text-align: center;
-  padding: 3px 4px;
+  padding: 1px 2px;
 }
 
 
