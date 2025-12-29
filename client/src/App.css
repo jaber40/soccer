@@ -44,7 +44,7 @@ html, body {
 
 /* Popup body */
 .leaflet-popup-content-wrapper {
-  background: rgba(200, 200, 200, 0.5) !important;
+  background: rgba(200, 200, 200, 0.7) !important;
   box-shadow: none;
   border-radius: 5px;
   border: 1px solid rgb(200, 200, 200);
@@ -52,7 +52,7 @@ html, body {
 
 /* Popup tail */
 .leaflet-popup-tip {
-  background: rgba(200, 200, 200, 0.5) !important;
+  background: rgba(200, 200, 200, 0.7) !important;
   box-shadow: none;
   border: 1px solid rgb(200, 200, 200);
 }
@@ -60,7 +60,7 @@ html, body {
 /* Popup content */
 .popup-content {
   text-align: center;
-  padding: 1px 2px;
+  padding: 0px 0px;
 }
 
 
