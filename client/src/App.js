@@ -346,7 +346,7 @@ const selectPlayer = (playerId) => {
       {selectedPlayerDetails && (
         <div className="right-side-mini">
         <div>
-          <img 
+         <!-- <img 
             src={`images/players/${selectedPlayerDetails.player_id}.jpg`}
             alt={selectedPlayerDetails.player_name}
             className="player-image"
@@ -371,7 +371,7 @@ const selectPlayer = (playerId) => {
               e.target.onerror = null;
               e.target.src = "images/league_logo.jpg";
             }}
-          />
+          /> -->
           <div className="player-details">
           <div>{selectedPlayerDetails.player_name}</div>
           <div>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</div>
