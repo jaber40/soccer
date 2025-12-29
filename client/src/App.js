@@ -347,7 +347,8 @@ const selectPlayer = (playerId) => {
         <div className="right-side-mini">
         <div>
           <img 
-            src={`images/players/${selectedPlayerDetails.player_id}.jpg`} 
+            src={`images/players/${selectedPlayerDetails.player_id}.jpg`}
+            style="display: none;"
             alt={selectedPlayerDetails.player_name}
             className="player-image"
             onError={(e) => {
@@ -357,7 +358,8 @@ const selectPlayer = (playerId) => {
           />
           <br />
           <img 
-            src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`} 
+            src={`images/clubs/${selectedPlayerDetails.club_id}.jpg`}
+            style="display: none;" 
             className="club-image"
             onError={(e) => {
               e.target.onerror = null;
@@ -365,7 +367,8 @@ const selectPlayer = (playerId) => {
             }}
           />
           <img 
-            src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`} 
+            src={`images/leagues/${selectedPlayerDetails.league_id}.jpg`}
+            style="display: none;"
             className="league-image"
             onError={(e) => {
               e.target.onerror = null;
