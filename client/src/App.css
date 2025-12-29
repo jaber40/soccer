@@ -42,12 +42,17 @@ html, body {
   color: #61dafb;
 }
 
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: transparent !important;
+  box-shadow: none;
+}
+
 .popup-content {
   text-align: center;
   background-color: rgba(255, 255, 255, 0.5) !important;
   padding: 0px;
   border-radius: 5px; /* Optional: rounded corners */
-  opacity: 0.7; /* 0 = fully transparent, 1 = fully opaque */
 }
 
 .popup-content img {
