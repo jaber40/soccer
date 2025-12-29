@@ -42,20 +42,22 @@ html, body {
   color: #61dafb;
 }
 
-/* Give the wrapper the translucent background */
+/* Popup body */
 .leaflet-popup-content-wrapper {
   background: rgba(200, 200, 200, 0.5) !important;
   box-shadow: none;
   border-radius: 5px;
+  border: 1px solid rgb(200, 200, 200);
 }
 
-/* Match the tip */
+/* Popup tail */
 .leaflet-popup-tip {
   background: rgba(200, 200, 200, 0.5) !important;
   box-shadow: none;
+  border: 1px solid rgb(200, 200, 200);
 }
 
-/* Keep content clean */
+/* Popup content */
 .popup-content {
   text-align: center;
   padding: 1px 2px;
