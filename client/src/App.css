@@ -358,7 +358,8 @@ select {
   border: 1px solid #444444; /* Dark border for contrast */
   border-radius: 4px; /* Optional: Add rounded corners */
   transition: background-color 0.3s ease; /* Smooth transition on hover */
-  max-width: 100%; 
+  max-width: 100%;
+  margin-left: 2%;
 }
 
 /* Style for the radio buttons and labels */
