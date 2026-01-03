@@ -280,6 +280,7 @@ html, body {
   background-color: #4a4a4a;
   font-size: 14px;
   color: white;
+  width: 80%;
 }
 
 @media (max-width: 768px) {
