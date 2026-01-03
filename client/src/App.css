@@ -279,8 +279,9 @@ html, body {
   background-color: #4a4a4a;
   font-size: 14px;
   color: white;
-  margin: 0 auto;
   box-sizing: border-box;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
 .player-details div {
