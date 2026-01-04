@@ -209,6 +209,7 @@ html, body {
   justify-content: center;   /* vertical centering */
   align-items: center;       /* horizontal centering */
   min-height: 200px;         /* keeps consistent height even when image fails */
+  border: 1px solid red;
 }
 
 /* Responsive Stacking for Small Screens */
@@ -280,7 +281,6 @@ html, body {
   color: white;
   padding: 1px;
   align-items: center;
-  width: 80%;
 }
 
 @media (max-width: 768px) {
