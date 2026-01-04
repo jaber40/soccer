@@ -280,6 +280,7 @@ html, body {
   color: white;
   padding: 1px;
   align-items: center;
+  width: 80%;
 }
 
 @media (max-width: 768px) {
