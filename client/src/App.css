@@ -221,7 +221,7 @@ html, body {
     box-shadow: none; /* Remove side shadow to look natural in stacking */
     display: flex;
     flex-direction: row; /* Stack horizontally on narrow screens */
-    flex-wrap: wrap; /* Ensure proper wrapping for sub-containers */
+    flex-wrap: nowrap; /* Ensure proper wrapping for sub-containers */
     justify-content: space-between; /* Ensure there is space between the sub-containers */
     align-items: flex-start;
   }
