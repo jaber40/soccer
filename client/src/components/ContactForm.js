@@ -84,9 +84,22 @@ const ContactForm = () => {
           style={{ width: "90%", padding: "8px", marginBottom: "10px", minHeight: "100px" }}
         />
 
-        <button type="submit" style={{ padding: "10px 20px" }}>
+        <button
+          type="submit"
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "green",
+            color: "white",
+            border: "2px solid darkgreen",
+            borderRadius: "4px",
+            cursor: "pointer"
+          }}
+        >
+
           Send
+          
         </button>
+
       </form>
 
       {status && <p>{status}</p>}
