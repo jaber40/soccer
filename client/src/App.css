@@ -170,7 +170,7 @@ html, body {
   }
 
   .map-data-container {
-    width: 90%; /* Full width */
+    width: 92%; /* Full width */
     height: auto; /* Adapt height dynamically */
     order: 2; /* Ensures it appears below right-side-container */
     margin: 0;
