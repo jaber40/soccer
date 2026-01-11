@@ -294,6 +294,7 @@ html, body {
   padding: 3px;
   align-items: center;
   width: 90%;       /* fixed 90% of parent width */
+  margin: 0 auto;
 }
 
 @media (max-width: 768px) {
