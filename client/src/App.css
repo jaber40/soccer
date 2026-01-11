@@ -20,6 +20,14 @@ html, body {
   pointer-events: none;
 }
 
+@media (max-width: 768px) {
+  .App {
+    height: auto;          /* 🔑 remove scroll lock */
+    min-height: 100vh;     /* still fills screen */
+    overflow-y: visible;   /* allow body scrolling */
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -164,7 +172,6 @@ html, body {
   .map-data-container {
     width: 100%; /* Full width */
     height: auto; /* Adapt height dynamically */
-    overflow-y: visible;
     order: 2; /* Ensures it appears below right-side-container */
   }
 
