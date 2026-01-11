@@ -160,6 +160,7 @@ html, body {
   height: 40%;
   overflow-y: auto; /* Enable scrolling if needed */
   max-width: 100%;
+  overflow-x: visible;
 }
 
 /* Responsive stacking for smaller screens */
