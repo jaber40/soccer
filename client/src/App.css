@@ -170,9 +170,10 @@ html, body {
   }
 
   .map-data-container {
-    width: 100%; /* Full width */
+    width: 90%; /* Full width */
     height: auto; /* Adapt height dynamically */
     order: 2; /* Ensures it appears below right-side-container */
+    margin: 0 auto;
   }
 
   .map-data-container > :first-child {
