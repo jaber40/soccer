@@ -293,6 +293,7 @@ html, body {
   color: white;
   padding: 3px;
   align-items: center;
+  width: 90%;       /* fixed 90% of parent width */
 }
 
 @media (max-width: 768px) {
