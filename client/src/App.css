@@ -170,10 +170,10 @@ html, body {
   }
 
   .map-data-container {
-    width: 90%; /* Full width */
+    width: 95%; /* Full width */
     height: auto; /* Adapt height dynamically */
     order: 2; /* Ensures it appears below right-side-container */
-    margin: 0 auto;
+    margin: 0;
   }
 
   .map-data-container > :first-child {
@@ -234,6 +234,7 @@ html, body {
     flex-wrap: nowrap; /* Ensure proper wrapping for sub-containers */
     justify-content: space-between; /* Ensure there is space between the sub-containers */
     align-items: flex-start;
+    border: 1px solid transparent;
   }
 
   /* Adjust the sub-containers' width */
