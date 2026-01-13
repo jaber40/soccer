@@ -297,6 +297,12 @@ html, body {
   margin: 0 auto;
 }
 
+/* Force each child line to fill container width, preventing mid-line splits */
+.player-details > div {
+  width: 100%;
+  white-space: normal;     /* wrap only if text is too long */
+}
+
 @media (max-width: 768px) {
   .player-details {
     font-size: 12px;
