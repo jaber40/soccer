@@ -296,6 +296,10 @@ html, body {
   margin: 0 auto;
 }
 
+.player-details > div {
+  white-space: nowrap; /* prevents breaking mid-line */
+}
+
 @media (max-width: 768px) {
   .player-details {
     font-size: 12px;

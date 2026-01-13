@@ -375,14 +375,15 @@ const selectPlayer = (playerId) => {
             }}
           />
             */}
-         <div className="player-details">
-          <span>{selectedPlayerDetails.player_name} · </span>
-          <span>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name} · </span>
-          <span>{selectedPlayerDetails.position} · </span>
-          <span>Age: {selectedPlayerDetails.age} · </span>
-          <span>{selectedPlayerDetails.club_name} · </span>
-          <span>{selectedPlayerDetails.league_name}</span>
-        </div>
+       <div className="player-details">
+        <div>{selectedPlayerDetails.player_name}</div>
+        <div>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</div>
+        <div>{selectedPlayerDetails.position}</div>
+        <div>Age: {selectedPlayerDetails.age}</div>
+        <div>{selectedPlayerDetails.club_name}</div>
+        <div>{selectedPlayerDetails.league_name}</div>
+      </div>
+
 
 
              
