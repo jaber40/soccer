@@ -284,20 +284,17 @@ html, body {
 
 
 
-/* Optional for Player Details section */
+/* Optional for Player Details section Staging*/
 .player-details {
-  display: block;   /* not flex */
+  display: flex;
+  flex-direction: column;
   background-color: #4a4a4a;
   font-size: 14px;
   color: white;
   padding: 3px;
-  text-align: center;
+  align-items: center;
   width: 90%;       /* fixed 90% of parent width */
   margin: 0 auto;
-}
-
-.player-details > div {
-  white-space: nowrap; /* prevents breaking mid-line */
 }
 
 @media (max-width: 768px) {
@@ -306,7 +303,6 @@ html, body {
     margin-bottom: 2px;
   }
 }
-
 
 .data-table {
   width: 100%;
