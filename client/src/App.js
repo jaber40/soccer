@@ -376,13 +376,14 @@ const selectPlayer = (playerId) => {
           />
             */}
           <div className="player-details">
-          <div>{selectedPlayerDetails.player_name}</div>
-          <div>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</div>
-          <div>{selectedPlayerDetails.position}</div>
-          <div>Age: {selectedPlayerDetails.age}</div>
-          <div>{selectedPlayerDetails.club_name}</div>
-          <div>{selectedPlayerDetails.league_name}</div>
-         </div>
+            <p>{selectedPlayerDetails.player_name}</p>
+            <p>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</p>
+            <p>{selectedPlayerDetails.position}</p>
+            <p>Age: {selectedPlayerDetails.age}</p>
+            <p>{selectedPlayerDetails.club_name}</p>
+            <p>{selectedPlayerDetails.league_name}</p>
+          </div>
+
              
          </div>
         </div>
