@@ -292,7 +292,7 @@ html, body {
   font-size: 14px;
   color: white;
   padding: 3px;
-  align-items: center;
+  text-align: center;
   width: 90%;       /* fixed 90% of parent width */
   margin: 0 auto;
 }
