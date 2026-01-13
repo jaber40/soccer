@@ -286,8 +286,7 @@ html, body {
 
 /* Optional for Player Details section */
 .player-details {
-  display: flex;
-  flex-direction: column;
+  display: block;   /* not flex */
   background-color: #4a4a4a;
   font-size: 14px;
   color: white;
