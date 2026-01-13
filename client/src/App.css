@@ -284,24 +284,17 @@ html, body {
 
 
 
-/* Optional for Player Details section Staging*/
+/* Optional for Player Details section Staging */
 .player-details {
-  display: flex;
-  flex-direction: column;
+  display: inline-block;       /* shrink to content width */
   background-color: #4a4a4a;
   font-size: 14px;
   color: white;
   padding: 3px;
-  align-items: center;
-  width: 90%;       /* fixed 90% of parent width */
-  margin: 0 auto;
+  text-align: center;          /* center text inside */
+  width: 90%;                  /* optional; can remove if you want natural width */
 }
 
-/* Force each child line to fill container width, preventing mid-line splits */
-.player-details > div {
-  width: 100%;
-  white-space: normal;     /* wrap only if text is too long */
-}
 
 @media (max-width: 768px) {
   .player-details {
