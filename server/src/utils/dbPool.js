@@ -1,6 +1,5 @@
 // src/utils/dbPool.js
-const mysql = require('mysql2/promise');
-
+const mysql = require('mysql2');
 const dbConfig = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -9,14 +8,12 @@ const dbConfig = {
   port: process.env.DB_PORT || 4000,
   ssl: {
     rejectUnauthorized: true
-  },
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+  }
 };
 
 let dbPool = null;
 
+// Singleton to manage MySQL connection pool
 function getDBPool() {
   if (!dbPool) {
     dbPool = mysql.createPool(dbConfig);
