@@ -426,7 +426,7 @@ const selectPlayer = (playerId) => {
               style={{
                 marginTop: "8px",  
                 backgroundColor: "#4a4a4a",
-                color: "white",
+                color: "#a0a0a0",
                 border: "none",
                 borderRadius: "4px",
                 padding: "5px 10px",
