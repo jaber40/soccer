@@ -264,7 +264,7 @@ const selectPlayer = (playerId) => {
           style={{
             position: "fixed",
             inset: 0,
-            backgroundColor: ""#3a3a3a", // gray overlay
+            backgroundColor: "#3a3a3a", // gray overlay
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
