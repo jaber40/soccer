@@ -98,15 +98,7 @@ const ContactForm = () => {
 
           Send
           
-        </button
-          style={{
-            backgroundColor: "black",
-            color: "white",
-            border: "2px solid black",
-            borderRadius: "5px",
-            cursor: "pointer"
-          }}
-        >
+        </button>
 
       </form>
 
