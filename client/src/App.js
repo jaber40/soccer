@@ -410,7 +410,7 @@ const selectPlayer = (playerId) => {
         >
           <div
             style={{
-              backgroundColor: "#fff",
+              backgroundColor: "#3a3a3a",
               padding: "20px",
               borderRadius: "10px",
               width: "90%",          // responsive width
