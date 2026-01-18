@@ -54,7 +54,7 @@ const ContactForm = ({ onClose }) => {
     >
      
 
-      <h2 style={{ color: "#a0a0a0", marginTop: "0" }}>Contact</h2>
+      <h2 style={{ color: "white", marginTop: "0" }}>Contact</h2>
 
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
 
