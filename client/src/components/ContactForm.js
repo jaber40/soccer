@@ -42,7 +42,7 @@ const ContactForm = () => {
   return (
     <div className="contact-form" style={{ maxWidth: "500px", margin: "0 auto", backgroundColor: "#3a3a3a" }}>
       <h2 style={{ color: "white" }}>Contact</h2>
-      <div style={{ background-color: "#3a3a3a", color: "white" }}>Thank you for your message</div>
+      <div style={{ backgroundColor: "#3a3a3a", color: "white" }}>Thank you for your message</div>
       <form onSubmit={handleSubmit}>
 
         {/* Honeypot Field (hidden from human users) */}
