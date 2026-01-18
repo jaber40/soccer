@@ -52,28 +52,7 @@ const ContactForm = ({ onClose }) => {
         boxShadow: "0 4px 10px rgba(0,0,0,0.3)"
       }}
     >
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        style={{
-          position: "absolute",
-          top: "10px",
-          right: "10px",
-          backgroundColor: "#3a3a3a",
-          color: "white",
-          border: "none",
-          borderRadius: "4px",
-          padding: "5px 10px",
-          cursor: "pointer",
-          fontWeight: "bold",
-          fontSize: "14px",
-          transition: "background-color 0.2s",
-        }}
-        onMouseEnter={e => e.currentTarget.style.backgroundColor = "#4a4a4a"}
-        onMouseLeave={e => e.currentTarget.style.backgroundColor = "#3a3a3a"}
-      >
-        X
-      </button>
+     
 
       <h2 style={{ color: "white", marginTop: "0" }}>Contact</h2>
 
