@@ -40,7 +40,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="contact-form" style={{ maxWidth: "500px", margin: "0 auto", background-color: "#3a3a3a" }}>
+    <div className="contact-form" style={{ maxWidth: "500px", margin: "0 auto", backgroundColor: "#3a3a3a" }}>
       <h2 style={{ color: "white" }}>Contact</h2>
       <div style={{ background-color: "#3a3a3a", color: "white" }}>Thank you for your message</div>
       <form onSubmit={handleSubmit}>
@@ -62,7 +62,7 @@ const ContactForm = () => {
           placeholder="Your Name (optional)"
           value={form.name}
           onChange={handleChange}
-          style={{ width: "90%", padding: "8px", marginBottom: "10px", margin: "10px", background-color: "#4a4a4a", color: "white" }}
+          style={{ width: "90%", padding: "8px", marginBottom: "10px", margin: "10px", backgroundColor: "#4a4a4a", color: "white" }}
         />
 
         <input
@@ -72,7 +72,7 @@ const ContactForm = () => {
           value={form.email}
           onChange={handleChange}
           required
-          style={{ width: "90%", padding: "8px", marginBottom: "10px", background-color: "#4a4a4a", color: "white" }}
+          style={{ width: "90%", padding: "8px", marginBottom: "10px", backgroundColor: "#4a4a4a", color: "white" }}
         />
 
         <textarea
@@ -81,7 +81,7 @@ const ContactForm = () => {
           value={form.message}
           onChange={handleChange}
           required
-          style={{ width: "90%", padding: "8px", marginBottom: "10px", minHeight: "100px", background-color: "#4a4a4a", color: "white" }}
+          style={{ width: "90%", padding: "8px", marginBottom: "10px", minHeight: "100px", backgroundColor: "#4a4a4a", color: "white" }}
         />
 
         <button
