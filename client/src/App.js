@@ -424,6 +424,7 @@ const selectPlayer = (playerId) => {
             <button
               onClick={() => setShowForm(false)}
               style={{
+                marginTop: "8px",  
                 backgroundColor: "#4a4a4a",
                 color: "white",
                 border: "none",

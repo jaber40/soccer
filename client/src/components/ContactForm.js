@@ -125,10 +125,10 @@ const ContactForm = ({ onClose }) => {
         <button
           type="submit"
           style={{
-            padding: "10px 10px",
+            padding: "10px",
             backgroundColor: "green",
             color: "white",
-            border: "2px solid green",
+            border: "none",
             borderRadius: "5px",
             cursor: "pointer",
             fontWeight: "bold",
