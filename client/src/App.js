@@ -256,26 +256,6 @@ const selectPlayer = (playerId) => {
       >
         Contact
       </button>
-
-
-      {/* Overlay + ContactForm */}
-      {showForm && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            backgroundColor: "#3a3a3a", // gray overlay
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 9998, // under the button
-          }}
-        >
-          <div>
-            <ContactForm />
-          </div>
-        </div>
-      )}
       
 
     </div>
