@@ -125,7 +125,7 @@ const ContactForm = ({ onClose }) => {
         <button
           type="submit"
           style={{
-            padding: "10px 20px",
+            padding: "10px 10px",
             backgroundColor: "green",
             color: "white",
             border: "2px solid green",
@@ -133,6 +133,8 @@ const ContactForm = ({ onClose }) => {
             cursor: "pointer",
             fontWeight: "bold",
           }}
+          onMouseEnter={e => e.currentTarget.style.backgroundColor = "darkgreen"}
+          onMouseLeave={e => e.currentTarget.style.backgroundColor = "green"}
         >
           Send
         </button>

@@ -423,7 +423,22 @@ const selectPlayer = (playerId) => {
             <ContactForm />
             <button
               onClick={() => setShowForm(false)}
-              style={{ marginTop: "10px", padding: "5px 10px" }}
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                backgroundColor: "#4a4a4a",
+                color: "white",
+                border: "none",
+                borderRadius: "4px",
+                padding: "5px 10px",
+                cursor: "pointer",
+                fontWeight: "bold",
+                fontSize: "14px",
+                transition: "background-color 0.2s",
+              }}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "black"}
+              onMouseLeave={e => e.currentTarget.style.backgroundColor = "#4a4a4a"}
             >
               Close
             </button>
