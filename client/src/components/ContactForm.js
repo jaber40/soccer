@@ -40,9 +40,9 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="contact-form" style={{ maxWidth: "500px", margin: "0 auto" }}>
-      <h2>Contact</h2>
-      <div>Thank you for your message</div>
+    <div className="contact-form" style={{ maxWidth: "500px", margin: "0 auto", background-color: "#3a3a3a" }}>
+      <h2 style={{ color: "white" }}>Contact</h2>
+      <div style={{ background-color: "#3a3a3a", color: "white" }}>Thank you for your message</div>
       <form onSubmit={handleSubmit}>
 
         {/* Honeypot Field (hidden from human users) */}
@@ -62,7 +62,7 @@ const ContactForm = () => {
           placeholder="Your Name (optional)"
           value={form.name}
           onChange={handleChange}
-          style={{ width: "90%", padding: "8px", marginBottom: "10px", margin: "10px" }}
+          style={{ width: "90%", padding: "8px", marginBottom: "10px", margin: "10px", background-color: "#4a4a4a", color: "white" }}
         />
 
         <input
@@ -72,7 +72,7 @@ const ContactForm = () => {
           value={form.email}
           onChange={handleChange}
           required
-          style={{ width: "90%", padding: "8px", marginBottom: "10px" }}
+          style={{ width: "90%", padding: "8px", marginBottom: "10px", background-color: "#4a4a4a", color: "white" }}
         />
 
         <textarea
@@ -81,7 +81,7 @@ const ContactForm = () => {
           value={form.message}
           onChange={handleChange}
           required
-          style={{ width: "90%", padding: "8px", marginBottom: "10px", minHeight: "100px" }}
+          style={{ width: "90%", padding: "8px", marginBottom: "10px", minHeight: "100px", background-color: "#4a4a4a", color: "white" }}
         />
 
         <button
@@ -98,7 +98,15 @@ const ContactForm = () => {
 
           Send
           
-        </button>
+        </button
+          style={{
+            backgroundColor: "black",
+            color: "white",
+            border: "2px solid black",
+            borderRadius: "5px",
+            cursor: "pointer"
+          }}
+        >
 
       </form>
 
