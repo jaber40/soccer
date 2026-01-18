@@ -90,6 +90,7 @@ const ContactForm = () => {
             padding: "10px 20px",
             backgroundColor: "green",
             color: "white",
+            border: "2px solid green",
             borderRadius: "5px",
             cursor: "pointer"
           }}
