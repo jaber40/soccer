@@ -238,7 +238,7 @@ const selectPlayer = (playerId) => {
           position: "absolute",   // float above other elements
           top: "10px",      // distance from bottom
           right: "10px",       // distance from left
-          zIndex: 9999,        // on top of everything
+          zIndex: 1000,        // on top of everything except the contact form
           padding: "10px 10px",
           backgroundColor: "black",
           color: "lightgray",
