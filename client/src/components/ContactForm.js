@@ -69,6 +69,29 @@ const ContactForm = ({ onClose }) => {
           autoComplete="off"
         />
 
+        <button
+          onClick={() => setShowForm(false)}
+          style={{
+            position: "absolute",
+            top: "8px",
+            right: "8px",
+            backgroundColor: "#4a4a4a",
+            color: "#a0a0a0",
+            border: "none",
+            borderRadius: "4px",
+            padding: "5px 10px",
+            cursor: "pointer",
+            fontWeight: "bold",
+            fontSize: "14px",
+            transition: "background-color 0.2s",
+          }}
+          onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#333")}
+          onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#4a4a4a")}
+        >
+          X
+        </button>
+
+
         <input
           type="text"
           name="name"
