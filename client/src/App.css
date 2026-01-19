@@ -460,3 +460,24 @@ label {
 }
 
 @import 'leaflet/dist/leaflet.css';
+
+input,
+textarea {
+  background-color: #4a4a4a;
+  color: white;
+}
+
+input:focus,
+textarea:focus {
+  background-color: #4a4a4a;
+  color: white;
+  outline: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #4a4a4a inset;
+  -webkit-text-fill-color: white;
+}
+
