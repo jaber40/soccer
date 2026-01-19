@@ -381,6 +381,7 @@ const selectPlayer = (playerId) => {
         <div>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</div>
         <div>{selectedPlayerDetails.position}</div>
         <div>Age: {selectedPlayerDetails.age}</div>
+        <div style={{ color: "gray" }}>Club:</div>
         <div>{selectedPlayerDetails.club_name}</div>
         <div style={{ color: "gray" }}>Club location:</div>
         <div>{selectedPlayerDetails.club_city_name}, {selectedPlayerDetails.club_country_name}</div>
