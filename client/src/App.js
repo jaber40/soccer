@@ -438,7 +438,7 @@ const selectPlayer = (playerId) => {
                 fontSize: "14px",
                 transition: "background-color 0.2s",
               }}
-              onMouseEnter={e => e.currentTarget.style.backgroundColor = "black"}
+              onMouseEnter={e => e.currentTarget.style.backgroundColor = "#333"}
               onMouseLeave={e => e.currentTarget.style.backgroundColor = "#4a4a4a"}
             >
               Close
