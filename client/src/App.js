@@ -425,7 +425,7 @@ const selectPlayer = (playerId) => {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <ContactForm />
+            <ContactForm onClose={() => setShowForm(false)} />
             <button
               onClick={() => setShowForm(false)}
               style={{

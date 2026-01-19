@@ -70,7 +70,7 @@ const ContactForm = ({ onClose }) => {
         />
 
         <button
-          onClick={() => setShowForm(false)}
+          onClick={onClose}
           style={{
             position: "absolute",
             top: "8px",
