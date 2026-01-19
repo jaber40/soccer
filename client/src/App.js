@@ -377,13 +377,13 @@ const selectPlayer = (playerId) => {
             */}
        <div className="player-details">
         <div>{selectedPlayerDetails.player_name}</div>
-        <div style={{ color: "lightgray" }}>Birthplace:</div>
+        <div style={{ color: "gray" }}>Birthplace:</div>
         <div>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</div>
         <div>{selectedPlayerDetails.position}</div>
         <div>Age: {selectedPlayerDetails.age}</div>
         <div>{selectedPlayerDetails.club_name}</div>
-        <div style={{ color: "lightgray" }}>Club location:</div>
-        <div>{selectedPlayerDetails.club_city_name}</div>
+        <div style={{ color: "gray" }}>Club location:</div>
+        <div>{selectedPlayerDetails.club_city_name}, {selectedPlayerDetails.club_country_name}</div>
         <div>{selectedPlayerDetails.league_name}</div>
       </div>
 
