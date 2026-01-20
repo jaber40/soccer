@@ -265,6 +265,7 @@ const selectPlayer = (playerId) => {
     <div className="left-side-mini">
       {/* Title and Tournament Image */}
       <h3 style={{ color: "white" }}>International Soccer</h3>
+      <h4 style={{ color: "gray" }}>FIFA World Cup 2026 data coming soon</h4>
      <img
       src={`images/tournaments/${selectedTournamentId}.jpg`}
       style={{ width: "20%", border: "1px solid black", objectFit: "contain" }}
