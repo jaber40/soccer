@@ -376,8 +376,8 @@ const selectPlayer = (playerId) => {
           />
             */}
        <div className="player-details">
+        <div>{selectedPlayerDetails.number} {selectedPlayerDetails.player_name}</div>
         <div>{selectedPlayerDetails.position}</div>
-        <div>{selectedPlayerDetails.player_number} {selectedPlayerDetails.player_name}</div>
         <div style={{ color: "gray" }}>Birthplace:</div>
         <div>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</div>
         <div>Age: {selectedPlayerDetails.age}</div>
