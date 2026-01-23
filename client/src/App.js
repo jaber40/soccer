@@ -377,7 +377,7 @@ const selectPlayer = (playerId) => {
           />
             */}
        <div className="player-details">
-        <div style={{ font-weight: "bold" }}>{selectedPlayerDetails.number} {selectedPlayerDetails.player_name}</div>
+        <div style={{ fontWeight: "bold" }}>{selectedPlayerDetails.number} {selectedPlayerDetails.player_name}</div>
         <div>{selectedPlayerDetails.position}</div>
         <div style={{ color: "gray" }}>Birthplace:</div>
         <div>{selectedPlayerDetails.player_city_name}, {selectedPlayerDetails.country_name}</div>
