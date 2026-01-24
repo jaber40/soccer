@@ -45,6 +45,7 @@ const ContactForm = ({ onClose }) => {
       style={{
         position: "relative",       // needed for close button positioning
         maxWidth: "500px",
+        maxHeight: "100vh",
         margin: "0 auto",
         backgroundColor: "#3a3a3a",
         padding: "20px",
