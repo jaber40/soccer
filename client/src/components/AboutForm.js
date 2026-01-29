@@ -41,20 +41,19 @@ const AboutForm = ({ onClose }) => {
 
       <div style={{ color: "#e0e0e0", lineHeight: "1.5" }}>
         <p>
-          This website is an independent soccer data project built for
-          informational and educational purposes. It aggregates and visualizes
-          historical and reference data related to international soccer
-          tournaments and players.
+          This website is an independent project—here to kick around historical data, pass along player stats, and occasionally score a fact or two.
         </p>
 
         <h4 style={{ color: "white", marginTop: "20px" }}>Disclaimer</h4>
 
         <p>
-          This website is not affiliated with, endorsed by, or sponsored by FIFA.
+          This website is not affiliated with, endorsed by, or sponsored by FIFA (FIFA World Cup), UEFA (UEFA European Championship), or CONMEBOL (Copa América).
+
         </p>
 
         <p>
-          FIFA World Cup® is a registered trademark of FIFA.
+          FIFA World Cup® is a registered trademark of FIFA.  UEFA European Championship® and EURO marks are registered trademarks of UEFA.  
+          CONMEBOL Copa América® is a registered trademark of CONMEBOL.
         </p>
       </div>
     </div>

@@ -286,7 +286,7 @@ const selectPlayer = (playerId) => {
         }}
         style={{
           position: "absolute",   // float above other elements
-          top: "40px",      // distance from bottom
+          top: "60px",      // distance from bottom
           right: "10px",       // distance from left
           zIndex: 1001,        // on top of everything except the contact form
           padding: "10px 10px",
@@ -304,7 +304,7 @@ const selectPlayer = (playerId) => {
           alignSelf: "flex-start",  // stops flex from stretching vertically
         }}
       >
-        About
+        About  
       </button>
       
 
@@ -315,7 +315,7 @@ const selectPlayer = (playerId) => {
     <div className="left-side-mini">
       {/* Title and Tournament Image */}
       <h3 style={{ margin: "4px 0 2px 0", color: "white" }}>International Soccer</h3>
-      <h6 style={{ color: "gray", margin: "0 0 2px 0" }}>FIFA World Cup 2026 data coming soon</h6>
+      <h6 style={{ color: "gray", margin: "0 0 2px 0" }}>FIFA World Cup® 2026 data coming soon</h6>
      <img
       src={`images/tournaments/${selectedTournamentId}.jpg`}
       style={{ width: "20%", border: "1px solid black", objectFit: "contain" }}
