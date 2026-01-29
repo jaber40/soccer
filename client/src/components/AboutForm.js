@@ -41,7 +41,7 @@ const AboutForm = ({ onClose }) => {
 
       <div style={{ color: "#e0e0e0", lineHeight: "1.5" }}>
         <p>
-          This website is an independent project—here to kick around historical data, pass along player stats, and occasionally score a fact or two.
+          This website is an independent project—here to kick around geographic data, pass along player info, and occasionally score a fact or two.
         </p>
 
         <h4 style={{ color: "white", marginTop: "20px" }}>Disclaimer</h4>
@@ -54,6 +54,9 @@ const AboutForm = ({ onClose }) => {
         <p>
           FIFA World Cup® is a registered trademark of FIFA.  UEFA European Championship® and EURO marks are registered trademarks of UEFA.  
           CONMEBOL Copa América® is a registered trademark of CONMEBOL.
+        </p>
+        <p>
+          All club names, logos, and related marks are trademarks of their respective owners and are used on this site for identification and informational purposes only.
         </p>
       </div>
     </div>
