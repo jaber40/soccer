@@ -8,6 +8,7 @@ import MapComponent from './components/MapComponent';
 import ComboBox3 from './components/ComboBox3';
 
 import ContactForm from "./components/ContactForm";
+import AboutForm from "./components/AboutForm";
 
 function App() {
   const [selectedTournamentId, setSelectedTournamentId] = useState("");
@@ -26,6 +27,7 @@ function App() {
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
   const [showForm, setShowForm] = useState(false);
+  const [formType, setFormType] = useState(null);
 
 
 //Handle inactivity for connectivity to database
@@ -43,28 +45,44 @@ const activityEvents = [
   "scroll"
 ];
 
-activityEvents.forEach(event => {
-  window.addEventListener(event, () => {
+
+const closeModal = () => {
+  setShowForm(false);
+  setFormType(null);
+};
+
+
+useEffect(() => {
+  const updateActivity = () => {
     lastActivity = Date.now();
-  });
-});
+  };
 
-// Desktop works fine with a normal interval
-setInterval(() => {
-  if (Date.now() - lastActivity > INACTIVITY_LIMIT) {
-    window.location.reload();
-  }
-}, 30000); // 30 seconds
+  activityEvents.forEach(event =>
+    window.addEventListener(event, updateActivity)
+  );
 
-// 👇 Mobile fix: detect coming back from screen off / background
-document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) {
-    // Tab became visible again
+  const interval = setInterval(() => {
     if (Date.now() - lastActivity > INACTIVITY_LIMIT) {
       window.location.reload();
     }
-  }
-});
+  }, 30000);
+
+  const visibilityHandler = () => {
+    if (!document.hidden && Date.now() - lastActivity > INACTIVITY_LIMIT) {
+      window.location.reload();
+    }
+  };
+
+  document.addEventListener("visibilitychange", visibilityHandler);
+
+  return () => {
+    activityEvents.forEach(event =>
+      window.removeEventListener(event, updateActivity)
+    );
+    clearInterval(interval);
+    document.removeEventListener("visibilitychange", visibilityHandler);
+  };
+}, []);
 
 
 
@@ -233,7 +251,10 @@ const selectPlayer = (playerId) => {
       )}
 
       <button
-        onClick={() => setShowForm(true)}
+        onClick={() => {
+          setFormType("contact");
+          setShowForm(true);
+        }}
         style={{
           position: "absolute",   // float above other elements
           top: "10px",      // distance from bottom
@@ -255,6 +276,35 @@ const selectPlayer = (playerId) => {
         }}
       >
         Contact
+      </button>
+
+
+      <button
+        onClick={() => {
+          setFormType("about");
+          setShowForm(true);
+        }}
+        style={{
+          position: "absolute",   // float above other elements
+          top: "40px",      // distance from bottom
+          right: "10px",       // distance from left
+          zIndex: 1001,        // on top of everything except the contact form
+          padding: "10px 10px",
+          backgroundColor: "black",
+          color: "lightgray",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+          fontSize: "12px",
+          display: "inline-block",  // prevents flex parent from stretching
+          width: "auto",            // ensure it only wraps text
+          height: "auto",
+          opacity: 0.6,
+          border: "1px solid lightgray",
+          alignSelf: "flex-start",  // stops flex from stretching vertically
+        }}
+      >
+        About
       </button>
       
 
@@ -412,7 +462,7 @@ const selectPlayer = (playerId) => {
             alignItems: "center",
             zIndex: 9999,
           }}
-          onClick={() => setShowForm(false)} // click outside closes modal
+          onClick={closeModal} // click outside closes modal
         >
           <div
             style={{
@@ -426,9 +476,15 @@ const selectPlayer = (playerId) => {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <ContactForm onClose={() => setShowForm(false)} />
+             {formType === "contact" && (
+              <ContactForm onClose={closeModal} />
+            )}
+
+            {formType === "about" && (
+              <AboutForm onClose={closeModal} />
+            )}
             <button
-              onClick={() => setShowForm(false)}
+              onClick={closeModal}
               style={{
                 marginTop: "8px",  
                 backgroundColor: "#4a4a4a",
