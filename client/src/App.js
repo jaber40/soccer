@@ -268,7 +268,7 @@ const selectPlayer = (playerId) => {
           cursor: "pointer",
           fontSize: "12px",
           display: "inline-block",  // prevents flex parent from stretching
-          width: "auto",            // ensure it only wraps text
+          width: "50px",
           height: "auto",
           opacity: 0.6,
           border: "1px solid lightgray",
@@ -297,7 +297,7 @@ const selectPlayer = (playerId) => {
           cursor: "pointer",
           fontSize: "12px",
           display: "inline-block",  // prevents flex parent from stretching
-          width: "auto",            // ensure it only wraps text
+          width: "50px",
           height: "auto",
           opacity: 0.6,
           border: "1px solid lightgray",
