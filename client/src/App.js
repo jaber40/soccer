@@ -29,6 +29,8 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [formType, setFormType] = useState(null);
 
+  const [hasUserSelectedPlayer, setHasUserSelectedPlayer] = useState(false);
+
 
 //Handle inactivity for connectivity to database
 // 5 minutes
@@ -185,6 +187,7 @@ const matchCountryCoordinates = (countries) => {
   };
 
 const handleSelectPlayer = (playerId) => {
+  setHasUserSelectedPlayer(true);
   selectPlayer(playerId)
 };
 
@@ -427,7 +430,7 @@ const selectPlayer = (playerId) => {
           />
             */}
         <div className="player-details">
-          {!selectedPlayerDetails ? (
+          {!hasUserSelectedPlayer ? (
             <>
               <div style={{ marginBottom: "6px" }}>
                 Explore international soccer tournaments by selecting a tournament,
