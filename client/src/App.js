@@ -427,55 +427,52 @@ const selectPlayer = (playerId) => {
             }}
           />
             */}
-        <div className="player-details">
-          style={
-              !selectedPlayerDetails
-                ? { width: "90%", margin: "0 auto" } // placeholder mode
-                : {} // keep default styling when player details show
-            }
+          <div
+            className="player-details"
+            style={!selectedPlayerDetails ? { width: "90%", margin: "0 auto" } : {}}
           >
-          {selectedPlayerDetails ? (
-            <>
-              <div style={{ fontWeight: "bold" }}>
-                {selectedPlayerDetails.number} {selectedPlayerDetails.player_name}
-              </div>
-              <div>{selectedPlayerDetails.position}</div>
+            {selectedPlayerDetails ? (
+              <>
+                <div style={{ fontWeight: "bold" }}>
+                  {selectedPlayerDetails.number} {selectedPlayerDetails.player_name}
+                </div>
+                <div>{selectedPlayerDetails.position}</div>
 
-              <div style={{ color: "gray" }}>Birthplace:</div>
-              <div>
-                {selectedPlayerDetails.player_city_name},{" "}
-                {selectedPlayerDetails.country_name}
-              </div>
+                <div style={{ color: "gray" }}>Birthplace:</div>
+                <div>
+                  {selectedPlayerDetails.player_city_name},{" "}
+                  {selectedPlayerDetails.country_name}
+                </div>
 
-              <div>Age: {selectedPlayerDetails.age}</div>
-              <div style={{ height: "10px" }} />
+                <div>Age: {selectedPlayerDetails.age}</div>
+                <div style={{ height: "10px" }} />
 
-              <div style={{ color: "gray" }}>Club:</div>
-              <div>{selectedPlayerDetails.club_name}</div>
-              <div>{selectedPlayerDetails.league_name}</div>
+                <div style={{ color: "gray" }}>Club:</div>
+                <div>{selectedPlayerDetails.club_name}</div>
+                <div>{selectedPlayerDetails.league_name}</div>
 
-              <div style={{ color: "gray" }}>Club location:</div>
-              <div>
-                {selectedPlayerDetails.club_city_name},{" "}
-                {selectedPlayerDetails.club_country_name}
-              </div>
-            </>
-          ) : (
-            <>
-              <div style={{ marginBottom: "6px", width: "80%", margin: "0 auto"}}>
-                Beyond rosters.  See where national team players play pro — and where they were born — on a global map
-              </div>
-             <div style={{ color: "gray", fontSize: "0.9em", width: "80%", margin: "0 auto" }}>
-              <br />
-              <strong>Try this:</strong><br />
-              1) Select a tournament<br />
-              2) Choose a country<br />
-              3) Click a player
-            </div>
+                <div style={{ color: "gray" }}>Club location:</div>
+                <div>
+                  {selectedPlayerDetails.club_city_name},{" "}
+                  {selectedPlayerDetails.club_country_name}
+                </div>
+              </>
+            ) : (
+              <>
+                <div style={{ marginBottom: "6px", width: "80%", margin: "0 auto" }}>
+                  Beyond rosters. See where national team players play pro — and where they were born — on a global map
+                </div>
+                <div style={{ color: "gray", fontSize: "0.9em", width: "80%", margin: "0 auto" }}>
+                  <br />
+                  <strong>Try this:</strong><br />
+                  1) Select a tournament<br />
+                  2) Choose a country<br />
+                  3) Click a player
+                </div>
+              </>
+            )}
+          </div>
 
-            </>
-          )}
-        </div>
 
 
 
