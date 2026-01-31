@@ -456,7 +456,7 @@ const selectPlayer = (playerId) => {
             </>
           ) : (
             <>
-              <div style={{ marginBottom: "6px", width: "90%", margin: "0 auto"}}>
+              <div style={{ marginBottom: "6px", width: "80%", margin: "0 auto", backgroundColor: "#333"}}>
                 Get to know national team players participating in tournaments by viewing the locations of their professional clubs and places of birth
               </div>
              <div style={{ color: "gray", fontSize: "0.9em", width: "90%", margin: "0 auto" }}>
