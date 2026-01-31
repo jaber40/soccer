@@ -457,7 +457,7 @@ const selectPlayer = (playerId) => {
           ) : (
             <>
               <div style={{ marginBottom: "6px", width: "80%", margin: "0 auto"}}>
-                Get to know national team players participating in tournaments by viewing the locations of their professional clubs and places of birth
+                Beyond rosters.  See where national team players were born — and where they play pro — on a global map
               </div>
              <div style={{ color: "gray", fontSize: "0.9em", width: "80%", margin: "0 auto" }}>
               <br />
