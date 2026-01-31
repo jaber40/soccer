@@ -428,6 +428,12 @@ const selectPlayer = (playerId) => {
           />
             */}
         <div className="player-details">
+          style={
+              !selectedPlayerDetails
+                ? { width: "90%", margin: "0 auto" } // placeholder mode
+                : {} // keep default styling when player details show
+            }
+          >
           {selectedPlayerDetails ? (
             <>
               <div style={{ fontWeight: "bold" }}>
