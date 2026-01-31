@@ -397,7 +397,7 @@ const selectPlayer = (playerId) => {
       )}
       </div>
 
-      {selectedPlayerDetails && (
+      
         <div className="right-side-mini">
         <div>
           {/* Images commented out below */} 
@@ -477,7 +477,7 @@ const selectPlayer = (playerId) => {
              
          </div>
         </div>
-      )}
+     
       </div>
 
        {showForm && (
