@@ -29,7 +29,6 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [formType, setFormType] = useState(null);
 
-  const [hasUserSelectedPlayer, setHasUserSelectedPlayer] = useState(false);
 
 
 //Handle inactivity for connectivity to database
@@ -187,7 +186,6 @@ const matchCountryCoordinates = (countries) => {
   };
 
 const handleSelectPlayer = (playerId) => {
-  setHasUserSelectedPlayer(true);
   selectPlayer(playerId)
 };
 
@@ -430,19 +428,7 @@ const selectPlayer = (playerId) => {
           />
             */}
         <div className="player-details">
-          {!hasUserSelectedPlayer ? (
-            <>
-              <div style={{ marginBottom: "6px" }}>
-                Explore international soccer tournaments by selecting a tournament,
-                country, and player.
-              </div>
-
-              <div style={{ color: "gray", fontSize: "0.9em" }}>
-                <strong>Try this:</strong> Select a tournament → choose a country → click
-                a player
-              </div>
-            </>
-          ) : (
+          {selectedPlayerDetails ? (
             <>
               <div style={{ fontWeight: "bold" }}>
                 {selectedPlayerDetails.number} {selectedPlayerDetails.player_name}
@@ -468,8 +454,21 @@ const selectPlayer = (playerId) => {
                 {selectedPlayerDetails.club_country_name}
               </div>
             </>
+          ) : (
+            <>
+              <div style={{ marginBottom: "6px" }}>
+                Explore international soccer tournaments by selecting a tournament,
+                country, and player.
+              </div>
+
+              <div style={{ color: "gray", fontSize: "0.9em" }}>
+                <strong>Try this:</strong> Select a tournament → choose a country → click
+                a player
+              </div>
+            </>
           )}
         </div>
+
 
 
 
