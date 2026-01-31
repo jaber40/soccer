@@ -457,7 +457,7 @@ const selectPlayer = (playerId) => {
           ) : (
             <>
               <div style={{ marginBottom: "6px", width: "80%", margin: "0 auto"}}>
-                Beyond rosters.  See where national team players were born — and where they play pro — on a global map
+                Beyond rosters.  See where national team players play pro — and where they were born — on a global map
               </div>
              <div style={{ color: "gray", fontSize: "0.9em", width: "80%", margin: "0 auto" }}>
               <br />
