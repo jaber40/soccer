@@ -456,15 +456,16 @@ const selectPlayer = (playerId) => {
             </>
           ) : (
             <>
-              <div style={{ marginBottom: "6px" }}>
-                Explore international soccer tournaments by selecting a tournament,
-                country, and player.
+              <div style={{ marginBottom: "6px", width: "90%", margin: "0 auto"}}>
+                Get to know national team players participating in tournaments by viewing the locations of their professional clubs and places of birth
               </div>
+             <div style={{ color: "gray", fontSize: "0.9em", width: "90%", margin: "0 auto" }}>
+              <strong>Try this:</strong><br />
+              1) Select a tournament<br />
+              2) Choose a country<br />
+              3) Click a player
+            </div>
 
-              <div style={{ color: "gray", fontSize: "0.9em" }}>
-                <strong>Try this:</strong> Select a tournament → choose a country → click
-                a player
-              </div>
             </>
           )}
         </div>
