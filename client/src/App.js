@@ -426,46 +426,48 @@ const selectPlayer = (playerId) => {
             }}
           />
             */}
-      <div className="player-details">
-        {!selectedPlayerDetails?.player_id ? (
-          <>
-            <div style={{ marginBottom: "6px" }}>
-              Get to know national teams by viewing where the players were born and play professionally
-            </div>
+        <div className="player-details">
+          {!selectedPlayerDetails ? (
+            <>
+              <div style={{ marginBottom: "6px" }}>
+                Explore international soccer tournaments by selecting a tournament,
+                country, and player.
+              </div>
 
-            <div style={{ color: "gray", fontSize: "0.9em" }}>
-              <strong>Try this:</strong> Select a tournament → choose a country → click
-              a player
-            </div>
-          </>
-        ) : (
-          <>
-            <div style={{ fontWeight: "bold" }}>
-              {selectedPlayerDetails.number} {selectedPlayerDetails.player_name}
-            </div>
-            <div>{selectedPlayerDetails.position}</div>
+              <div style={{ color: "gray", fontSize: "0.9em" }}>
+                <strong>Try this:</strong> Select a tournament → choose a country → click
+                a player
+              </div>
+            </>
+          ) : (
+            <>
+              <div style={{ fontWeight: "bold" }}>
+                {selectedPlayerDetails.number} {selectedPlayerDetails.player_name}
+              </div>
+              <div>{selectedPlayerDetails.position}</div>
 
-            <div style={{ color: "gray" }}>Birthplace:</div>
-            <div>
-              {selectedPlayerDetails.player_city_name},{" "}
-              {selectedPlayerDetails.country_name}
-            </div>
+              <div style={{ color: "gray" }}>Birthplace:</div>
+              <div>
+                {selectedPlayerDetails.player_city_name},{" "}
+                {selectedPlayerDetails.country_name}
+              </div>
 
-            <div>Age: {selectedPlayerDetails.age}</div>
-            <div style={{ height: "10px" }} />
+              <div>Age: {selectedPlayerDetails.age}</div>
+              <div style={{ height: "10px" }} />
 
-            <div style={{ color: "gray" }}>Club:</div>
-            <div>{selectedPlayerDetails.club_name}</div>
-            <div>{selectedPlayerDetails.league_name}</div>
+              <div style={{ color: "gray" }}>Club:</div>
+              <div>{selectedPlayerDetails.club_name}</div>
+              <div>{selectedPlayerDetails.league_name}</div>
 
-            <div style={{ color: "gray" }}>Club location:</div>
-            <div>
-              {selectedPlayerDetails.club_city_name},{" "}
-              {selectedPlayerDetails.club_country_name}
-            </div>
-          </>
-        )}
-      </div>
+              <div style={{ color: "gray" }}>Club location:</div>
+              <div>
+                {selectedPlayerDetails.club_city_name},{" "}
+                {selectedPlayerDetails.club_country_name}
+              </div>
+            </>
+          )}
+        </div>
+
 
 
 
