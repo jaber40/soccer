@@ -451,7 +451,7 @@ label {
   height: 100%;
   background-color: #ffff00; /* green */
   width: 0%;
-  animation: fillProgress 30s linear forwards;
+  animation: fillProgress 60s linear forwards;
 }
 
 @keyframes fillProgress {
