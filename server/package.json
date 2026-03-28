@@ -16,7 +16,7 @@
     "express-basic-auth": "^1.2.1",
     "express-rate-limit": "^8.2.1",
     "mysql2": "^3.12.0",
-    "nodemailer": "^7.0.11",
+    "nodemailer": "^8.0.4",
     "qs": "^6.14.1",
     "validator": "^13.15.23"
   }
