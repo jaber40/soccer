@@ -16,6 +16,9 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^4.2.4"
   },
+  "overrides": {
+    "serialize-javascript": "^6.0.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
