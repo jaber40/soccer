@@ -90,6 +90,11 @@
   { "country_name": "DR Congo", "x": 21.7587, "y": -4.0383 },
   { "country_name": "Jordan", "x": 36.2384, "y": 30.5852 },
   { "country_name": "Haiti", "x": -72.2852, "y": 18.9712 },
+  { "country_name": "Uzbekistan", "x": 64.5853, "y": 41.3775 },
+  { "country_name": "Norway", "x": 8.4689, "y": 60.4720 },
+  { "country_name": "Ivory Coast", "x": -5.5471, "y": 7.5400 },
+  { "country_name": "Iraq", "x": 43.6793, "y": 33.2232 },
+  { "country_name": "Cape Verde", "x": -24.0132, "y": 16.0021 },
   { "country_name": "Ghana", "x": 7.9465, "y": -1.0232 },
   { "country_name": "Qatar", "x": 51.1839, "y": 25.3548 }
 ]
