@@ -86,6 +86,10 @@
   { "country_name": "Senegal", "x": -14.6928, "y": 14.4974 },
   { "country_name": "Serbia", "x": 21.0059, "y": 44.0165 },
   { "country_name": "Tunisia", "x": 9.5375, "y": 33.8869 },
+  { "country_name": "Curacao", "x": -68.9900, "y": 12.1696 },
+  { "country_name": "DR Congo", "x": 21.7587, "y": -4.0383 },
+  { "country_name": "Jordan", "x": 36.2384, "y": 30.5852 },
+  { "country_name": "Haiti", "x": -72.2852, "y": 18.9712 },
   { "country_name": "Ghana", "x": 7.9465, "y": -1.0232 },
   { "country_name": "Qatar", "x": 51.1839, "y": 25.3548 }
 ]
