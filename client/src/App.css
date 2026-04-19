@@ -191,14 +191,12 @@ html, body {
   width: 25%;
   height: 100vh;
   padding: 0px;
-  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 10;
   border: 1px solid black;
-  align-items: center;
   background-color: #333; /* Dark gray */
 }
 
@@ -217,9 +215,7 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: center;   /* vertical centering */
-  align-items: center;       /* horizontal centering */
   min-height: 200px;         /* keeps consistent height even when image fails */
-  border: 1px solid transparent;
   box-sizing: border-box;
 }
 
@@ -286,6 +282,10 @@ html, body {
 
 
 /* Optional for Player Details section */
+.player-details-container {
+  width: 100%;
+}
+
 .player-details {
   display: flex;
   flex-direction: column;
@@ -294,6 +294,8 @@ html, body {
   color: white;
   padding: 3px;
   align-items: center;
+  width: 94%;
+  margin: 0 auto;
 }
 
 @media (max-width: 768px) {

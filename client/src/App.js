@@ -397,7 +397,7 @@ const selectPlayer = (playerId) => {
 
       
         <div className="right-side-mini">
-        <div>
+        <div className="player-details-container">
           {/* Images commented out below */} 
           {/*
           <img 
@@ -429,7 +429,6 @@ const selectPlayer = (playerId) => {
             */}
           <div
             className="player-details"
-            style={!selectedPlayerDetails ? { width: "90%", margin: "0 auto" } : {}}
           >
             {selectedPlayerDetails ? (
               <>
