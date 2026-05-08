@@ -10,15 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Wait for deployment
-        run: sleep 60
+      - name: Wait for deployment (health check loop)
+        run: |
+          echo "Waiting for API to be ready..."
+
+          for i in {1..30}; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "${{ secrets.STAGING_API_URL }}/api/tournaments")
+
+            echo "Attempt $i -> HTTP $STATUS"
+
+            if [ "$STATUS" = "200" ]; then
+              echo "API is ready!"
+              exit 0
+            fi
+
+            sleep 5
+          done
+
+          echo "API did not become ready in time"
+          exit 1
 
       - name: Test tournaments API
         run: |
           RESPONSE=$(curl -s -o response.txt -w "%{http_code}" "${{ secrets.STAGING_API_URL }}/api/tournaments")
 
           echo "HTTP Status: $RESPONSE"
-
           cat response.txt
 
           if [ "$RESPONSE" != "200" ]; then
@@ -32,7 +48,6 @@ jobs:
           RESPONSE=$(curl -s -o response.txt -w "%{http_code}" "${{ secrets.STAGING_API_URL }}/api/countries/1")
 
           echo "HTTP Status: $RESPONSE"
-
           cat response.txt
 
           if [ "$RESPONSE" != "200" ]; then
