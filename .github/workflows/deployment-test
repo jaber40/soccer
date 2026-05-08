@@ -1,0 +1,42 @@
+name: Deployment API Test
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  api-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wait for deployment
+        run: sleep 60
+
+      - name: Test tournaments API
+        run: |
+         RESPONSE=$(curl -s -o response.txt -w "%{http_code}" "${{ secrets.STAGING_API_URL }}/api/tournaments")
+
+          echo "HTTP Status: $RESPONSE"
+
+          cat response.txt
+
+          if [ "$RESPONSE" != "200" ]; then
+            echo "API test failed with status $RESPONSE"
+            cat response.txt
+              exit 1
+          fi
+
+      - name: Test countries API
+        run: |
+          RESPONSE=$(curl -s -o response.txt -w "%{http_code}" "${{ secrets.STAGING_API_URL }}/api/countries/1")
+
+          echo "HTTP Status: $RESPONSE"
+
+          cat response.txt
+
+        if [ "$RESPONSE" != "200" ]; then
+          echo "API test failed with status $RESPONSE"
+          cat response.txt
+            exit 1
+        fi
