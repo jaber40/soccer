@@ -459,12 +459,12 @@ const selectPlayer = (playerId) => {
             ) : (
               <>
                 <div style={{ marginBottom: "6px", width: "80%", margin: "0 auto", color: "lightgray" }}>
-                  Beyond rosters. See where national team players play - and where they’re from.
+                  Beyond rosters. See where national team players are based at club level—and where they’re from.
                 </div>
                 <div style={{ color: "gray", fontSize: "0.9em", width: "80%", margin: "0 auto" }}>
                   <br />
                   <strong>To use:</strong><br />
-                  1) Select a tournament (defaults to WC 2026)<br />
+                  1) Select a tournament (Default: WC 2026)<br />
                   2) Select a country<br />
                   3) Choose a player
                 </div>
