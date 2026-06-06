@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const TournamentSelect = ({ onTournamentChange }) => {
   const [tournaments, setTournaments] = useState([]); // State to store tournament data
-  const [selectedTournament, setSelectedTournament] = useState(''); // State for selected tournament
+  const [selectedTournament, setSelectedTournament] = useState('8'); // State for selected tournament
   const [countriesData, setCountriesData] = useState([]); // State to store countries.json data
   const [filteredCountries, setFilteredCountries] = useState([]); // State for filtered countries based on selected tournament
   const [loading, setLoading] = useState(true); // 👈 New
@@ -32,7 +32,7 @@ useEffect(() => {
 
       // 🧠 New idea: After tournaments are fetched, verify selectedTournament is still valid
       const selectedStillExists = response.data.some(
-        (tournament) => tournament.id === selectedTournament
+        (tournament) => Number(tournament.tournament_id) === Number(selectedTournament) || Number(tournament.id) === Number(selectedTournament)
       );
 
       if (!selectedStillExists) {
@@ -50,8 +50,17 @@ useEffect(() => {
     });
 }, []); // Only fetch tournaments once, when the component mounts
 
-
-
+  // Auto-select tournament 8 and notify parent when tournaments are loaded
+  useEffect(() => {
+    if (tournaments.length > 0) {
+      const tournament8Exists = tournaments.some(
+        (tournament) => Number(tournament.tournament_id) === 8 || Number(tournament.id) === 8
+      );
+      if (tournament8Exists && selectedTournament === '8') {
+        onTournamentChange('8'); // Notify parent of the auto-selected tournament
+      }
+    }
+  }, [tournaments]);
 
   // Fetch countries data from countries.json (located in /public)
   useEffect(() => {
@@ -68,7 +77,7 @@ useEffect(() => {
 
   // Handle the selection change
   const handleChange = (event) => {
-    const tournamentId = event.target.value; // Get selected tournament_id
+    const tournamentId = String(event.target.value); // Get selected tournament_id as string
     setSelectedTournament(tournamentId); // Update local state
     console.log('Tournament selected (ID):', tournamentId);
 
@@ -107,7 +116,7 @@ useEffect(() => {
           return;
         }
 
-        const allMatch = filtered.every(country => country.tournament_id === selectedTournament);
+        const allMatch = filtered.every(country => Number(country.tournament_id) === Number(selectedTournament));
         if (!allMatch) {
           console.warn('Fetched countries do not match the currently selected tournament after server wakeup.');
           return; // Quietly discard
@@ -138,12 +147,12 @@ useEffect(() => {
   ) : (
     <select
       id="tournament"
-      value={selectedTournament || ""}
+      value={String(selectedTournament) || ""}
       onChange={handleChange}
     >
       <option value="" disabled>--Select a Tournament--</option>
       {tournaments.map((tournament) => (
-        <option key={tournament.tournament_id} value={tournament.tournament_id}>
+        <option key={tournament.tournament_id} value={String(tournament.tournament_id)}>
           {tournament.tournament_name}
         </option>
       ))}

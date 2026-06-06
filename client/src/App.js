@@ -11,7 +11,7 @@ import ContactForm from "./components/ContactForm";
 import AboutForm from "./components/AboutForm";
 
 function App() {
-  const [selectedTournamentId, setSelectedTournamentId] = useState("");
+  const [selectedTournamentId, setSelectedTournamentId] = useState("8");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedPlayer, setSelectedPlayer] = useState("");
   const [playerData, setPlayerData] = useState([]);
