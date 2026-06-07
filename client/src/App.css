@@ -276,6 +276,17 @@ html, body {
   }
 }
 
+/* Screen width > 1280px: Map 70%, Data Table 30% */
+@media (min-width: 1281px) {
+  .map-data-container > :first-child { /* MapComponent */
+    max-height: 70%;
+  }
+
+  .map-data-container > :nth-child(2) { /* DataTable */
+    height: 30%;
+  }
+}
+
 
 
 
