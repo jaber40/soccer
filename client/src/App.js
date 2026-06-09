@@ -465,7 +465,7 @@ const selectPlayer = (playerId) => {
                   <br />
                   <strong>To use:</strong><br />
                   1) Select tournament<br />
-                     (default: WC 2026)<br />
+                     (Default: WC 2026)<br />
                   2) Select country<br />
                   3) Choose player
                 </div>
