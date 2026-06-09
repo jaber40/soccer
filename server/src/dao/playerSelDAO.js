@@ -33,7 +33,7 @@ const getSelectedPlayerDetails = (playerId, tournamentId) => {
 
     db_pool.query(query, [playerId, tournamentId], (err, results) => {
       if (err) {
-        console.error(`Error executing query for playerId ${playerId} and tournamentId ${tournamentId}:`, err);
+        //console.error(`Error executing query for playerId ${playerId} and tournamentId ${tournamentId}:`, err);
         return reject(err);
       }
 
