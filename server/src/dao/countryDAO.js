@@ -27,7 +27,7 @@ const getCountriesByTournament = (tournamentId, callback) => {
   // Execute the query
   db_pool.query(query, [tournamentId], (err, results) => {
     if (err) {
-      console.error(`Error executing query for tournamentId ${tournamentId}:`, err);
+      //console.error(`Error executing query for tournamentId ${tournamentId}:`, err);
       return callback(err, null);
     }
 
