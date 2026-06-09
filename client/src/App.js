@@ -318,7 +318,7 @@ const selectPlayer = (playerId) => {
       <h3 style={{ margin: "4px 0 2px 0", color: "white" }}>International Soccer</h3>
       <h6 style={{ color: "gray", margin: "0 0 2px 0" }}>Includes FIFA World Cup® 2026 data</h6>
      <img
-      src={`images/tournaments/${selectedTournamentId}.jpg`}
+      src={`images/tournaments/0.jpg`}
       style={{ width: "20%", border: "1px solid black", objectFit: "contain" }}
       onError={(e) => {
         e.target.onerror = null;
