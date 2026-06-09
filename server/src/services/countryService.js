@@ -6,7 +6,7 @@ const getCountriesByTournament = (tournamentId, callback) => {
   // Call DAO layer to fetch countries
   countryDAO.getCountriesByTournament(tournamentId, (err, countries) => {
     if (err) {
-      console.error(`Error fetching countries for tournamentId ${tournamentId}:`, err);
+      //console.error(`Error fetching countries for tournamentId ${tournamentId}:`, err);
       return callback({ error: 'Failed to fetch countries' }); // Return a consistent error object
     }
 
