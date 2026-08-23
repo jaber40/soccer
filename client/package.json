@@ -17,8 +17,8 @@
     "web-vitals": "^4.2.4"
   },
   "overrides": {
-    "serialize-javascript": "^6.0.2",
-    "resolve-url-loader": "5.0.0"
+  "serialize-javascript": "7.1.0",
+  "resolve-url-loader": "5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
