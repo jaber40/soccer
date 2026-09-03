@@ -55,3 +55,29 @@ jobs:
             cat response.txt
             exit 1
           fi
+
+
+      - name: Test contact form API
+        run: |
+          RESPONSE=$(curl -s -o response.json -w "%{http_code}" \
+            -X POST "${{ secrets.STAGING_API_URL }}/api/contact" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "name": "GitHub Actions Test",
+              "email": "github-actions-test@example.com",
+              "message": "Automated contact form test",
+              "website": "github-actions-test"
+            }')
+
+          echo "HTTP Status: $RESPONSE"
+          cat response.json
+
+          if [ "$RESPONSE" != "200" ]; then
+            echo "Contact form API test failed"
+            exit 1
+          fi
+
+          if ! grep -q '"success":true' response.json; then
+            echo "Contact form did not return success:true"
+            exit 1
+          fi
