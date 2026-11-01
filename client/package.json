@@ -19,7 +19,7 @@
   "overrides": {
   "serialize-javascript": "7.1.0",
   "resolve-url-loader": "5.0.0",
-   "qs": "6.16.0"
+   "qs": "6.16.1"
   },
   "scripts": {
     "start": "react-scripts start",
